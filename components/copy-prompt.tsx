@@ -1,0 +1,5 @@
+"use client";
+import { useState } from "react";
+import { Copy,Check } from "lucide-react";
+import { text,type Locale } from "@/lib/site-config";
+export default function CopyPrompt({prompt,locale}:{prompt:string;locale:Locale}) {const [status,setStatus]=useState<"idle"|"copied"|"failed">("idle");async function copy(){try{await navigator.clipboard.writeText(prompt);setStatus("copied");}catch{setStatus("failed");}}return <div className="prompt-box"><div className="prompt-heading"><span>{text(locale,"AI 요청문 예시","SAMPLE AI PROMPT")}</span><button onClick={copy} className="copy-button">{status==="copied" ? <Check size={14}/> : <Copy size={14}/>} {text(locale,status==="copied" ? "복사됨" : "복사",status==="copied" ? "Copied" : "Copy")}</button></div><pre>{prompt}</pre><p role="status" className="copy-status">{status==="failed" ? text(locale,"자동 복사가 지원되지 않습니다. 요청문을 선택해 복사해 주세요.","Automatic copying is unavailable. Select the prompt and copy it manually.") : status==="copied" ? text(locale,"요청문을 복사했습니다.","Prompt copied.") : ""}</p></div>;}

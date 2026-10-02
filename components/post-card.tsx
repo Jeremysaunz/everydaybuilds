@@ -1,0 +1,5 @@
+import Link from "next/link";
+import { text,type Locale } from "@/lib/site-config";
+import { copyFor,type Post } from "@/lib/posts";
+import ToolPreview from "./tool-preview";
+export default function PostCard({post,locale}:{post:Post;locale:Locale}) {const copy=copyFor(post,locale);return <article className="post-card"><Link className="post-card-link" href={`/${locale}/builds/${post.slug}`}><ToolPreview type={post.preview} locale={locale}/><div className="post-card-body"><div className="card-meta"><span>{copy.category}</span><span className="example-badge">{text(locale,post.kind==="example" ? "기획 예시" : "제작 기록",post.kind==="example" ? "Planning example" : "Build journal")}</span></div><h3>{copy.title}</h3><p>{copy.excerpt}</p><div className="card-bottom"><span>{text(locale,post.status==="planned" ? "제작 전" : post.status==="using" ? "계속 사용" : post.status==="improving" ? "개선 예정" : "사용 중단",post.status==="planned" ? "Not built yet" : post.status==="using" ? "In use" : post.status==="improving" ? "Improving" : "Stopped")}</span><span className="card-no">{post.kind==="example" ? "EXAMPLE" : "BUILD"} / {post.number}</span></div></div></Link></article>;}
