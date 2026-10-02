@@ -4,7 +4,7 @@
 
 ## 실행
 
-Node.js 22.13 이상에서 `npm ci`, `npm run dev` 순서로 실행합니다. 실행 안내에 표시된 주소를 엽니다. 첫 화면은 한국어로 연결됩니다.
+Node.js 22.13 이상에서 `npm ci`, `npm run dev` 순서로 실행합니다. 실행 안내에 표시된 주소를 엽니다. 첫 화면은 한국어로 연결됩니다. 기본 개발·빌드·실행 명령은 표준 Next.js를 사용합니다.
 
 - `/ko`, `/en`: 홈
 - `/ko/builds`, `/en/builds`: 제작 기록 목록
@@ -35,13 +35,23 @@ Node.js 22.13 이상에서 `npm ci`, `npm run dev` 순서로 실행합니다. �
 
 ## 운영 정보
 
-`lib/site-config.ts`에서 운영자, 사이트 주소와 `contactEmail`을 관리합니다. 현재 문의 이메일은 지정되지 않았습니다. 실제 주소를 입력하면 문의 메뉴, 문의 페이지, 개인정보 안내의 연락처가 함께 활성화됩니다. 이메일 링크는 방문자의 이메일 앱을 여는 방식이며 전송을 대신하지 않습니다.
+`lib/site-config.ts`에서 운영자와 `contactEmail`을 관리합니다. 사이트 주소는 `NEXT_PUBLIC_SITE_URL` 환경 변수를 우선 사용하고, Vercel에서는 `VERCEL_PROJECT_PRODUCTION_URL`을 사용합니다. 도메인을 연결한 뒤 `NEXT_PUBLIC_SITE_URL`을 실제 주소로 설정하면 검색용 주소와 사이트맵에 함께 반영됩니다.
+
+현재 문의 이메일은 지정되지 않았습니다. 실제 주소를 입력하면 문의 메뉴, 문의 페이지, 개인정보 안내의 연락처가 함께 활성화됩니다. 이메일 링크는 방문자의 이메일 앱을 여는 방식이며 전송을 대신하지 않습니다.
 
 광고나 분석 도구를 추가할 때는 실제 구성에 맞게 개인정보 안내를 수정합니다. 예시 콘텐츠만으로 공개 블로그나 애드센스 신청 준비가 완료된 것은 아닙니다. 도메인과 상표 확인은 별도 업무입니다.
 
 ## 확인
 
-`npx tsc --noEmit`으로 타입을 확인합니다. `npm run build`로 Cloudflare Workers용 결과를 만듭니다. Sites 배포는 등록된 동일 사이트를 사용합니다.
+`npx tsc --noEmit`으로 타입을 확인합니다. `npm run build`는 Vercel에서 사용하는 Next.js 빌드 결과를 `.next`에 만들고, `npm start`로 해당 결과를 실행합니다.
+
+## Vercel 배포
+
+GitHub 저장소의 루트에 `package.json`과 `app/`이 있으므로 Vercel의 Root Directory는 기본값인 저장소 루트로 둡니다. 로컬 폴더 이름이 `site/`라는 이유로 Root Directory에 `site`를 넣지 않습니다.
+
+Framework Preset은 **Next.js**, Build Command는 `npm run build`, Install Command는 `npm ci`입니다. Output Directory는 기본값을 사용합니다. `main`에 푸시하면 연결된 `everydaybuilds` 프로젝트가 배포됩니다.
+
+기존 Sites 배포를 위한 도구도 보관합니다. 필요한 경우 `npm run dev:sites`, `npm run build:sites`, `npm run start:sites`를 사용합니다. Sites 빌드는 `dist/`에 만들어지며 Vercel 배포에 사용하지 않습니다. 배포 플랫폼이 바뀌면 개인정보 안내도 실제 운영 환경에 맞게 수정합니다.
 
 ## 이미지
 
