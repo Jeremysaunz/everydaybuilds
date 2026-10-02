@@ -35,9 +35,9 @@ Node.js 22.13 이상에서 `npm ci`, `npm run dev` 순서로 실행합니다. �
 
 ## 운영 정보
 
-`lib/site-config.ts`에서 운영자와 `contactEmail`을 관리합니다. 사이트 주소는 `NEXT_PUBLIC_SITE_URL` 환경 변수를 우선 사용하고, Vercel에서는 `VERCEL_PROJECT_PRODUCTION_URL`을 사용합니다. 도메인을 연결한 뒤 `NEXT_PUBLIC_SITE_URL`을 실제 주소로 설정하면 검색용 주소와 사이트맵에 함께 반영됩니다.
+`lib/site-config.ts`에서 운영자와 `contactEmail`을 관리합니다. 사이트 주소는 `NEXT_PUBLIC_SITE_URL` 환경 변수를 우선 사용하고, 없으면 `https://everydaybuilds.blog`를 사용합니다. 이 주소가 검색용 대표 주소(canonical), 언어별 주소, 사이트맵, robots.txt에 함께 반영됩니다. `everydaybuilds.vercel.app`과 `www.everydaybuilds.blog`로 들어온 방문은 `next.config.ts`에서 같은 경로의 `everydaybuilds.blog`로 영구 이동시킵니다.
 
-현재 문의 이메일은 지정되지 않았습니다. 실제 주소를 입력하면 문의 메뉴, 문의 페이지, 개인정보 안내의 연락처가 함께 활성화됩니다. 이메일 링크는 방문자의 이메일 앱을 여는 방식이며 전송을 대신하지 않습니다.
+문의 이메일은 `actslim@gmail.com`입니다. 이 값이 있으면 문의 메뉴, 문의 페이지, 개인정보 안내의 연락처가 함께 표시되고, 비우면 함께 숨겨집니다. 이메일 링크는 방문자의 이메일 앱을 여는 방식이며 전송을 대신하지 않습니다.
 
 광고나 분석 도구를 추가할 때는 실제 구성에 맞게 개인정보 안내를 수정합니다. 예시 콘텐츠만으로 공개 블로그나 애드센스 신청 준비가 완료된 것은 아닙니다. 도메인과 상표 확인은 별도 업무입니다.
 

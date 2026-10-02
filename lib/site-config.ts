@@ -1,11 +1,9 @@
-const productionUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL;
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
-  || (productionUrl ? `https://${productionUrl}` : "https://everydaybuilds-jeremyflow.vercel.app");
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://everydaybuilds.blog";
 
 export const siteConfig = {
   name: "Everyday Builds",
   url: siteUrl.replace(/\/+$/, ""),
-  contactEmail: "",
+  contactEmail: "actslim@gmail.com",
   owner: "Jeremy",
 };
 export type Locale = "ko" | "en";
