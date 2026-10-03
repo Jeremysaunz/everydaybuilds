@@ -1,10 +1,125 @@
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { isLocale,text } from "@/lib/site-config";
+import { ArrowRight, ArrowUpRight, Clapperboard, Coffee, Music2, Users } from "lucide-react";
+import { isLocale, siteConfig, text } from "@/lib/site-config";
 import { pageMetadata } from "@/lib/metadata";
+import { landingCopy } from "@/lib/landing-copy";
+import { posts } from "@/lib/posts";
 import PostCard from "@/components/post-card";
-import { posts,recentPosts } from "@/lib/posts";
-type Props={params:Promise<{locale:string}>};
-export async function generateMetadata({params}:Props) {const {locale}=await params;if(!isLocale(locale))return {};return pageMetadata(locale,"",text(locale,"AI로 내게 필요한 앱 직접 만들기","Build the apps you need with AI"),text(locale,"AI와 대화만 하고 있다면, 이제 일상에 필요한 웹서비스와 앱을 직접 만들어 써보세요. 따라 할 수 있는 제작 과정과 실제 사용 기록을 담습니다.","If you only chat with AI, try building the web tools and apps you need for everyday life. Step-by-step builds you can follow, with notes from real use."));}
-export default async function Home({params}:Props) {const {locale}=await params;if(!isLocale(locale))notFound();return <main id="main-content"><section className="hero container"><div className="hero-copy"><p className="eyebrow"><span className="tiny-plus">+</span> BEYOND THE CHAT WINDOW</p><h1>{locale==="ko" ? <>채팅만 하던 AI로,<br/><span>내게 필요한 앱을</span><br/>직접 만들어 씁니다.</> : <>You’ve chatted with AI.<br/><span>Now build the app</span><br/>you actually need.</>}</h1><p className="hero-description">{text(locale,"AI는 대화 상대를 넘어, 일상의 불편을 해결할 도구를 만들어 줍니다.","AI can do more than chat. It can build tools that fix everyday annoyances.")}<br/>{text(locale,"코딩을 몰라도 따라 할 수 있도록, 만드는 과정을 그대로 보여드립니다.","Every step is shown, so you can follow along even if you don’t code.")}</p><div className="hero-buttons"><Link className="button button-dark" href={`/${locale}/builds`}>{text(locale,"제작 기록 둘러보기","Explore the journal")}</Link><Link className="text-link" href={`/${locale}/about`}>{text(locale,"이 블로그가 궁금하다면","The story behind the builds")}</Link></div><p className="hero-footnote">{text(locale,"거창한 서비스보다, 나에게 필요한 도구 하나부터.","One useful tool at a time. No grand launch required.")}</p></div><div className="hero-art"><div className="art-caption"><span>THE EVERYDAY WORKBENCH</span><span>FIG. 01</span></div><Image src="/workbench.jpg" alt={text(locale,"초록색 타이머, 기록 노트, 작은 블록이 놓인 작업대 일러스트","An illustrated workbench with a green timer, a notebook and small building blocks")} width={1200} height={800} priority unoptimized/><div className="art-bottom"><span>{text(locale,"작은 아이디어가 쓸모 있는 도구가 되기까지","From a little idea to something useful")}</span><span className="plus-mark">+</span></div></div></section><section className="process-strip"><div className="container process-inner">{[text(locale,"불편을 발견하고","Notice a problem"),text(locale,"AI와 만들고","Build with AI"),text(locale,"생활에서 써보고","Use it in real life"),text(locale,"조금 더 나아지게","Make it better")].map((label,i)=><div key={label}><span className="process-number">0{i+1}</span><span>{label}</span>{i<3 && <span className="process-divider">/</span>}</div>)}</div></section><section className="journal-section container"><div className="section-heading"><div><p className="eyebrow">THE BUILD JOURNAL</p><h2>{text(locale,"작은 제작의 기록","Notes from the workbench")}</h2></div><Link className="text-link" href={`/${locale}/builds`}>{text(locale,"모든 기록 보기","View all notes")}</Link></div>{!posts.some(post=>post.kind==="experience") && <div className="example-notice">{text(locale,"지금은 시작을 위한 기획 예시 3편을 담았습니다. 실제 제작·사용 경험은 아직 기록하지 않았습니다.","Start with three planning examples. Real build and usage experiences are yet to be documented.")}</div>}<div className="posts-grid">{recentPosts().map(post=><PostCard key={post.slug} post={post} locale={locale}/>)}</div></section><section className="manifesto container"><span className="manifesto-label">LESS, BUT USEFUL.</span><h2>{text(locale,"대단한 프로그램이 아니어도 괜찮습니다.","It doesn’t have to be a big thing.")}</h2><p>{text(locale,"내 생활에 조금이라도 도움이 된다면, 만들 이유는 충분합니다.","If it makes everyday life a little easier, it is worth building.")}</p><Link className="button button-outline" href={`/${locale}/about`}>{text(locale,"Everyday Builds 이야기","About Everyday Builds")}</Link></section></main>;}
+import "../landing.css";
+
+type Props = { params: Promise<{ locale: string }> };
+const peopleIcons = [Users, Coffee, Music2, Clapperboard];
+
+export async function generateMetadata({ params }: Props) {
+  const { locale } = await params;
+  if (!isLocale(locale)) return {};
+  const copy = landingCopy[locale];
+  return pageMetadata(locale, "", copy.title, copy.description);
+}
+
+export default async function Home({ params }: Props) {
+  const { locale } = await params;
+  if (!isLocale(locale)) notFound();
+  const copy = landingCopy[locale];
+  const experiences = posts
+    .filter((post) => post.kind === "experience")
+    .sort((a, b) => b.updatedAt.localeCompare(a.updatedAt))
+    .slice(0, 3);
+  const hasExamples = posts.some((post) => post.kind === "example");
+
+  return (
+    <main id="main-content" className="landing-page">
+      <section className="landing-hero container" aria-labelledby="landing-title">
+        <div className="landing-hero-copy">
+          <p className="landing-kicker"><span aria-hidden="true">+</span> PEOPLE FIRST. SMALL BUILDS.</p>
+          <h1 id="landing-title">
+            {copy.headline[0]}<br />
+            <span>{copy.headline[1]}</span><br />
+            {copy.headline[2]}
+          </h1>
+          <p className="landing-lead">{copy.intro}</p>
+          <div className="landing-actions">
+            <Link className="button landing-primary" href={experiences.length ? `/${locale}/builds` : "#approach"}>
+              {experiences.length ? copy.journalLink : copy.primary}<ArrowRight size={17} aria-hidden="true" />
+            </Link>
+            <a className="landing-text-link" href="#people">{copy.secondary}<ArrowUpRight size={16} aria-hidden="true" /></a>
+          </div>
+          <p className="landing-hero-note">{copy.note}</p>
+        </div>
+        <figure className="landing-workbench">
+          <div className="landing-art-caption"><span>THE EVERYDAY WORKBENCH</span><span>FIG. 01</span></div>
+          <Image src="/workbench.jpg" alt={copy.artwork} width={1200} height={800} priority unoptimized />
+          <figcaption><span>{copy.artworkCaption}</span><span className="landing-art-plus" aria-hidden="true">+</span></figcaption>
+        </figure>
+      </section>
+
+      <section className="landing-values container" aria-label={text(locale, "이 블로그에서 얻을 수 있는 것", "What you can take from the journal")}>
+        {copy.values.map((value, index) => (
+          <div key={value.title} className="landing-value">
+            <span className="landing-value-number" aria-hidden="true">0{index + 1}</span>
+            <div><h2>{value.title}</h2><p>{value.description}</p></div>
+          </div>
+        ))}
+      </section>
+
+      <section id="people" className="landing-people container" aria-labelledby="people-title">
+        <div className="landing-section-intro">
+          <p className="landing-kicker">01 / PEOPLE &amp; PROBLEMS</p>
+          <h2 id="people-title">{copy.peopleTitle}</h2>
+          <p>{copy.peopleIntro}</p>
+          <div className="landing-margin-note"><span aria-hidden="true">↳</span>{text(locale, "사람이 먼저, 도구는 그다음.", "A person first. A tool second.")}</div>
+        </div>
+        <div className="landing-idea-board">
+          <p className="landing-idea-label">{copy.ideaLabel}</p>
+          <ul className="landing-people-grid">
+            {copy.people.map((person, index) => {
+              const Icon = peopleIcons[index];
+              return (
+                <li className="landing-person" key={person.person}>
+                  <div className="landing-person-top"><Icon size={24} strokeWidth={1.5} aria-hidden="true" /><span>0{index + 1}</span></div>
+                  <h3>{person.person}</h3>
+                  <p>{person.need}</p>
+                  <div className="landing-tool-idea"><span aria-hidden="true">↳</span>{person.tool}</div>
+                </li>
+              );
+            })}
+          </ul>
+          <p className="landing-idea-disclosure">{copy.ideaNote}</p>
+        </div>
+      </section>
+
+      <section id="approach" className="landing-approach" aria-labelledby="approach-title">
+        <div className="container landing-approach-inner">
+          <div className="landing-section-intro">
+            <p className="landing-kicker">02 / THE BUILD NOTES</p>
+            <h2 id="approach-title">{copy.approachTitle}</h2>
+            <p>{copy.approachIntro}</p>
+            {hasExamples && <Link className="landing-text-link" href={`/${locale}/builds`}>{copy.examplesLink}<ArrowUpRight size={17} aria-hidden="true" /></Link>}
+          </div>
+          <ol className="landing-steps">
+            {copy.steps.map((step, index) => (
+              <li key={step.title}><span className="landing-step-number">0{index + 1}</span><div><h3>{step.title}</h3><p>{step.description}</p></div></li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      {experiences.length > 0 && (
+        <section className="container landing-journal" aria-labelledby="journal-title">
+          <div className="section-heading"><div><p className="landing-kicker">FROM THE JOURNAL</p><h2 id="journal-title">{copy.latestTitle}</h2></div><Link className="landing-text-link" href={`/${locale}/builds`}>{copy.journalLink}<ArrowUpRight size={17} aria-hidden="true" /></Link></div>
+          <p className="landing-journal-intro">{copy.latestIntro}</p>
+          <div className="posts-grid">{experiences.map((post) => <PostCard key={post.slug} post={post} locale={locale} />)}</div>
+        </section>
+      )}
+
+      <section className="landing-author container" aria-labelledby="author-title">
+        <div className="landing-author-intro"><p className="landing-kicker">03 / A NOTE FROM JEREMY</p><div className="landing-author-identity"><div className="landing-monogram" aria-hidden="true">J<span>+</span></div><h2 id="author-title">{copy.authorTitle}</h2></div><p className="landing-author-role">{copy.authorRole}</p></div>
+        <div className="landing-author-copy">{copy.authorParagraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}<Link className="landing-text-link" href={`/${locale}/about`}>{copy.authorLink}<ArrowUpRight size={17} aria-hidden="true" /></Link></div>
+      </section>
+
+      {siteConfig.contactEmail && <section className="landing-closing container" aria-labelledby="closing-title"><div><h2 id="closing-title">{copy.closingTitle}</h2><p>{copy.closingDescription}</p></div><Link className="button button-outline" href={`/${locale}/contact`}>{copy.contactLink}<ArrowUpRight size={17} aria-hidden="true" /></Link></section>}
+    </main>
+  );
+}
