@@ -1,0 +1,34 @@
+.post-cover { position: relative; height: 248px; overflow: hidden; background: #f3f0e9; }
+.post-cover img { width: 100%; height: 100%; object-fit: cover; object-position: center 33%; }
+.post-cover > span { position: absolute; left: 15px; bottom: 13px; padding: 6px 9px; border: 1px solid #d9e2d7; border-radius: 3px; background: #fffffff2; color: #355c43; font-size: 10px; letter-spacing: .6px; }
+.article-tool-card { display: flex; justify-content: space-between; align-items: center; gap: 28px; padding: 25px 27px; margin-bottom: 32px; border: 1px solid #dce5d8; border-radius: 6px; background: #f4f7f0; }
+.article-tool-card .eyebrow { font: 10px/1.8 monospace; letter-spacing: 1px; color: var(--green); }
+.article-tool-card h2 { font-size: 24px; line-height: 1.6; margin-top: 5px; letter-spacing: -.7px; }
+.article-tool-card p:not(.eyebrow) { margin-top: 8px; font-size: 14px; line-height: 1.8; color: #65705e; }
+.article-tool-card small { display: block; font-size: 12px; color: #65705e; line-height: 1.8; margin-top: 8px; }
+.article-tool-actions { flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.article-tool-actions .button { white-space: nowrap; font-size: 13px; }
+.article-download { display: flex; align-items: center; gap: 7px; font-size: 12px; color: #356044; text-decoration: underline; text-underline-offset: 4px; }
+.markdown-article { font-size: 17px; line-height: 1.95; color: #515c50; }
+.markdown-article > p { margin-top: 19px; overflow-wrap: anywhere; }
+.markdown-article > p:first-child { margin-top: 0; }
+.markdown-article h2 { margin: 48px 0 20px; padding-top: 30px; border-top: 1px solid var(--line); color: var(--ink); font-size: 27px; line-height: 1.65; font-weight: 650; letter-spacing: -.8px; }
+.markdown-article h3 { margin: 32px 0 12px; color: var(--ink); font-size: 21px; line-height: 1.65; font-weight: 650; letter-spacing: -.5px; }
+.markdown-article strong { color: var(--ink); font-weight: 650; }
+.markdown-article blockquote { margin: 24px 0; padding: 21px 25px; border-left: 3px solid #90ad82; background: #f6f8f2; border-radius: 0 4px 4px 0; font-size: 16px; color: #405637; line-height: 1.9; }
+.markdown-article blockquote p { margin: 0; }
+.markdown-article a { color: var(--green); text-decoration: underline; text-underline-offset: 4px; }
+.markdown-article p:has(.article-image-link) { margin-top: 27px; }
+.article-image-link { display: block; border: 1px solid #e3e6df; border-radius: 4px; overflow: hidden; }
+.article-image-link img { display: block; width: 100%; height: auto; }
+.markdown-article > p:has(> em:only-child) { font-size: 14px; line-height: 1.85; margin-top: 10px; color: #687361; }
+.markdown-article > p:has(.article-image-link) + p:has(> em:only-child) { text-align: center; padding-inline: 8px; }
+@media (max-width: 720px) {
+  .article-tool-card { flex-direction: column; align-items: flex-start; padding: 22px; gap: 20px; }
+  .article-tool-actions { flex-direction: row; align-items: center; flex-wrap: wrap; gap: 17px; }
+  .markdown-article { font-size: 16px; }
+  .markdown-article h2 { font-size: 24px; margin-top: 36px; padding-top: 25px; }
+  .markdown-article h3 { font-size: 20px; margin-top: 28px; }
+  .markdown-article blockquote { padding: 19px 20px; font-size: 15px; }
+  .markdown-article > p:has(> em:only-child) { font-size: 13px; }
+}

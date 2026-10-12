@@ -1,0 +1,51 @@
+// Restore state before rendering in the next language. Game rules remain native.
+let restoredUI=null;
+if(restore){
+ try{
+  const transferred=transferCafeState(restore,locale,defaults,questions),state=transferred.state;
+  const nextRecipes=validate(state.recipes);
+  if(state.session){
+   state.session.queue=state.session.queue.map(r=>normalizeRecipe(r,new Set()));
+   if(!Number.isInteger(state.session.index)||state.session.index<0||state.session.index>=state.session.queue.length||!['order','cup','amount','steps','handoff','result','summary'].includes(state.session.stage))throw Error('Invalid saved session');
+  }
+  recipes=nextRecipes;
+  recipeBackup=state.recipeBackup?validate(state.recipeBackup):null;
+  record=state.record;basicRecord=state.basicRecord;checks=state.checks;session=state.session;quiz=state.quiz;pendingImport=state.pendingImport;
+  selected=recipes.some(r=>r.id===state.selected)?state.selected:recipes[0].id;
+  editing=state.editing===null?null:recipes.some(r=>r.id===state.editing)?state.editing:recipes[0].id;
+  view=['home','basics','practice','library','settings'].includes(state.view)?state.view:'home';
+  restoredUI=transferred.ui;
+  write(STORAGE,recipes);write(BACKUP,recipeBackup);write(RECORD,record);write(BASIC,basicRecord);write(CHECKS,checks);write(SESSION,session);
+ }catch{restoredUI=null}
+}
+setView(view,false);
+if(restoredUI?.draft&&view==='settings'){
+ const draft=restoredUI.draft;
+ $('#recipe-name').value=draft.name;$('#recipe-cup').value=draft.cup;$('#recipe-size').value=draft.size;$('#recipe-steps').value=draft.steps;$('#recipe-notes').value=draft.notes;$('#recipe-confirmed').checked=draft.confirmed;
+ $('#quantity-rows').innerHTML=draft.ingredients.map(quantityRow).join('');
+ formDirty=draft.dirty;
+}
+if(restoredUI?.setup&&view==='home'){
+ const setup=restoredUI.setup;
+ document.querySelectorAll('[name=mode]').forEach(input=>input.checked=input.value===setup.mode);
+ document.querySelectorAll('[name=practice-menu]').forEach(input=>input.checked=setup.menus.includes(input.value));
+ $('#order-count').value=setup.count;
+}
+if(restoredUI?.search&&view==='library'){
+ $('#recipe-search').value=restoredUI.search;
+ $('#recipe-search').dispatchEvent(new Event('input',{bubbles:true}));
+}
+if(restoredUI)window.scrollTo({top:restoredUI.scroll,behavior:'instant'});
+return {
+ snapshot(includeUI){
+  let ui=null;
+  if(includeUI){
+   ui={scroll:window.scrollY};
+   if(view==='settings')ui.draft={name:$('#recipe-name').value,cup:$('#recipe-cup').value,size:$('#recipe-size').value,steps:$('#recipe-steps').value,notes:$('#recipe-notes').value,confirmed:$('#recipe-confirmed').checked,ingredients:[...document.querySelectorAll('.quantity-row')].map(row=>({name:row.querySelector('[data-q-name]').value,amount:row.querySelector('[data-q-amount]').value,unit:row.querySelector('[data-q-unit]').value})),dirty:formDirty};
+   if(view==='home')ui.setup={mode:$('[name=mode]:checked').value,menus:[...document.querySelectorAll('[name=practice-menu]:checked')].map(input=>input.value),count:$('#order-count').value};
+   if(view==='library')ui.search=$('#recipe-search').value;
+  }
+  return copy({locale,defaults,state:{recipes,recipeBackup,record,basicRecord,checks,session,quiz,pendingImport,view,selected,editing},ui});
+ },
+ cleanup(){clearTimeout(toastTimer)}
+};

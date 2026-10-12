@@ -1,0 +1,35 @@
+.site-header.simplified-header { position: sticky; top: 0; z-index: 50; height: 76px; background: #ffffffed; backdrop-filter: blur(14px); border-bottom: 1px solid #e4e9e2; }
+.simplified-header .brand { font-size: 23px; }
+.simplified-header .header-inner { max-width: 1040px; gap: 24px; }
+.simplified-header .main-nav { gap: 6px; height: auto; padding: 0; border: 0; border-radius: 0; background: transparent; }
+.simplified-header .main-nav a { min-height: 44px; height: auto; padding: 9px 18px; border-radius: 999px; background: #f0f4ed; color: #294433; font-size: 15px; font-weight: 650; line-height: 1.5; transition: background .15s, color .15s; }
+.simplified-header .main-nav a:hover { background: #e0ebda; color: #1d3828; }
+.simplified-header .main-nav a[aria-current=page] { background: var(--green); color: white; }
+.simplified-header .main-nav a[aria-current=page]:after { display: none; }
+.simplified-header .language-switch { gap: 2px; padding: 3px; border: 1px solid #e4e9e2; border-radius: 999px; background: #fff; font-size: 12px; }
+.simplified-header .language-switch a { display: flex; align-items: center; justify-content: center; min-width: 38px; min-height: 38px; padding: 6px; border-radius: 999px; color: #536151; }
+.simplified-header .language-switch a:hover { background: #edf4ed; color: #294433; }
+.simplified-header .language-switch a[aria-current=true] { color: #294433; background: #eaf0e5; }
+.article-sidebar { top: 100px; }
+.compact-footer { border-top: 1px solid var(--line); }
+.compact-footer-inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px 30px; padding-block: 26px; color: var(--muted); font-size: 12px; line-height: 1.8; }
+.compact-footer-inner > p > span { color: var(--muted); margin-left: 10px; }
+.compact-footer nav { display: flex; flex-wrap: wrap; gap: 20px; }
+.compact-footer a:hover { color: var(--green); }
+@media (max-width: 720px) {
+  .simplified-header .header-inner { gap: 18px; }
+  .simplified-header .brand { font-size: 21px; gap: 9px; }
+  .simplified-header .main-nav { display: flex; position: static; }
+  .simplified-header .main-nav a { font-size: 15px; padding: 9px 14px; }
+  .simplified-header .header-actions { margin-left: 0; }
+  .compact-footer-inner { padding-block: 22px; gap: 12px; }
+}
+@media (max-width: 640px) {
+  html { scroll-padding-top: 160px; }
+  .site-header.simplified-header { height: auto; }
+  .simplified-header .header-inner { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 12px; padding-block: 12px; }
+  .simplified-header .brand { font-size: 20px; }
+  .simplified-header .main-nav { grid-column: 1 / -1; grid-row: 2; margin-left: 0; justify-content: center; }
+  .simplified-header .main-nav a { flex: 1; justify-content: center; }
+  .simplified-header .header-actions { grid-column: 2; grid-row: 1; justify-self: end; }
+}

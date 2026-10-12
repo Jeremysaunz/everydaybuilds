@@ -1,10 +1,80 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { isLocale,text } from "@/lib/site-config";
-import { getPost,copyFor,posts,statusLabel } from "@/lib/posts";
+import { ArrowUpRight, Download } from "lucide-react";
+import { isLocale, text } from "@/lib/site-config";
+import { getPost, copyFor, toolFor, posts } from "@/lib/posts";
 import { pageMetadata } from "@/lib/metadata";
-import ToolPreview from "@/components/tool-preview";
-import CopyPrompt from "@/components/copy-prompt";
-type Props={params:Promise<{locale:string;slug:string}>};
-export async function generateMetadata({params}:Props) {const {locale,slug}=await params;const post=getPost(slug);if(!isLocale(locale)||!post)return {};const copy=copyFor(post,locale);return {...pageMetadata(locale,`/builds/${slug}`,copy.title,copy.excerpt),robots:post.kind==="example" ? {index:false,follow:true} : {index:true,follow:true}};}
-export default async function PostPage({params}:Props) {const {locale,slug}=await params;const post=getPost(slug);if(!isLocale(locale)||!post)notFound();const copy=copyFor(post,locale);const next=posts[(posts.indexOf(post)+1)%posts.length];return <main id="main-content" className="container article-page"><Link href={`/${locale}/builds`} className="back-link">{text(locale,"제작 기록으로 돌아가기","Back to the journal")}</Link><header className="article-header"><div className="card-meta"><span>{copy.category}</span><span className="example-badge">{text(locale,post.kind==="example" ? "기획 예시" : "제작 기록",post.kind==="example" ? "Planning example" : "Build journal")}</span><span className="card-no">{post.kind==="example" ? "EXAMPLE" : "BUILD"} / {post.number}</span></div><h1>{copy.title}</h1><p className="article-lead">{copy.excerpt}</p><div className="article-meta"><span>Jeremy</span><span>{text(locale,"작성","Written")} {post.updatedAt.replaceAll("-",".")}</span><span>{text(locale,"한국어 · English","English · 한국어")}</span></div></header><div className="article-grid"><article className="article-content">{post.kind==="example" && <aside className="article-disclosure"><strong>{text(locale,"실제 경험과 구분해서 읽어주세요.","Read this as a planning example.")}</strong><p>{text(locale,"아직 제작·사용하지 않은 가상의 기획 예시입니다. 화면과 요청문은 설명용이며, 실제 효과나 결과를 주장하지 않습니다.","This hypothetical tool has not been built or used. The screen and prompt are illustrative; no actual outcomes or benefits are claimed.")}</p></aside>}<figure className="article-figure"><ToolPreview type={post.preview} locale={locale}/><figcaption>{text(locale,"화면 구성 예시 · 실행 가능한 프로그램 화면이 아닙니다.","Conceptual screen layout · This is not a runnable program.")}</figcaption></figure>{copy.sections.map((section,i)=><section id={`section-${i+1}`} className="article-section" key={section.title}><span className="section-index">0{i+1}</span><h2>{section.title}</h2>{section.paragraphs.map(p=><p key={p}>{p}</p>)}{section.prompt && <CopyPrompt prompt={section.prompt} locale={locale}/>} {section.checklist && <ul className="article-checklist">{section.checklist.map(item=><li key={item}>{item}</li>)}</ul>}</section>)}<div className="post-status-panel"><h3>{text(locale,"이 도구의 현재 상태","Current tool status")}</h3><dl><div><dt>{text(locale,"상태","Status")}</dt><dd>{statusLabel(post.status,locale)+(post.kind==="example" ? text(locale," · 기획 예시"," · Planning example") : "")}</dd></div><div><dt>{text(locale,"공개 여부","Availability")}</dt><dd>{post.publicUrl ? <a href={post.publicUrl} className="text-link">{text(locale,"공개 프로그램 열기","Open public tool")}</a> : text(locale,"미배포","Not released")}</dd></div><div><dt>{text(locale,"제작 도구","Build tools")}</dt><dd>{post.tools.length ? post.tools.join(", ") : text(locale,"미정","Not selected")}</dd></div><div><dt>{text(locale,"작동 확인일","Verified on")}</dt><dd>{post.verifiedAt ?? text(locale,"아직 확인하지 않음","Not yet verified")}</dd></div></dl></div><Link className="next-note" href={`/${locale}/builds/${next.slug}`}><span className="eyebrow">{text(locale,next.kind==="example" ? "다른 기획 예시" : "다른 제작 기록",next.kind==="example" ? "ANOTHER PLANNING EXAMPLE" : "ANOTHER BUILD NOTE")}</span><strong>{copyFor(next,locale).title}</strong></Link></article><aside className="article-sidebar"><nav className="table-of-contents" aria-label={text(locale,"글 목차","Table of contents")}><h2>{text(locale,"이 글에서","IN THIS NOTE")}</h2>{copy.sections.map((section,i)=><a key={section.title} href={`#section-${i+1}`}><span>0{i+1}</span>{section.title.split(" · ")[0]}</a>)}</nav><div className="sidebar-note"><span>SMALL, BUT USEFUL.</span><p>{text(locale,"나에게 필요한 것부터. 확인할 수 있을 만큼 작게.","Start with what you need. Keep it small enough to verify.")}</p></div></aside></div></main>;}
+import { readArticleContent } from "@/lib/article-content";
+import MarkdownArticle from "@/components/markdown-article";
+import "../../../article.css";
+
+type Props = { params: Promise<{ locale: string; slug: string }> };
+
+export async function generateMetadata({ params }: Props) {
+  const { locale, slug } = await params;
+  const post = getPost(slug);
+  if (!isLocale(locale) || !post) return {};
+  const copy = copyFor(post, locale);
+  return {
+    ...pageMetadata(locale, "/builds/" + slug, copy.title, copy.excerpt),
+    robots: { index: true, follow: true },
+  };
+}
+
+export default async function PostPage({ params }: Props) {
+  const { locale, slug } = await params;
+  const post = getPost(slug);
+  if (!isLocale(locale) || !post) notFound();
+  const copy = copyFor(post, locale);
+  const tool = toolFor(post, locale);
+  const article = await readArticleContent(post.slug, locale);
+  const headings = article.headings;
+  const next = posts.find((candidate) => candidate.slug !== post.slug);
+
+  return (
+    <main id="main-content" className="container article-page">
+      <Link href={"/" + locale + "/builds"} className="back-link">{text(locale, "만든 이야기로 돌아가기", "Back to the journal")}</Link>
+      <header className="article-header">
+        <div className="card-meta">
+          <span>{copy.category}</span>
+          <span className="example-badge">{text(locale, "만든 이야기", "Journal")}</span>
+          <span className="card-no">{text(locale, "이야기", "STORY")} {post.number}</span>
+        </div>
+        <h1>{copy.title}</h1>
+        <p className="article-lead">{copy.excerpt}</p>
+        <div className="article-meta">
+          <span>Jeremy</span><span>{text(locale, "작성", "Written")} {post.updatedAt.replaceAll("-", ".")}</span><span>{text(locale, "한국어 · English", "English · 한국어")}</span>
+        </div>
+      </header>
+      <div className="article-grid">
+        <article className="article-content">
+          {tool.publicUrl && (
+            <aside className="article-tool-card" aria-label={text(locale, "이 글에서 만든 도구", "The tool made in this post")}>
+              <div>
+                <p className="eyebrow">{text(locale, "이 글에서 만든 게임", "THE GAME")}</p>
+                <h2>{post.toolTitle?.[locale] ?? copy.title}</h2>
+                <p>{text(locale, "바로 열어서 해보거나, HTML 파일을 받아 사용해 보세요.", "Play in your browser, or download the HTML file to use offline.")}</p>
+              </div>
+              <div className="article-tool-actions">
+                <a className="button button-dark" href={tool.publicUrl} target="_blank" rel="noopener noreferrer">{text(locale, "게임 직접 해보기", "Try the game")}<ArrowUpRight size={16} aria-hidden="true" /></a>
+                {tool.downloadUrl && <a className="article-download" href={tool.downloadUrl} download={tool.downloadFileName}><Download size={15} aria-hidden="true" />{text(locale, "HTML 파일 받기", "Download HTML")}</a>}
+              </div>
+            </aside>
+          )}
+          <MarkdownArticle markdown={article.markdown} headings={article.headings} />
+          {next && <Link className="next-note" href={"/" + locale + "/builds/" + next.slug}>
+            <span className="eyebrow">{text(locale, "다른 이야기", "ANOTHER BUILD NOTE")}</span>
+            <strong>{copyFor(next, locale).title}</strong>
+          </Link>}
+        </article>
+        <aside className="article-sidebar">
+          <nav className="table-of-contents" aria-label={text(locale, "글 목차", "Table of contents")}>
+            <h2>{text(locale, "이 글에서", "IN THIS POST")}</h2>
+            {headings.map((heading, i) => <a key={heading.id} href={"#" + heading.id}><span>0{i + 1}</span>{heading.title.split(" · ")[0]}</a>)}
+          </nav>
+          <div className="sidebar-note"><span>SMALL, BUT USEFUL.</span><p>{text(locale, "한 사람의 필요에서 시작해, 직접 눌러보고 확인합니다.", "Start with a real need. Build something small, then try it out.")}</p></div>
+        </aside>
+      </div>
+    </main>
+  );
+}

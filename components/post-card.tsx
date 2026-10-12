@@ -1,5 +1,31 @@
 import Link from "next/link";
-import { text,type Locale } from "@/lib/site-config";
-import { copyFor,type Post } from "@/lib/posts";
-import ToolPreview from "./tool-preview";
-export default function PostCard({post,locale}:{post:Post;locale:Locale}) {const copy=copyFor(post,locale);return <article className="post-card"><Link className="post-card-link" href={`/${locale}/builds/${post.slug}`}><ToolPreview type={post.preview} locale={locale}/><div className="post-card-body"><div className="card-meta"><span>{copy.category}</span><span className="example-badge">{text(locale,post.kind==="example" ? "기획 예시" : "제작 기록",post.kind==="example" ? "Planning example" : "Build journal")}</span></div><h3>{copy.title}</h3><p>{copy.excerpt}</p><div className="card-bottom"><span>{text(locale,post.status==="planned" ? "제작 전" : post.status==="using" ? "계속 사용" : post.status==="improving" ? "개선 예정" : "사용 중단",post.status==="planned" ? "Not built yet" : post.status==="using" ? "In use" : post.status==="improving" ? "Improving" : "Stopped")}</span><span className="card-no">{post.kind==="example" ? "EXAMPLE" : "BUILD"} / {post.number}</span></div></div></Link></article>;}
+import Image from "next/image";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { text, type Locale } from "@/lib/site-config";
+import { copyFor, toolFor, type Post } from "@/lib/posts";
+import "@/app/landing.css";
+
+export default function PostCard({ post, locale, priority = false }: { post: Post; locale: Locale; priority?: boolean }) {
+  const copy = copyFor(post, locale);
+  const cover = post.cover?.[locale];
+  const tool = toolFor(post, locale);
+  const href = `/${locale}/builds/${post.slug}`;
+  return (
+    <article className="journal-card">
+      {cover && (
+        <Link className="journal-card-image" href={href} tabIndex={-1} aria-hidden="true">
+          <Image src={cover.src} alt="" width={cover.width} height={cover.height} sizes="(max-width: 720px) calc(100vw - 40px), 520px" priority={priority} unoptimized />
+        </Link>
+      )}
+      <div className="journal-card-copy">
+        <div className="journal-card-meta"><span>{copy.category}</span><time dateTime={post.updatedAt}>{post.updatedAt.replaceAll("-", ".")}</time></div>
+        <h3><Link href={href}>{copy.title}</Link></h3>
+        <p>{copy.summary ?? copy.excerpt}</p>
+        <div className="journal-card-actions">
+          <Link className="button journal-read" href={href}>{text(locale, "글 읽기", "Read the story")}<ArrowRight size={16} aria-hidden="true" /></Link>
+          {tool.publicUrl && <a className="journal-try" href={tool.publicUrl} target="_blank" rel="noopener noreferrer">{text(locale, "게임 해보기", "Try the game")}<ArrowUpRight size={15} aria-hidden="true" /></a>}
+        </div>
+      </div>
+    </article>
+  );
+}

@@ -1,0 +1,105 @@
+// Included inline by localize-cafe-game.py; no network or runtime dependencies.
+const cafeSharedStorage='cafe-first-day-bilingual-v1';
+const cafeReverseTranslations=Object.fromEntries(Object.entries(cafeTranslations).map(([ko,en])=>[en,ko]));
+const cafePhrasePatterns={};
+function translateCafeText(value,from,to){
+ if(typeof value!=='string'||from===to)return value;
+ const dictionary=from==='ko'?cafeTranslations:cafeReverseTranslations;
+ if(Object.hasOwn(dictionary,value))return dictionary[value];
+ // Translate generated feedback phrases, without interpreting arbitrary short words.
+ if(!cafePhrasePatterns[from])cafePhrasePatterns[from]=new RegExp(Object.keys(dictionary).filter(key=>key.length>6).sort((a,b)=>b.length-a.length).map(key=>key.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|'),'g');
+ return value.replace(cafePhrasePatterns[from],match=>dictionary[match]);
+}
+function cafeUnit(value,locale){
+ const units=locale==='ko'?{shots:'샷',pumps:'펌프',pieces:'개'}:{샷:'shots',펌프:'pumps',개:'pieces'};
+ return units[value]||value;
+}
+function transferCafeState(snapshot,locale,defaults,questions){
+ const from=snapshot.locale;
+ const original=snapshot.state;
+ const clone=value=>JSON.parse(JSON.stringify(value));
+ const words=value=>{
+  if(typeof value==='string')return translateCafeText(value,from,locale);
+  if(Array.isArray(value))return value.map(words);
+  if(value&&typeof value==='object')return Object.fromEntries(Object.entries(value).map(([key,item])=>[key,words(item)]));
+  return value;
+ };
+ const recipe=value=>{
+  const next=clone(value),before=snapshot.defaults.find(item=>item.id===value.id),after=defaults.find(item=>item.id===value.id);
+  if(before&&after){
+   if(next.name===before.name)next.name=after.name;
+   next.steps=next.steps.map((step,index)=>step===before.steps[index]?after.steps[index]:step);
+  }
+  // Custom names, notes, ingredient names and steps are never auto-translated.
+  next.ingredients=(next.ingredients||[]).map(item=>({...item,unit:cafeUnit(item.unit,locale)}));
+  return next;
+ };
+ const next={...clone(original),recipes:original.recipes.map(recipe),recipeBackup:original.recipeBackup?.map(recipe)||null,pendingImport:original.pendingImport?.map(recipe)||null};
+ if(original.session){
+  next.session=words(original.session);
+  next.session.queue=original.session.queue.map(recipe);
+  const before=original.session.queue[original.session.index],after=next.session.queue[original.session.index];
+  const stepLabel=label=>{const index=before.steps.indexOf(label);return index>=0?after.steps[index]:translateCafeText(label,from,locale)};
+  if(next.session.choices)next.session.choices=original.session.choices.map(item=>({...item,label:item.index>=0?after.steps[item.index]:translateCafeText(item.label,from,locale)}));
+  if(original.session.drink)next.session.drink={...clone(original.session.drink),actions:original.session.drink.actions.map(item=>({...item,label:stepLabel(item.label),name:translateCafeText(item.name,from,locale)}))};
+  next.session.logs=original.session.logs.map(item=>{
+   const sourceRecipe=original.session.queue.find(r=>r.id===item.recipeId),targetRecipe=next.session.queue.find(r=>r.id===item.recipeId);
+   const index=sourceRecipe?.steps.indexOf(item.expected)??-1;
+   return {...words(item),name:targetRecipe?.name||item.name,expected:index>=0?targetRecipe.steps[index]:translateCafeText(item.expected,from,locale)};
+  });
+ }
+ if(original.quiz)next.quiz={...clone(original.quiz),queue:original.quiz.queue.map(item=>clone(questions.find(q=>q.id===item.id)||item))};
+ const ui=snapshot.ui?clone(snapshot.ui):null;
+ if(ui?.draft){
+  const before=original.recipes.find(item=>item.id===original.editing),after=next.recipes.find(item=>item.id===original.editing);
+  if(before&&after){
+   if(ui.draft.name===before.name)ui.draft.name=after.name;
+   ui.draft.steps=ui.draft.steps.split(/\r?\n/).map((step,index)=>step===before.steps[index]?after.steps[index]:step).join('\n');
+  }
+  ui.draft.ingredients=ui.draft.ingredients.map(item=>({...item,unit:cafeUnit(item.unit,locale)}));
+ }
+ return {state:next,ui};
+}
+function readCafeSnapshot(){
+ try{
+  const value=JSON.parse(localStorage.getItem(cafeSharedStorage));
+  if(['ko','en'].includes(value?.locale)&&Array.isArray(value.defaults)&&Array.isArray(value.state?.recipes))return value;
+ }catch{}
+ return null;
+}
+let cafeLocale=cafeDefaultLocale,cafeGame,cafeController;
+const cafeHash=new URLSearchParams(location.hash.slice(1)).get('lang');
+if(['ko','en'].includes(cafeHash))cafeLocale=cafeHash;
+function persistCafeState(){
+ if(!cafeGame)return;
+ try{localStorage.setItem(cafeSharedStorage,JSON.stringify(cafeGame.snapshot(false)))}catch{}
+}
+function mountCafeLanguage(locale,snapshot,switched=false){
+ cafeGame?.cleanup();
+ cafeController?.abort();
+ cafeLocale=locale;
+ document.documentElement.lang=locale;
+ document.title=cafeMetadata[locale].title;
+ document.querySelector('meta[name="description"]').content=cafeMetadata[locale].description;
+ document.getElementById('cafe-app').innerHTML=cafeMarkup[locale];
+ cafeController=new AbortController();
+ cafeGame=cafeFactories[locale](locale,cafeController.signal,snapshot);
+ document.querySelectorAll('[data-language]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.language===locale)));
+ if(switched){
+  try{history.replaceState(null,'','#lang='+locale)}catch{}
+  document.querySelector('[data-language="'+locale+'"]').focus({preventScroll:true});
+ }
+ persistCafeState();
+}
+document.addEventListener('click',event=>{
+ const button=event.target.closest('[data-language]');
+ if(button&&button.dataset.language!==cafeLocale){
+  const snapshot=cafeGame.snapshot(true);
+  mountCafeLanguage(button.dataset.language,snapshot,true);
+ }
+ queueMicrotask(persistCafeState);
+});
+document.addEventListener('input',()=>queueMicrotask(persistCafeState));
+document.addEventListener('change',()=>queueMicrotask(persistCafeState));
+window.addEventListener('beforeunload',persistCafeState);
+mountCafeLanguage(cafeLocale,readCafeSnapshot());
