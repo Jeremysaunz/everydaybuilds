@@ -84,4 +84,8 @@ SEO_TEST_BASE_URL=https://everydaybuilds.blog node scripts/verify-seo.mjs
 - 브라우저에서 한국어·영어 사용 안내 전환 → 영어 게임 실행 → 한국어 게임 전환을 확인했다. 오류 로그는 없었다.
 - 기존 제작기 원고, 보관된 게임 원본, 언어 전환·기록 보존 런타임의 변경은 없다.
 
-2026-10-13 사용자가 GitHub main 커밋·푸시와 everydaybuilds.blog 운영 배포를 명시적으로 승인했다. 승인한 변경을 기존 GitHub → Vercel 연결로 배포하고, 해당 커밋의 READY 상태와 공개 사이트에서 검색 설정을 확인한다. 검색 서비스 등록과 사이트맵 제출은 소유자 계정에서 별도로 진행해야 한다.
+2026-10-13 사용자가 GitHub main 커밋·푸시와 everydaybuilds.blog 운영 배포를 명시적으로 승인했다. SEO 구현 커밋 `b878775`를 기존 GitHub → Vercel 연결로 배포했으며, 해당 production 배포 `dpl_FLyrpDsvqMDKGL2ncbrAxF2FaPK8`의 READY 상태와 everydaybuilds.blog 도메인 연결을 확인했다.
+
+공개 사이트에서도 `verify-seo.mjs`의 전체 검사가 통과했다. 루트 주소는 `/ko`로 HTTP 308 영구 이동한다. Vercel이 HTML 태그에 배포 ID 속성을 추가하므로 검사 코드는 속성 순서에 의존하지 않고 실제 lang 값을 읽도록 보완했다.
+
+검색 서비스 등록과 사이트맵 제출은 소유자 계정에서 별도로 진행해야 한다. Google Search Console과 네이버는 사용자 확인에 따라 미등록 상태이며, 현재 실제 색인·검색 노출·클릭 성과를 확인했다고 판단하지 않는다.

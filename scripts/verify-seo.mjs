@@ -15,7 +15,7 @@ for (const locale of ["ko", "en"]) {
   for (const path of ["", "/builds", "/about", "/privacy", "/contact", "/builds/cafe-first-day", "/tools/cafe-first-day"]) {
     const url = `/${locale}${path}`;
     const html = await response(url);
-    assert.ok(html.includes(`<html lang="${locale}"`), `${url}: lang`);
+    assert.equal(attribute(tags(html, "html")[0] || "", "lang"), locale, `${url}: lang`);
     assert.ok(/<title>[^<]+<\/title>/.test(html), `${url}: title`);
     assert.ok(attribute(meta(html, "description") || "", "content")?.length > 20, `${url}: description`);
     assert.equal(attribute(tags(html, "link").find(tag => attribute(tag, "rel") === "canonical") || "", "href"), canonicalBase + url, `${url}: canonical`);
