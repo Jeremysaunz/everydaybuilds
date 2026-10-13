@@ -1,6 +1,6 @@
 import { text, type Locale } from "./site-config";
 
-export type PostCopy = { title: string; excerpt: string; summary?: string; category: string };
+export type PostCopy = { title: string; seoTitle?: string; excerpt: string; summary?: string; category: string };
 export type PostImage = { src: string; width: number; height: number; alt: string };
 export type ToolLinks = { publicUrl?: string; downloadUrl?: string; downloadFileName?: string };
 export type Post = {
@@ -37,12 +37,14 @@ export const posts: Post[] = [{
   },
   ko: {
     title: "카페 신입 교육 게임을 말로 부탁해 만들었어요",
+    seoTitle: "AI로 카페 신입 교육 게임 만들기: HTML 음료 제조 연습",
     excerpt: "AI에게 말로 부탁해 카페 신입 교육 게임을 만들었어요. 직접 해보며 필요한 내용을 더하고, 컵에 재료를 넣는 화면으로 바꿔 봤어요.",
     summary: "AI에게 말로 부탁해 음료 교육 게임을 만들고, 컵에 재료를 넣는 기능을 더했어요.",
     category: "일과 배움",
   },
   en: {
     title: "I asked AI to build a café training game",
+    seoTitle: "Build a café training game with AI and HTML",
     excerpt: "I asked AI to make a game for new café staff. As I tried it out, I asked for changes—including a cup you can fill with ingredients.",
     summary: "I asked AI to build a drink-making game, then added a cup you can fill with ingredients.",
     category: "Work & learning",

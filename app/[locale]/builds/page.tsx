@@ -10,7 +10,7 @@ type Props = { params: Promise<{ locale: string }> };
 export async function generateMetadata({ params }: Props) {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
-  return pageMetadata(locale, "/builds", text(locale, "만든 이야기", "The build journal"), text(locale,
+  return pageMetadata(locale, "/builds", text(locale, "AI로 작은 도구와 HTML 게임 만들기 — 제작 기록", "Building small tools and HTML games with AI — journal"), text(locale,
     "AI로 작은 도구를 만들고, 써보고, 고쳐 가는 기록입니다.",
     "Notes on building small tools with AI, trying them out, and making them better."));
 }

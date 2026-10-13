@@ -14,7 +14,7 @@ type LandingCopy = {
 export const landingCopy: Record<Locale, LandingCopy> = {
   ko: {
     title: "AI로 만드는, 일상에 필요한 작은 도구들",
-    description: "누군가의 하루에 필요한 작은 도구를 AI와 만들고, 직접 써보고 고치는 기록입니다.",
+    description: "AI로 일상에 필요한 작은 도구와 HTML 게임을 만들고, 직접 실행하며 고치는 제작 기록. 카페 신입 교육 게임의 요청문, 제작 화면과 체험 파일을 한국어·영어로 공개합니다.",
     kicker: "Jeremy의 작은 도구 이야기",
     headline: ["AI로 만드는,", "일상에 필요한 작은 도구들."],
     intro: "누군가의 하루에 필요한 도구를 만들고, 써보고, 고쳐 가는 기록입니다.",
@@ -27,7 +27,7 @@ export const landingCopy: Record<Locale, LandingCopy> = {
   },
   en: {
     title: "Small tools, built with AI for everyday life",
-    description: "A journal of building small tools with AI, trying them out, and improving them along the way.",
+    description: "Build small tools and HTML games with AI. Read real build notes, prompts and screenshots, and try a café staff training game in Korean or English.",
     kicker: "Small tools, made by Jeremy",
     headline: ["Small tools for everyday life.", "Built with AI."],
     intro: "I build small tools with AI, try them out, and share what I learn along the way.",

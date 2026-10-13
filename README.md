@@ -71,3 +71,11 @@ Framework Preset은 **Next.js**, Build Command는 `npm run build`, Install Comma
 게임 번역은 `content/tools/cafe-first-day.en.json`에서 관리합니다. `python3 scripts/localize-cafe-game.py`로 보관한 한국어 원본과 번역, `scripts/cafe-game-*.js.txt`의 언어 전환·상태 보존 코드를 묶어 두 다국어 HTML을 다시 만듭니다. 재료 동작은 두 언어로 판별하며, 영어 UI 번역이 누락되면 생성이 실패합니다. `node scripts/verify-cafe-game.mjs`로 파일의 독립성, JavaScript 구문과 상태 보존을 검사합니다. 자세한 동작과 확인 범위는 `docs/cafe-bilingual-html.md`를 참고합니다.
 
 영어 문구는 홈·첫 글·소개·문의·체험 게임과 번역 캡처까지 재검수했습니다. 최신 이미지 경로와 편집 프롬프트는 `docs/english-copy-review.md`에 기록했습니다. 상단 메뉴는 한국어에서 “만든 이야기”, 영어에서 “Journal”로 표시하며 스크롤 중에도 보이도록 고정했습니다.
+
+## 검색과 AI 노출
+
+도구의 기능·사용법 안내는 `/ko/tools/cafe-first-day`, `/en/tools/cafe-first-day`에 있습니다. 제작기와 실제 게임을 서로 연결하며, 새로운 도구는 실제 완성·검증 후 안내를 추가합니다.
+
+페이지별 대표 주소·언어 링크·공유 이미지와 JSON-LD, `/sitemap.xml`, `/robots.txt`, `/ko/feed.xml`, `/en/feed.xml`, 보조 안내 `/llms.txt`를 제공합니다. Google·네이버·Bing 소유권 확인 메타 태그는 해당 서비스의 content 값을 `GOOGLE_SITE_VERIFICATION`, `NAVER_SITE_VERIFICATION`, `BING_SITE_VERIFICATION`으로 설정했을 때만 나옵니다.
+
+검색어 후보, 등록 절차와 검증 명령은 `docs/search-visibility.md`에 정리했습니다. `SEO_TEST_BASE_URL`을 지정해 `node scripts/verify-seo.mjs`로 로컬 또는 공개 배포의 검색 설정을 확인할 수 있습니다. 검색 서비스 등록·색인·검색 유입 실적은 코드 적용과 별도로 확인해야 합니다.
