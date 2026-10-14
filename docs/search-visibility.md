@@ -29,9 +29,9 @@
 - OAI-SearchBot을 명시적으로 허용한다. 기존 전체 로봇 허용 정책을 유지한다. 이 작업은 AI 학습 정책을 새로 결정하지 않는다.
 - `/llms.txt`는 공개 페이지의 보조 안내다. 필수 규격이나 AI 검색 순위 향상 수단으로 취급하지 않는다.
 
-## 검색 서비스 등록: 소유자 계정에서 확인할 일
+## 검색 서비스 등록 상태와 관리 절차
 
-코드 적용과 검색 서비스 등록은 서로 다른 상태다. 2026-10-13 사용자가 Google Search Console과 네이버 서치어드바이저에 아직 등록하지 않았다고 확인했다. Bing 등록 상태는 미확인이다.
+코드 적용과 검색 서비스 등록은 서로 다른 상태다. 2026-10-13에는 Google과 네이버가 미등록 상태였다. 2026-10-14 Google 도메인 속성과 소유권 확인, 사이트맵 제출·처리 완료를 확인했다. 네이버는 사용자 보안문자 확인 후 소유확인, 사이트맵과 한국어 RSS 등록을 모두 완료했다. Bing 등록 상태는 미확인이다.
 
 1. [Google Search Console](https://search.google.com/search-console)에 `everydaybuilds.blog`를 추가하거나 기존 속성을 연다. 도메인 속성은 DNS로 확인한다. URL 접두어 속성은 HTML 메타 태그도 사용할 수 있다.
 2. [네이버 서치어드바이저](https://searchadvisor.naver.com/)에 `https://everydaybuilds.blog`를 등록하고 소유권을 확인한다.
@@ -88,4 +88,36 @@ SEO_TEST_BASE_URL=https://everydaybuilds.blog node scripts/verify-seo.mjs
 
 공개 사이트에서도 `verify-seo.mjs`의 전체 검사가 통과했다. 루트 주소는 `/ko`로 HTTP 308 영구 이동한다. Vercel이 HTML 태그에 배포 ID 속성을 추가하므로 검사 코드는 속성 순서에 의존하지 않고 실제 lang 값을 읽도록 보완했다.
 
-검색 서비스 등록과 사이트맵 제출은 소유자 계정에서 별도로 진행해야 한다. Google Search Console과 네이버는 사용자 확인에 따라 미등록 상태이며, 현재 실제 색인·검색 노출·클릭 성과를 확인했다고 판단하지 않는다.
+2026-10-13 검증 시점에는 검색 서비스가 미등록 상태였다. 2026-10-14 등록 결과는 아래 진행 기록을 참고한다. 등록·사이트맵 처리만으로 실제 검색 색인·노출·클릭 성과를 확인했다고 판단하지 않는다.
+
+
+## 검색 서비스 등록 진행 기록 — 2026-10-14
+
+### Google Search Console
+
+- 기존 사용자 계정에서 `everydaybuilds.blog` 도메인 속성을 추가했다.
+- 현재 권한이 있는 Vercel DNS에 Google이 발급한 TXT 레코드 하나를 추가했다. 기존 라우팅·메일·인증 레코드는 바꾸지 않았다.
+- Search Console 화면에서 도메인 이름 공급업체 방식의 **소유권이 확인됨**을 확인했다. 소유권 유지에 필요한 TXT 레코드를 삭제하지 않는다.
+- `https://everydaybuilds.blog/sitemap.xml`을 제출했다. 제출 직후 표시가 잠시 ‘가져올 수 없음’이었지만, 상세 화면에서는 곧 **사이트맵 처리 완료**, **발견된 페이지 16개**를 확인했다.
+- 등록·사이트맵 처리와 실제 검색 색인은 구분한다. 검색 성과·최종 색인 수는 아직 확인하지 않았다.
+- 관리 화면: https://search.google.com/search-console?resource_id=sc-domain%3Aeverydaybuilds.blog
+
+### 네이버 서치어드바이저
+
+- 사용자가 Chrome에서 네이버 로그인을 직접 완료했다.
+- 웹마스터 도구에 `https://everydaybuilds.blog`를 추가하고 HTML 태그 방식을 선택했다.
+- 해당 화면의 공개 소유확인 값을 Vercel Production의 `NAVER_SITE_VERIFICATION`에 설정했다. 확인 값은 원고·문서·Git에 기록하지 않았다.
+- 동일 소스의 production 재배포를 완료했고, 실제 한국어 홈페이지에 올바른 `naver-site-verification` 메타 태그가 포함된 것을 확인했다.
+- 사용자가 소유확인의 보안문자를 직접 처리했다. 사이트 관리 목록과 해당 사이트의 관리 화면에서 등록 완료를 확인했다.
+- `https://everydaybuilds.blog/sitemap.xml`을 제출했고, 제출된 사이트맵 목록에 `sitemap.xml`과 2026-10-14 등록 시각이 표시된 것을 확인했다.
+- 사용자가 RSS 제출의 추가 보안문자도 직접 처리했다. 제출된 RSS 목록에 `https://everydaybuilds.blog/ko/feed.xml`과 등록 시각 **2026-10-14 09:14:54**가 표시된 것을 확인했다.
+- 사이트맵 등록 시각은 **2026-10-14 09:11:32**이다.
+- 네이버 관리 화면: https://searchadvisor.naver.com/console/site/summary?site=https%3A%2F%2Feverydaybuilds.blog
+
+### 완료와 유지 기준
+
+Google 도메인 소유권 확인·사이트맵 처리, 네이버 사이트 소유확인·사이트맵·한국어 RSS 제출을 모두 완료했다. 추가 로그인이나 보안문자 처리 등 현재 사용자에게 남은 등록 작업은 없다. 등록 사실과 실제 색인·검색 노출 성과는 별도로 판단한다.
+
+Google 확인 TXT 레코드와 Vercel Production의 `NAVER_SITE_VERIFICATION`을 유지해야 한다. 사이트 개편이나 재배포 때 확인 설정을 삭제하지 않는다. 두 설정은 서비스가 발급한 공개 소유확인 값이며 계정 비밀번호를 보관하는 방식이 아니다.
+
+등록 완료 화면은 로컬의 `outputs/google-sitemap-registered-20261014.png`, `outputs/naver-sitemap-registered-20261014.png`, `outputs/naver-rss-registered-20261014.png`에 저장했다. 화면 파일은 Git에 포함하지 않는다.
