@@ -1,56 +1,56 @@
-# No coding needed: I asked ChatGPT to build a café training game
+# Vibe coding with ChatGPT: building a café training game
 
-You’ve probably asked AI for restaurant ideas or help with an email. But have you ever asked it, “Can you build me a small program?”
+Have you used AI for restaurant ideas or help with an email? What about asking it to build a program?
 
-For a long time, I only used AI to ask questions and get answers. Then I decided to try something different: asking AI to build the little tools I often wished I had.
+For a while, I used ChatGPT for exactly what the name suggests: chatting. That alone seemed pretty impressive.
 
-The first thing I made was **a game that helps new café staff practice the steps for making drinks**. I did three things: described what I wanted in plain words, clicked through what came back, and said what I wanted changed. It also took much less time than I expected.
+Then I started asking it to build the small programs I’d often wished I had.
 
-People call this approach **vibe coding**. Instead of writing code, you describe the feel of what you want, and AI writes the code for you. You don’t need to be a developer to start.
+My first build was **a game for new café staff to practice the steps for making drinks**. I described what I wanted, tried the result, and asked for changes.
 
-You can play the finished game from **Try the game** at the top of this post. Try a round first, and the story will make more sense.
+That’s **vibe coding**: you describe what you want, and AI writes the code.
 
-### This build at a glance
+The finished game is available through **Try the game** at the top of this post.
+
+### Tools and time
 
 **AI used** ChatGPT
 
-**Time** Under an hour, in a spare moment
+**Time** Less than an hour of spare time
 
-**Messages** Three or four
+**Exchanges** Three or four
 
-**Result** A single file that opens in your web browser. Nothing to install, no account to create.
+**Result** A single HTML file that opens in a web browser. No installation or account required.
 
-## An idea that came to me in a café
+## An idea at a café I often visited
 
-The idea came to me out of nowhere while I was at a café. There was no big plan behind it.
+I was at a café I often visited when the idea came to me.
 
-When you start working at a café, there’s a lot to remember for every drink: how to read the order, which cup to use, and which ingredient goes in first. I thought a game might be a good way to practice those steps.
+When new staff join a café, they have to learn the steps for each drink: read the order, choose the cup, and remember which ingredient goes in first. I thought a game could help them practice that sequence.
 
-You don’t need to work in a café to take something from this story. **Tasks that follow a sequence** are everywhere: a child’s morning routine before school, the phone settings you keep explaining to your parents, the same walkthrough you give every new coworker. As you read, try putting your own task in place of the café.
+The same idea could apply to getting ready for school, learning to use a phone, or training a new coworker. Each involves **a sequence of steps to learn**.
 
-Ideas like this pop up in everyday moments. Instead of letting them go, try telling AI about them.
+## The first prompt:
 
-## My first request: I just said what I wanted
-
-My first request went something like this:
+My first prompt was along these lines:
 
 > I want to make a game that lets new café staff practice the steps for making drinks. Please make it a single HTML file that I can open and use.
 
-If HTML is new to you, think of it as **a file you open in your web browser**. There’s nothing to install. You open the file and the screen appears.
+An HTML file opens in your web browser. There’s nothing to install; you open the file and it runs.
 
-Here is the first version.
+This was the first result.
 
 *The original screenshots were in Korean. The versions below have English text.*
 
 ![The first version of the café training game](/images/cafe-first-day/en/01-first-result-v2.png)
 
-*The first version: read an order, choose a cup, and pick the steps to make a drink.*
+*The first screen: read an order, choose a cup, and pick the steps to make a drink.*
 
-The idea in my head was now something I could click through. Once I could see it, a new question came up: would this be enough for someone using it for the first time?
+The game worked. I was less sure whether it covered enough to be useful for training new staff.
 
-## I asked AI to help with what I didn’t know
+## The second prompt: adding training content
 
-I don’t know much about training café staff. I wasn’t sure whether practicing the steps would be enough, or whether a new user would get lost. So I handed that question straight to AI:
+I don’t know much about training café staff. I asked ChatGPT to check whether the game was missing anything and whether new users might get stuck.
 
 > Please check whether the training is missing anything a new staff member would need. Make the game easier to use and improve the design too.
 
@@ -58,45 +58,39 @@ I don’t know much about training café staff. I wasn’t sure whether practici
 
 *Start with the basics, read the café’s recipes, then try making a drink.*
 
-You could now choose which drinks to practice, follow along step by step, or try it from memory. There was also practice for checking orders, keeping things clean, and handling mistakes.
+You could now choose which drinks to practice, follow the guidance, or try it from memory. The game also covered checking orders, keeping things clean, and handling mistakes—topics I hadn’t included in the first request.
 
-Here’s what I learned: **you don’t have to be an expert in the topic**. Explain who the tool is for and ask, “Is anything missing?” AI will sometimes fill in the gaps for you. If a café actually uses the game for training, though, a trainer should check the content first.
+A trainer would need to check the content before using it at a café.
 
-## One more idea while clicking through
+## The third prompt: adding ingredients to a cup
 
-At this point, you practiced by choosing buttons with the steps written on them.
+Up to this point, you practiced by pressing buttons labeled with the steps for making a drink.
 
 ![The practice screen before adding ingredients directly to the cup](/images/cafe-first-day/en/05-before-cup-v2.png)
 
 *You picked what to do next from a set of written options.*
 
-Looking at that screen, I felt something was missing. It would feel much more like a game if you could see ice fill the cup, followed by milk and espresso. So I said exactly that:
+Just pressing buttons felt a bit limited. I thought it would feel more like a game if you could see ice and milk going into the cup. So I sent another request.
 
 > It would feel more like a game if you could put ice, milk, and espresso directly into a cup and see the drink being made. Please make it work that way too.
-
-You can ask casually, the way you’d talk to a friend, and AI still gets it.
 
 ![The cup after adding ice, milk, and espresso](/images/cafe-first-day/en/06-interactive-cup-v2.png)
 
 *Click an ingredient or drag it into the cup to make the drink. The cup is an illustration of the process; follow the café’s recipe for real amounts.*
 
-The ice piles up in the cup, and the milk and espresso form visible layers. If you get the steps out of order, you empty the cup and start again. One sentence turned a screen of text buttons into a game you can play with your hands.
+Ice piles up in the cup, while milk and espresso appear as layers of different colors. If you get the steps out of order, you can empty the cup and start again. You can now practice by filling the cup yourself.
 
-## You don’t need a perfect plan
+## Testing and making changes
 
-I hadn’t planned the basics questions or the interactive cup when I started. Each version showed me what to ask for next.
+The first prompt didn’t include basics questions or an interactive cup. I started with a game for choosing the steps, then added training content and a way to fill the cup.
 
-After each change, I tried the game myself. Did the ingredients go in? Could I empty the cup and start again? Could I take a break and pick up where I left off? Everything in this post comes down to one loop:
+After each change, I ran the game myself. I checked that I could add ingredients, empty the cup and start again, and pause and resume.
 
-**Say it → try it → say what you’d change**
+If something goes wrong, describe what happens: “Nothing happens when I tap the button.” “The text is too small on my phone.”
 
-If something doesn’t work along the way, you don’t need to know any code. **Just describe what you see.** “Nothing happens when I tap the button.” “The text is too small on my phone.”
+## Planning your own tool
 
-You don’t have to figure everything out up front. Start with one request, and the screen will tell you what to say next.
-
-## How to write your first request
-
-Think of something you explain over and over, or a checklist you keep on paper. Then describe four things:
+A task you explain repeatedly or a checklist you keep on paper could be a starting point. When writing the first prompt, it helps to outline four things:
 
 **Who** will use it? **When**? **What** should they be able to do? **How** do you want to open it?
 
@@ -108,20 +102,16 @@ For example:
 
 > I need a calculator for splitting a group bill. When I enter the number of people and the total spent, it should show how much each person owes, with a copy button so I can paste the result into our group chat. Please make it a single HTML file.
 
-When the result appears, open it right away. If the text is too small on your phone, say, “Please make the text and buttons bigger.” If you don’t like the colors, say, “Please use calmer colors.”
+### Opening and sharing the file
 
-### How to open and share the file
+If ChatGPT replies with a long block of code, ask, “Please give me a downloadable HTML file.” Double-click the file to open it in your browser. You can make the same request with other AI tools, such as Claude.
 
-If ChatGPT replies with a long block of code, you don’t need to read it. If you can’t see the screen right away, ask, “Please give me a downloadable HTML file.” Double-click the file and it opens in your web browser. You can use the same request with other AI tools, such as Claude.
+The file can be opened in a browser on a computer or phone. You can send it through a messaging app, though apps handle files differently on phones. For a group, it’s often easier to put the file online and share a link.
 
-An HTML file opens on any computer or phone with a web browser. You can send it through a messaging app, but phones open files differently depending on the app. To share with several people, it’s easier to put it online and send a link.
+## The finished file
 
-## Try one request tonight
+You can open the [Café First Day HTML file](/tools/cafe-first-day-en.html) and try it yourself.
 
-You can also download and try the [Café First Day HTML file](/tools/cafe-first-day-en.html) from this post. It started with one short request too, and took less than an hour to finish.
+I’ll keep a record here of the programs I build and the changes I make.
 
-AI can do more than answer questions. It can help you build the small tools you need. An explanation you keep repeating can become a screen people tap through, and a paper checklist can become one they check off with a finger.
-
-I’ll keep sharing how I ask, try things out, and make changes on Everyday Builds. If you’ve read this far, try asking AI for one thing tonight. Start with “I wish I had something that…”
-
-*The three requests for this game are translated from Korean. The first two are lightly edited for readability.*
+*The three prompts for this game are translated from Korean. The first two are lightly edited for readability.*
