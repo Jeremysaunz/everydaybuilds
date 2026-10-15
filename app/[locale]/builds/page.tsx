@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { isLocale, text } from "@/lib/site-config";
-import { posts } from "@/lib/posts";
+import { orderedPosts } from "@/lib/posts";
 import { pageMetadata } from "@/lib/metadata";
 import PostCard from "@/components/post-card";
 import "../../landing.css";
@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: Props) {
 export default async function Builds({ params }: Props) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
-  const published = [...posts].sort((a, b) => b.updatedAt.localeCompare(a.updatedAt));
+  const published = orderedPosts();
   return (
     <main id="main-content" className="container simple-home simple-builds">
       <header className="simple-list-heading">

@@ -13,7 +13,7 @@ export default function PostCard({ post, locale, priority = false }: { post: Pos
   return (
     <article className="journal-card">
       {cover && (
-        <Link className="journal-card-image" href={href} tabIndex={-1} aria-hidden="true">
+        <Link className={`journal-card-image${post.coverFit === "contain" ? " journal-card-image--contain" : ""}`} href={href} tabIndex={-1} aria-hidden="true">
           <Image src={cover.src} alt="" width={cover.width} height={cover.height} sizes="(max-width: 720px) calc(100vw - 40px), 520px" priority={priority} unoptimized />
         </Link>
       )}
@@ -23,7 +23,7 @@ export default function PostCard({ post, locale, priority = false }: { post: Pos
         <p>{copy.summary ?? copy.excerpt}</p>
         <div className="journal-card-actions">
           <Link className="button journal-read" href={href}>{text(locale, "글 읽기", "Read the story")}<ArrowRight size={16} aria-hidden="true" /></Link>
-          {tool.publicUrl && <a className="journal-try" href={tool.publicUrl} target="_blank" rel="noopener noreferrer">{text(locale, "게임 해보기", "Try the game")}<ArrowUpRight size={15} aria-hidden="true" /></a>}
+          {tool.publicUrl && <a className="journal-try" href={tool.publicUrl} target="_blank" rel="noopener noreferrer">{post.toolKind === "tool" ? text(locale, "지도 써보기", "Try the map") : text(locale, "게임 해보기", "Try the game")}<ArrowUpRight size={15} aria-hidden="true" /></a>}
         </div>
       </div>
     </article>

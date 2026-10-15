@@ -2,6 +2,14 @@
 
 한 사람의 필요에서 출발해 AI로 작은 도구를 만들고 확인하는 과정을 한국어와 영어로 기록하는 블로그입니다.
 
+## 로컬 작업 원본
+
+전체 로컬 작업 공간은 상위 `EverydayBuilds/`입니다. 제품 개발·캡처·원고의 편집 원본은 `../products/`에 모으며, 이 `site/`는 블로그 코드와 공개용 복사본을 담습니다. 시작 안내는 상위 `README.md`에 있습니다. `products`는 현재 이 Git 저장소 밖에 있으므로 이 저장소만 복제했을 때 포함되지 않습니다.
+
+카페 게임은 `../products/01-카페-교육게임/app/source/`에서 수정하고 같은 제품의 `app/build.py`로 실행 파일을 생성합니다. 한국어·영어 원고는 `글/ko.md`, `글/en.md`, 캡처는 `이미지/`가 원본입니다. 상위 작업 폴더에서 `python3 scripts/sync-site.py --check`로 차이를 확인하고 `--apply --product 01`로 이곳의 공개용 복사본을 갱신합니다. 제품 폴더의 상대경로 링크를 웹 주소로 자동 변환하며 커밋·푸시·배포는 수행하지 않습니다.
+
+02번 물건찾기지도는 상위 `products/02-물건찾기지도/`가 편집 원본이며, 한국어·영어 두 번째 글로 로컬 반영했습니다. `scripts/sync-site.py --apply --product 02`로 공개용 복사본을 갱신합니다. 사이트 디자인·페이지·메타데이터는 이 `site/`에서 수정합니다.
+
 ## 실행
 
 Node.js 22.13 이상에서 `npm ci`, `npm run dev` 순서로 실행합니다. 실행 안내에 표시된 주소를 엽니다. 첫 화면은 한국어로 연결됩니다. 기본 개발·빌드·실행 명령은 표준 Next.js를 사용합니다.
@@ -15,9 +23,9 @@ Node.js 22.13 이상에서 `npm ci`, `npm run dev` 순서로 실행합니다. �
 
 ## 현재 콘텐츠
 
-첫 실제 제작 글은 **바이브코딩 입문: ChatGPT로 카페 교육 게임 만들기**입니다. /ko/builds/cafe-first-day와 /en/builds/cafe-first-day에서 같은 글을 제공합니다. 제작 완료 수는 1/20이며, 실제 매장에 도입했거나 교육 효과를 측정했다는 의미는 아닙니다.
+첫 실제 제작 글은 **바이브코딩 입문: ChatGPT로 카페 교육 게임 만들기**입니다. /ko/builds/cafe-first-day와 /en/builds/cafe-first-day에서 같은 글을 제공합니다. 두 번째는 **사진으로 찾는 물건 지도를 만들었습니다**로 /ko/builds/where-was-it와 /en/builds/where-was-it에 있습니다. 제작 완료 수는 2/20이며, 실제 매장 도입·가족 사용·교육 효과를 측정했다는 의미는 아닙니다.
 
-기존 기획 예시 세 편은 제거했습니다. 현재 게시글은 카페 교육 게임 한 편이며, 삭제한 예시의 주소는 404를 반환합니다.
+기존 기획 예시 세 편은 제거했습니다. 현재 게시글은 실제 제작 글 두 편이며, 삭제한 예시의 주소는 404를 반환합니다. 같은 수정일이면 이야기 번호가 큰 최신 글을 먼저 표시합니다.
 
 홈은 짧은 소개와 실제 게시글 카드로 구성합니다. `lib/landing-copy.ts`에서 두 언어의 소개를 관리하며, 최신 세 편까지 자동으로 표시합니다. 아이디어 예시, 제작 단계, 별도 운영자 소개, 문의 유도 구간은 홈에서 제거했습니다. 만든 이야기 목록에도 실제 글만 표시합니다.
 
@@ -25,9 +33,9 @@ Node.js 22.13 이상에서 `npm ci`, `npm run dev` 순서로 실행합니다. �
 
 ## 글 추가·수정
 
-실제 제작 글의 본문은 content/posts/글-slug/ko.md와 en.md에 따로 보관합니다. 제목, 요약, 상태 등의 메타데이터는 lib/posts.ts에서 관리하고 각 글의 본문은 Markdown으로 읽습니다. Markdown의 제목·강조·인용·이미지·링크를 본문으로 표시하고 목차를 자동으로 만듭니다. 이미지 주소는 /images/글-slug/파일명으로 작성하고 실제 파일은 public/images/에 둡니다.
+제품 폴더의 `글/ko.md`, `글/en.md`에서 본문을 수정한 뒤 반영 스크립트로 content/posts/글-slug/ko.md와 en.md에 공개용 복사본을 만듭니다. 제목, 요약, 상태 등의 메타데이터는 lib/posts.ts에서 함께 관리하고 각 글의 본문은 Markdown으로 읽습니다. Markdown의 제목·강조·인용·이미지·링크를 본문으로 표시하고 목차를 자동으로 만듭니다. 제품 원고의 이미지 상대경로는 반영 시 /images/글-slug/파일명으로 변환되며 실제 공개 파일은 public/images/에 둡니다.
 
-첫 글은 전달받은 완성 원고를 보존하고 웹용 이미지·파일 링크만 바꾼 복사본입니다. 이후 수정은 한국어와 영어 원고에 함께 반영합니다. 새 이미지의 크기는 components/markdown-article.tsx에 추가할 수 있습니다.
+첫 글의 전달받은 원고와 이전 수정본은 제품의 `_보관`에 보존합니다. 이후 수정은 제품의 한국어와 영어 원고에 함께 반영합니다. 새 이미지의 크기는 components/markdown-article.tsx에 추가할 수 있습니다.
 
 상태 built는 제작 완료를 뜻합니다. 매장에서 실제로 계속 사용하는지 확인되지 않은 첫 글에는 using을 사용하지 않습니다.
 
@@ -68,7 +76,9 @@ Framework Preset은 **Next.js**, Build Command는 `npm run build`, Install Comma
 
 영어판은 `public/images/cafe-first-day/en/`의 `*-v2.png` 번역 이미지 네 장을 사용합니다. 원래 한국어 캡처를 바탕으로 문구를 영어로 옮긴 파생 이미지이며, 영어 글에 이를 표시합니다. 이미지 편집 기준과 프롬프트는 `docs/cafe-english-localization.md`에 보관합니다.
 
-게임 번역은 `content/tools/cafe-first-day.en.json`에서 관리합니다. `python3 scripts/localize-cafe-game.py`로 보관한 한국어 원본과 번역, `scripts/cafe-game-*.js.txt`의 언어 전환·상태 보존 코드를 묶어 두 다국어 HTML을 다시 만듭니다. 재료 동작은 두 언어로 판별하며, 영어 UI 번역이 누락되면 생성이 실패합니다. `node scripts/verify-cafe-game.mjs`로 파일의 독립성, JavaScript 구문과 상태 보존을 검사합니다. 자세한 동작과 확인 범위는 `docs/cafe-bilingual-html.md`를 참고합니다.
+2026-10-15 색상 수정 단계에는 두 언어에서 직접 캡처한 `07-color-home.jpg`, `08-color-cup.jpg`를 추가했습니다. 홈·목록·공유 대표 이미지는 `09-color-cover.jpg`를 사용합니다. 이전 네 장은 당시 제작 과정을 보여 주기 위해 그대로 둡니다.
+
+게임 번역은 `content/tools/cafe-first-day.en.json`에서 관리합니다. `python3 scripts/localize-cafe-game.py`로 보관한 한국어 원본과 번역, `scripts/cafe-game-*.js.txt`의 언어 전환·상태 보존 코드, `scripts/cafe-game-theme.css`의 공통 색상을 묶어 두 다국어 HTML을 다시 만듭니다. 재료 동작은 두 언어로 판별하며, 영어 UI 번역이 누락되면 생성이 실패합니다. `node scripts/verify-cafe-game.mjs`로 파일의 독립성, JavaScript 구문과 상태 보존을 검사합니다. 자세한 동작과 확인 범위는 `docs/cafe-bilingual-html.md`를 참고합니다.
 
 영어 문구는 홈·첫 글·소개·문의·체험 게임과 번역 캡처까지 재검수했습니다. 최신 이미지 경로와 편집 프롬프트는 `docs/english-copy-review.md`에 기록했습니다. 상단 메뉴는 한국어에서 “만든 이야기”, 영어에서 “Journal”로 표시하며 스크롤 중에도 보이도록 고정했습니다.
 

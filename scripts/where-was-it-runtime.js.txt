@@ -1,0 +1,79 @@
+// Both entry points contain both languages and share the existing browser map.
+const mapPresetItems = [
+  ['d1','노트와 수첩','공책, 메모장','맨 위 왼쪽, 세워 둔 책 옆'],
+  ['d2','색연필','연필, 그림 도구','맨 위 왼쪽, 작은 연필꽂이'],
+  ['d3','휴대폰 충전기','케이블, 어댑터, USB','맨 위 오른쪽, 흰색 상자 안'],
+  ['d4','가위와 테이프','문구, 풀','가운데 왼쪽, 초록색 상자 안'],
+  ['d5','구급용품','밴드, 반창고','가운데 오른쪽, 십자가 표시 상자'],
+  ['d6','건전지','배터리, AA, AAA','가운데 오른쪽, 작은 갈색 상자'],
+  ['d7','손수건','수건, 천','맨 아래 왼쪽, 바구니 안'],
+  ['d8','공구','드라이버, 망치','맨 아래 오른쪽, 초록색 공구함'],
+];
+function mapPresetText(value, ko, locale) {
+  const en=mapTranslations[ko];
+  return value===ko||value===en ? (locale==='en'?en:ko) : value;
+}
+function localizeMapPresets(house,locale) {
+  if(!house)return;
+  for(const room of house.rooms){
+    if(room.demo){
+      for(const ko of ['우리 집 수납장','예시 수납장'])room.title=mapPresetText(room.title,ko,locale);
+      for(const item of room.items){
+        const preset=mapPresetItems.find(row=>row[0]===item.id);
+        if(preset)for(const [index,key] of ['name','aliases','note'].entries())item[key]=mapPresetText(item[key],preset[index+1],locale);
+      }
+    }
+    if(!room.photo&&room.id==='bedroom')room.title=mapPresetText(room.title,'안방',locale);
+    if(!room.photo&&room.id==='closet')room.title=mapPresetText(room.title,'옷방',locale);
+  }
+}
+function mapSearchTexts(value){
+  const result=[value];
+  for(const [ko,en] of Object.entries(mapTranslations)){
+    if(value===ko)result.push(en);
+    else if(value===en)result.push(ko);
+  }
+  return result;
+}
+function localizeMapGame(game,house,locale){
+  if(!game)return;
+  for(const entry of [...game.queue,...game.found]){
+    const room=house.rooms.find(r=>r.id===entry.roomId),item=room?.items.find(i=>i.id===entry.id);
+    if(item)entry.name=item.name;
+  }
+  for(const ko of ['사진을 보고 물건이 있는 번호를 눌러 주세요.','찾았다! 잘했어요. 다음 물건도 찾아볼까요?','여기는 아니에요. 천천히 다른 위치를 살펴보세요.','다음 물건은 어디에 있을까요?']){
+    game.feedback=mapPresetText(game.feedback,ko,locale);
+  }
+}
+let activeMap=null,mapController=null,mapMounting=false;
+async function mountMap(locale,restore){
+  mapMounting=true;
+  mapController?.abort();
+  activeMap?.destroy();
+  mapController=new AbortController();
+  document.documentElement.lang=locale;
+  document.title=mapMetadata[locale].title;
+  document.querySelector('#map-app').innerHTML=mapMarkup[locale];
+  document.querySelectorAll('[data-map-language]').forEach(button=>{
+    button.disabled=true;
+    button.setAttribute('aria-pressed',String(button.dataset.mapLanguage===locale));
+    button.addEventListener('click',async()=>{
+      if(mapMounting||button.dataset.mapLanguage===locale)return;
+      mapMounting=true;
+      document.querySelectorAll('[data-map-language]').forEach(b=>b.disabled=true);
+      const snapshot=await activeMap.snapshot();
+      const next=button.dataset.mapLanguage;
+      try{history.replaceState(null,'','#lang='+next)}catch{location.hash='lang='+next}
+      await mountMap(next,snapshot);
+    },{signal:mapController.signal});
+  });
+  activeMap=mapFactories[locale](locale,mapController.signal,restore);
+  try{
+    await activeMap.ready;
+  }finally{
+    mapMounting=false;
+    document.querySelectorAll('[data-map-language]').forEach(button=>button.disabled=false);
+  }
+}
+const hashLocale=new URLSearchParams(location.hash.slice(1)).get('lang');
+mountMap(hashLocale==='ko'||hashLocale==='en'?hashLocale:mapDefaultLocale);

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f5f0e8">
+  <meta name="theme-color" content="#fff8ee">
   <meta name="description" content="A free café training game to practice orders, cups, quantities and drink-making steps. Switch between Korean and English and enter store recipes in one HTML file.">
   <title>Café First Day: café staff training and drink-making game</title>
   <style>
@@ -27,6 +27,129 @@
 @media(prefers-reduced-motion:reduce){.drink-liquid,.ice-piece,.pour-stream,.steam-cloud{animation:none}.pour-stream{display:none}}
 
 .topbar-end{display:flex;align-items:center;gap:20px}.game-language{display:flex;flex:none;gap:3px;padding:4px;background:#e3eadd;border:1px solid #c8d4c4;border-radius:11px}.game-language button{min-height:36px;padding:7px 11px;border:0;border-radius:7px;background:transparent;color:#35513e;font-size:13px;font-weight:750;white-space:nowrap}.game-language button[aria-pressed=true]{background:var(--green);color:#fff}.game-language button:hover{background:#d1decb}.game-language button[aria-pressed=true]:hover{background:#214535}@media(max-width:650px){.topbar{gap:12px;flex-wrap:wrap}.topbar-end{gap:0}.game-language button{min-height:36px;padding:7px 9px;font-size:12px}.brand{font-size:19px;gap:8px}.brand-mark{width:30px;height:30px}.top-note{display:none}}@media print{.game-language{display:none}}
+/* Shared color layer. The archived first version remains untouched. */
+@media screen {
+  :root {
+    color: #2e211b;
+    background: #fff8ee;
+    --ink: #2e211b;
+    --muted: #6d625b;
+    --green: #2850e8;
+    --green2: #e9edff;
+    --paper: #fffefa;
+    --line: #e7d9ca;
+    --peach: #ff6b35;
+    --red: #b82e30;
+    --shadow: 0 12px 32px #432a1310;
+    --cafe-blue: #2850e8;
+    --cafe-orange: #ff783d;
+    --cafe-yellow: #ffdc58;
+  }
+
+  button:focus-visible, input:focus-visible, textarea:focus-visible,
+  select:focus-visible, a:focus-visible { outline: 3px solid #2850e8; outline-offset: 4px; }
+  input[type=checkbox], input[type=radio] { accent-color: var(--cafe-blue); }
+  .topbar { border-color: #d8c4b1; }
+  .brand-mark { background: var(--cafe-orange); color: var(--ink); box-shadow: 3px 3px 0 #2e211b; }
+  .top-note, .side-note, .footer { color: var(--muted); }
+  .navbtn { color: #594b40; }
+  .navbtn:hover { background: #f5e5d4; }
+  .navbtn.active { background: var(--cafe-blue); color: #fff; box-shadow: 0 5px 12px #2850e824; }
+  .side-note { border-color: #dac8b6; }
+  .game-language { background: #fffefa; border-color: #d6c2ad; }
+  .game-language button { color: #58493f; }
+  .game-language button:hover { background: #ffedcc; }
+  .game-language button[aria-pressed=true],
+  .game-language button[aria-pressed=true]:hover { background: var(--cafe-blue); color: #fff; }
+
+  .hero { background: var(--cafe-orange); border: 1px solid #e85d26; box-shadow: none; }
+  .hero h1 { color: #2e211b; }
+  .hero .eyebrow { display: inline-block; background: var(--cafe-yellow); color: #2e211b; border-radius: 5px; padding: 6px 9px; }
+  .hero p { color: #4d291b; }
+  .hero-art { background: radial-gradient(circle at 78% 29%, #ffdc58 0 21%, transparent 21.4%), #2850e8; }
+  .hero-art:after { background: #0d247c55; }
+  .hero-sticker { background: #fff8ee; color: #2346c8; box-shadow: 3px 4px 0 #142b8a; }
+  .hero-caption { color: #fff8ee; }
+  .cup { background: linear-gradient(100deg, #fffefa, #ffe9cb); border-color: #fff8ee; border-top-color: #f2d6ad; box-shadow: 16px 20px 24px #102b8d66; }
+  .cup:before { background: var(--cafe-orange); }
+  .cup:after { color: #2e211b; }
+
+  .primary { background: var(--cafe-blue); border-color: var(--cafe-blue); box-shadow: 0 4px 0 #1936ab; }
+  .primary:hover { background: #1a3dcc; border-color: #1a3dcc; }
+  .secondary { color: #2e211b; border-color: #c4aa8d; background: #fffefa; }
+  .secondary:hover { background: #fff1cc; border-color: #9c7c58; }
+  .quiet { background: #fffefa; border-color: #d9c3ae; color: #594536; }
+  .quiet:hover { background: #fff1d6; }
+  .eyebrow, .overview-num { color: #2548cb; }
+  .path-card { border-color: #cdd5ff; background: #e9edff; }
+  .path-card:hover { border-color: var(--cafe-blue); }
+  .path-card span { color: #2544b5; }
+  .path-card p { color: #4e5270; }
+  .path-card:nth-child(2) { background: #ffdc58; border-color: #ebc33d; }
+  .path-card:nth-child(2) span, .path-card:nth-child(2) p { color: #594112; }
+  .path-card:nth-child(3) { background: #ffdfcd; border-color: #ffac7e; }
+  .path-card:nth-child(3) span, .path-card:nth-child(3) p { color: #793719; }
+  .stat-card { border-top: 3px solid #ffb047; }
+  .stat-card strong { color: #2548cb; }
+  .setup-panel { border-color: #d8c4af; }
+  .mode-option { background: #fffefa; border-color: #d8c4af; }
+  .mode-option:has(input:checked) { background: #edf0ff; border-color: #2850e8; box-shadow: inset 0 0 0 1px #2850e8; }
+  .tag, .round-pill { background: #e9edff; color: #2544b5; }
+  .tag.example { background: #fff0bf; color: #735019; }
+  .resume-strip { background: #e9edff; border-color: #c4ceff; }
+  .resume-strip p { color: #434c7e; }
+  .notice { background: #fff1c6; border-color: #e6c463; color: #6a4516; }
+  .guided { background: #fff2cc; color: #6d491b; border-color: #eed18c; }
+
+  .ticket { background: #fff1c6; border-color: #e5c36c; }
+  .ticket:before { border-color: #d9a83f; }
+  .ticket .ticket-top { color: #7e551a; border-color: #dbbc71; }
+  .ticket h2 { color: #2e211b; }
+  .ticket-tag { background: #ffdd61; color: #56350d; }
+  .ticket-detail { color: #6a4b2a; border-color: #dcbd79; }
+  .station-rail span { background: #f2e7db; color: #675440; }
+  .station-rail .current { background: #2850e8; color: #fff; }
+  .station-rail .done { background: #dceee6; color: #146444; }
+  .progress { background: #e5e9ff; }
+  .progress>span { background: #2850e8; }
+  .choice { background: #fffefa; border-color: #d9c3ae; }
+  .choice:hover:not(:disabled), .choice.selected { background: #edf0ff; border-color: #2850e8; }
+  .choice .choice-no { color: #5a69a4; }
+  .choice.wrong { background: #fff0ec; border-color: #c73b31; }
+  .sequence span { background: #e9edff; color: #2845b3; }
+  .feedback { background: #e4f3e8; color: #176340; }
+  .feedback.neutral { background: #edf0ff; color: #485b94; }
+  .feedback.error { background: #ffebe5; color: #a32c23; }
+  .answer-explanation { background: #e4f3e8; border-color: #8bc4a2; color: #195d3d; }
+  .answer-explanation.incorrect { background: #ffebe5; border-color: #edafa0; color: #a32c23; }
+
+  .drink-station { background: #e9edff; border-color: #bfcaff; }
+  .cup-zone { background: #fff0c2; border: 2px solid #e6c777; }
+  .cup-zone.drag-over { background: #ffe184; border-color: #2850e8; }
+  .live-cup { border-color: #6f7fb4; border-top-color: #52679f; background-color: #ffffffaa; }
+  .cup-shadow { background: #8f67222b; }
+  .cup-lid { border-color: #52679f; background: #e9edff; }
+  .cup-label { color: #523719; }
+  .cup-contents { color: #6b502c; }
+  .drink-status { color: #76582f; }
+  .shelf-head, .shelf-head h3 { color: #243976; }
+  .ingredient-button { background: #fffefa; border-color: #b9c5ef; }
+  .ingredient-button:hover:not(:disabled) { border-color: #2850e8; box-shadow: 0 4px 10px #2850e81a; }
+  .ingredient-button.selected { background: #fff0c2; border-color: #d1ab42; }
+  .ingredient-button:disabled { opacity: .65; }
+  .ingredient-button.wrong { border-color: #c73b31; background: #ffebe5; }
+  .ingredient-swatch { border-color: #7886ad; }
+  .station-note { color: #58668e; }
+  .cup-reset { color: #523719; border-color: #cbaa64; background: #fff9e8; }
+  .station-idle { color: #56669a; }
+  .station-finished { background: #e4f3e8; color: #195d3d; border-color: #99c7aa; }
+  .recipe-card:hover, .recipe-card[aria-pressed=true] { border-color: #2850e8; background: #edf0ff; }
+  .recipe-card .mini { color: #2850c1; }
+  .recipe-steps li:before { background: #e9edff; color: #2845b3; }
+  .summary-grid div { background: #e9edff; }
+  .summary-grid strong { color: #2850c1; }
+  .status-inline { color: #146444; }
+}
 </style>
 <link rel="canonical" href="https://everydaybuilds.blog/tools/cafe-first-day-en.html">
 <link rel="alternate" hreflang="ko" href="https://everydaybuilds.blog/tools/cafe-first-day.html">
@@ -38,7 +161,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Everyday Builds">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://everydaybuilds.blog/images/cafe-first-day/en/06-interactive-cup-v2.png">
+<meta property="og:image" content="https://everydaybuilds.blog/images/cafe-first-day/en/09-color-cover.jpg">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 

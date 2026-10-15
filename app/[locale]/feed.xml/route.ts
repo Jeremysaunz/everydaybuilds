@@ -1,11 +1,11 @@
 import { isLocale, siteConfig } from "@/lib/site-config";
-import { posts } from "@/lib/posts";
+import { orderedPosts } from "@/lib/posts";
 import { landingCopy } from "@/lib/landing-copy";
 const xml = (value: string) => value.replace(/[<>&"']/g, char => ({ "<": "&lt;", ">": "&gt;", "&": "&amp;", '"': "&quot;", "'": "&apos;" })[char]!);
 export async function GET(_request: Request, { params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   if (!isLocale(locale)) return new Response("Not found", { status: 404 });
-  const items = [...posts].sort((a, b) => b.updatedAt.localeCompare(a.updatedAt)).map(post => {
+  const items = orderedPosts().map(post => {
     const url = `${siteConfig.url}/${locale}/builds/${post.slug}`;
     return `<item><title>${xml(post[locale].title)}</title><link>${xml(url)}</link><guid isPermaLink="true">${xml(url)}</guid><description>${xml(post[locale].excerpt)}</description></item>`;
   }).join("");

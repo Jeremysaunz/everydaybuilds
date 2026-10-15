@@ -1,13 +1,22 @@
 """Build two entry points to one self-contained Korean/English game."""
+import argparse
 import json
 from html import escape
 import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-translations = json.loads((ROOT / "content/tools/cafe-first-day.en.json").read_text())
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument("--source-dir", type=Path, help="Folder containing the HTML, translation and runtime source files")
+parser.add_argument("--output-dir", type=Path, help="Folder for the two generated HTML files")
+args = parser.parse_args()
+content_dir = args.source_dir or ROOT / "content/tools"
+script_dir = args.source_dir or ROOT / "scripts"
+output_dir = args.output_dir or ROOT / "public/tools"
+output_dir.mkdir(parents=True, exist_ok=True)
+translations = json.loads((content_dir / "cafe-first-day.en.json").read_text())
 translations["섞기 / 블렌딩"] = "Mix / Blend"
-korean = (ROOT / "content/tools/cafe-first-day.ko.html").read_text()
+korean = (content_dir / "cafe-first-day.ko.html").read_text()
 source = korean
 source = source.replace('lang="ko"', 'lang="en"').replace("ko-KR", "en-US")
 source = source.replace("카페 신입 직원을 위한 주문 및 음료 제조 순서 연습 게임", "Order and drink-making practice for new café staff")
@@ -75,8 +84,9 @@ ko_body, ko_code = split_document(korean)
 en_body, en_code = split_document(english)
 ko_classifier = re.search(r"function stepAction\(label\)\{.*?\n\}", ko_code, re.S).group()
 en_classifier = re.search(r"function stepAction\(label\)\{.*?\n\}", en_code, re.S).group()
-adapter = (ROOT / "scripts/cafe-game-adapter.js.txt").read_text()
-runtime = (ROOT / "scripts/cafe-game-runtime.js.txt").read_text()
+adapter = (script_dir / "cafe-game-adapter.js.txt").read_text()
+runtime = (script_dir / "cafe-game-runtime.js.txt").read_text()
+theme_css = (script_dir / "cafe-game-theme.css").read_text()
 
 
 def game_factory(code, locale):
@@ -117,13 +127,14 @@ payload = "const cafeMarkup=" + json_script({"ko": add_switcher(ko_body), "en": 
 # Searchable initial HTML is replaced by the same game UI for every visitor.
 # Keep metadata here so regeneration preserves search and social links.
 search_copy = {
-    "ko": {"title": "카페 첫날: 카페 신입 교육·음료 제조 연습 게임", "description": "주문 확인, 컵 선택, 계량과 음료 제조 순서를 연습하는 무료 카페 교육 게임. 한국어·영어 전환과 매장 레시피 입력을 지원하는 HTML 파일입니다.", "heading": "카페 첫날 — 카페 신입 교육 게임", "guide": "게임 기능과 사용법", "article": "AI로 이 게임을 만든 이야기", "notice": "게임을 시작하려면 JavaScript를 켜 주세요. 예시 레시피와 컵 그림은 실제 매장 기준을 대신하지 않으며, 매장 도입과 교육 효과는 아직 검증하지 않았어요.", "image": "/images/cafe-first-day/06-interactive-cup.png"},
-    "en": {"title": "Café First Day: café staff training and drink-making game", "description": "A free café training game to practice orders, cups, quantities and drink-making steps. Switch between Korean and English and enter store recipes in one HTML file.", "heading": "Café First Day — café staff training game", "guide": "Game features and instructions", "article": "How I built this game with AI", "notice": "Enable JavaScript to start the game. Example recipes and cup illustrations do not replace store standards. Store adoption and training outcomes have not been verified.", "image": "/images/cafe-first-day/en/06-interactive-cup-v2.png"},
+    "ko": {"title": "카페 첫날: 카페 신입 교육·음료 제조 연습 게임", "description": "주문 확인, 컵 선택, 계량과 음료 제조 순서를 연습하는 무료 카페 교육 게임. 한국어·영어 전환과 매장 레시피 입력을 지원하는 HTML 파일입니다.", "heading": "카페 첫날 — 카페 신입 교육 게임", "guide": "게임 기능과 사용법", "article": "AI로 이 게임을 만든 이야기", "notice": "게임을 시작하려면 JavaScript를 켜 주세요. 예시 레시피와 컵 그림은 실제 매장 기준을 대신하지 않으며, 매장 도입과 교육 효과는 아직 검증하지 않았어요.", "image": "/images/cafe-first-day/09-color-cover.jpg"},
+    "en": {"title": "Café First Day: café staff training and drink-making game", "description": "A free café training game to practice orders, cups, quantities and drink-making steps. Switch between Korean and English and enter store recipes in one HTML file.", "heading": "Café First Day — café staff training game", "guide": "Game features and instructions", "article": "How I built this game with AI", "notice": "Enable JavaScript to start the game. Example recipes and cup illustrations do not replace store standards. Store adoption and training outcomes have not been verified.", "image": "/images/cafe-first-day/en/09-color-cover.jpg"},
 }
 metadata = "const cafeMetadata=" + json_script({locale: {"title": copy["title"], "description": copy["description"]} for locale, copy in search_copy.items()}) + ";\n"
 site_url = "https://everydaybuilds.blog"
 for locale, filename, document in [("ko", "cafe-first-day.html", korean), ("en", "cafe-first-day-en.html", english)]:
-    head = document.split("<body>", 1)[0].replace("</style>", switcher_css + "</style>", 1)
+    head = document.split("<body>", 1)[0].replace("</style>", switcher_css + theme_css + "</style>", 1)
+    head = re.sub(r'<meta name="theme-color" content="[^"]*">', '<meta name="theme-color" content="#fff8ee">', head, count=1)
     copy = search_copy[locale]
     url = site_url + "/tools/" + filename
     head = re.sub(r"<title>.*?</title>", "<title>" + escape(copy["title"]) + "</title>", head, count=1)
@@ -140,5 +151,5 @@ for locale, filename, document in [("ko", "cafe-first-day.html", korean), ("en",
     if "</script" in script.lower():
         raise ValueError("Unsafe embedded script terminator")
     result = head + '<body>\n<div id="cafe-app">' + fallback + '</div>\n<noscript>이 게임을 사용하려면 JavaScript를 켜 주세요. / Enable JavaScript to use this game.</noscript>\n<script>\n' + script + "\n</script>\n</body>\n</html>\n"
-    (ROOT / "public/tools" / filename).write_text(result)
+    (output_dir / filename).write_text(result)
 print("Built two bilingual, offline HTML entry points with", len(translations), "translations")

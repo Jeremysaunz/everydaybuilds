@@ -57,12 +57,12 @@ export default async function PostPage({ params }: Props) {
           {tool.publicUrl && (
             <aside className="article-tool-card" aria-label={text(locale, "이 글에서 만든 도구", "The tool made in this post")}>
               <div>
-                <p className="eyebrow">{text(locale, "이 글에서 만든 게임", "THE GAME")}</p>
+                <p className="eyebrow">{post.toolKind === "tool" ? text(locale, "이 글에서 만든 도구", "THE TOOL") : text(locale, "이 글에서 만든 게임", "THE GAME")}</p>
                 <h2>{post.toolTitle?.[locale] ?? copy.title}</h2>
-                <p>{text(locale, "바로 열어서 해보거나, HTML 파일을 받아 사용해 보세요.", "Play in your browser, or download the HTML file to use offline.")}</p>
+                <p>{text(locale, "바로 열어서 써보거나, HTML 파일을 받아 사용해 보세요.", "Try it in your browser, or download the HTML file to use offline.")}</p>
               </div>
               <div className="article-tool-actions">
-                <a className="button button-dark" href={tool.publicUrl} target="_blank" rel="noopener noreferrer">{text(locale, "게임 직접 해보기", "Try the game")}<ArrowUpRight size={16} aria-hidden="true" /></a>
+                <a className="button button-dark" href={tool.publicUrl} target="_blank" rel="noopener noreferrer">{post.toolKind === "tool" ? text(locale, "물건 지도 열기", "Open the map") : text(locale, "게임 직접 해보기", "Try the game")}<ArrowUpRight size={16} aria-hidden="true" /></a>
                 {post.programId === "cafe-first-day" && <Link className="article-download" href={`/${locale}/tools/cafe-first-day`}>{text(locale, "게임 기능과 사용법", "Game features and instructions")}</Link>}
                 {tool.downloadUrl && <a className="article-download" href={tool.downloadUrl} download={tool.downloadFileName}><Download size={15} aria-hidden="true" />{text(locale, "HTML 파일 받기", "Download HTML")}</a>}
               </div>
@@ -70,7 +70,7 @@ export default async function PostPage({ params }: Props) {
           )}
           <MarkdownArticle markdown={article.markdown} headings={article.headings} />
           {next && <Link className="next-note" href={"/" + locale + "/builds/" + next.slug}>
-            <span className="eyebrow">{text(locale, "다른 이야기", "ANOTHER BUILD NOTE")}</span>
+            <span className="eyebrow">{text(locale, "다른 이야기", "ANOTHER STORY")}</span>
             <strong>{copyFor(next, locale).title}</strong>
           </Link>}
         </article>

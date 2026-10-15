@@ -12,7 +12,7 @@ const tags = (html, tag) => html.match(new RegExp(`<${tag}\\b[^>]*>`, "g")) || [
 const meta = (html, key) => tags(html, "meta").find(tag => attribute(tag, "name") === key || attribute(tag, "property") === key);
 let pages = 0;
 for (const locale of ["ko", "en"]) {
-  for (const path of ["", "/builds", "/about", "/privacy", "/contact", "/builds/cafe-first-day", "/tools/cafe-first-day"]) {
+  for (const path of ["", "/builds", "/about", "/privacy", "/contact", "/builds/cafe-first-day", "/builds/where-was-it", "/tools/cafe-first-day"]) {
     const url = `/${locale}${path}`;
     const html = await response(url);
     assert.equal(attribute(tags(html, "html")[0] || "", "lang"), locale, `${url}: lang`);
@@ -31,7 +31,7 @@ for (const locale of ["ko", "en"]) {
       assert.equal(attribute(meta(html, "og:type"), "content"), "article");
       const article = schemas.find(item => item["@type"] === "BlogPosting");
       assert.equal(article?.url, canonicalBase + url);
-      assert.equal(article?.dateModified, "2026-10-12");
+      assert.equal(article?.dateModified, "2026-10-15");
       assert.ok(schemas.some(item => item["@type"] === "BreadcrumbList"));
     }
     if (path.includes("/tools/")) {
@@ -44,18 +44,36 @@ for (const locale of ["ko", "en"]) {
   }
   const feed = await response(`/${locale}/feed.xml`);
   assert.ok(feed.includes('<rss version="2.0"') && feed.includes(`${canonicalBase}/${locale}/builds/cafe-first-day`));
+  assert.equal((feed.match(/<item>/g) || []).length, 2);
+  assert.ok(feed.indexOf(`/builds/where-was-it`) < feed.indexOf(`/builds/cafe-first-day`), "Newest story leads the feed");
   const gamePath = locale === "ko" ? "/tools/cafe-first-day.html" : "/tools/cafe-first-day-en.html";
   const game = await response(gamePath);
   assert.equal(attribute(tags(game, "link").find(tag => attribute(tag, "rel") === "canonical"), "href"), canonicalBase + gamePath);
   assert.ok(/<div id="cafe-app"><main/.test(game), "Game has readable initial content without JS");
   assert.ok(game.includes(`${canonicalBase}/${locale}/tools/cafe-first-day`));
+  const mapPath = locale === "ko" ? "/tools/where-was-it.html" : "/tools/where-was-it-en.html";
+  const map = await response(mapPath);
+  assert.equal(attribute(tags(map, "link").find(tag => attribute(tag, "rel") === "canonical"), "href"), canonicalBase + mapPath);
+  assert.equal(attribute(tags(map, "html")[0], "lang"), locale);
+  assert.ok(map.includes('<div id="map-app">') && map.includes("data-map-language"));
+  assert.ok(attribute(meta(map, "og:image"), "content").includes("/images/where-was-it/"));
+  const article = await response(`/${locale}/builds/where-was-it`);
+  assert.ok(article.includes(`href="${mapPath}"`), "Article opens the matching-language map");
+  for (const tag of tags(article, "img")) {
+    const src = attribute(tag, "src");
+    if (!src?.startsWith("/images/where-was-it/")) continue;
+    const image = await fetch(base + src);
+    assert.equal(image.status, 200, src);
+    assert.ok(image.headers.get("content-type")?.includes("image/jpeg"), src);
+  }
 }
 const robots = await response("/robots.txt");
 assert.ok(robots.includes("User-Agent: OAI-SearchBot\nAllow: /"));
 assert.ok(robots.includes(`Sitemap: ${canonicalBase}/sitemap.xml`));
 const sitemap = await response("/sitemap.xml");
-assert.equal((sitemap.match(/<url>/g) || []).length, 16);
-assert.ok(sitemap.includes("2026-10-13") && sitemap.includes("2026-10-12"));
+assert.equal((sitemap.match(/<url>/g) || []).length, 20);
+assert.ok(sitemap.includes("/en/builds/where-was-it") && sitemap.includes("/tools/where-was-it-en.html"));
+assert.ok(sitemap.includes("2026-10-13") && sitemap.includes("2026-10-15"));
 const llms = await response("/llms.txt");
 assert.ok(llms.includes("Store adoption and training outcomes have not been verified"));
 for (const path of ["/ko/builds/missing", "/ko/tools/missing", "/fr/feed.xml"]) {

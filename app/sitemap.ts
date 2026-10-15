@@ -14,9 +14,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...(modified ? { lastModified: modified } : {}),
     alternates: { languages: { ko: `${siteConfig.url}/ko${path}`, en: `${siteConfig.url}/en${path}`, "x-default": `${siteConfig.url}/ko${path}` } },
   })));
-  const game = posts.find(post => post.slug === "cafe-first-day")!;
-  return [...localized, ...(["ko", "en"] as const).map(locale => ({
-    url: new URL(toolFor(game, locale).publicUrl!, siteConfig.url).href,
-    alternates: { languages: { ko: new URL(toolFor(game, "ko").publicUrl!, siteConfig.url).href, en: new URL(toolFor(game, "en").publicUrl!, siteConfig.url).href } },
-  }))];
+  const tools = posts.filter(post => post.publicUrl).flatMap(post => (["ko", "en"] as const).map(locale => ({
+    url: new URL(toolFor(post, locale).publicUrl!, siteConfig.url).href,
+    alternates: { languages: { ko: new URL(toolFor(post, "ko").publicUrl!, siteConfig.url).href, en: new URL(toolFor(post, "en").publicUrl!, siteConfig.url).href } },
+  })));
+  return [...localized, ...tools];
 }

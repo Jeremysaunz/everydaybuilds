@@ -13,9 +13,15 @@
 
 ## 원본과 생성
 
+2026-10-15 작업 폴더 통합 이후 편집 원본은 상위 `products/01-카페-교육게임/app/source/`다. 제품의 `app/build.py`로 두 HTML을 만든 뒤 작업 공간 루트의 `scripts/sync-site.py --apply --product 01`로 이 `site`에 반영한다. 아래의 `content/tools`, `scripts`, `public/tools`는 독립적인 블로그 저장소를 위한 공개용 복사본이다. 원고·캡처와 과거 기록도 같은 제품 폴더에 모았다.
+
 전달받은 한국어 원본은 `content/tools/cafe-first-day.ko.html`에 그대로 보존했다. 이 원본과 번역 사전 `content/tools/cafe-first-day.en.json`, 전환 코드 `scripts/cafe-game-*.js.txt`를 읽어 `python3 scripts/localize-cafe-game.py`로 공개 파일 두 개를 생성한다. 공개 HTML을 직접 수정하면 다음 생성 때 덮어써지므로 원본 또는 생성 코드를 수정한다.
 
+2026-10-15 색상 수정은 `scripts/cafe-game-theme.css`에서 관리한다. 생성할 때 두 HTML에 같은 CSS를 넣어 주황색·파란색·노란색을 적용한다. 인쇄 스타일과 기존 저장 데이터는 유지한다. 게시글의 네 번째 프롬프트와 `07-color-home.jpg`, `08-color-cup.jpg`, `09-color-cover.jpg`는 새 화면에 맞췄으며, 영어 이미지는 영어 UI에서 직접 캡처했다.
+
 기존 게시글의 캡처는 당시 화면이다. 새 언어 전환 버튼을 과거 캡처에 추가하지 않았다.
+
+색상 수정 후 별도 로컬 출처에서 아이스 카페라떼 주문 확인 → 컵 → 얼음 → 우유 → 샷 추출·넣기 → 완성·제공을 실행해 100점을 확인했다. 중간에 한국어·영어를 바꿔도 컵과 진행 상태가 유지됐고, CSS 폭 320px에서 가로 넘침이 없었다. 기존 사용자의 연습 기록은 초기화하지 않았다.
 
 ## 확인
 

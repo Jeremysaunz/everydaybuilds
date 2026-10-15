@@ -16,9 +16,9 @@ The finished game is available through **Try the game** at the top of this post.
 
 **AI used** ChatGPT
 
-**Time** Less than an hour of spare time
+**Initial build time** Less than an hour of spare time
 
-**Exchanges** Three or four
+**Exchanges for the first version** Three or four
 
 **Result** A single HTML file that opens in a web browser. No installation or account required.
 
@@ -40,7 +40,7 @@ An HTML file opens in your web browser. There’s nothing to install; you open t
 
 This was the first result.
 
-*The original screenshots were in Korean. The versions below have English text.*
+*The first four screenshots were originally in Korean; the versions shown here have English text. The screenshots in the fourth-prompt section were captured directly from the English game.*
 
 ![The first version of the café training game](/images/cafe-first-day/en/01-first-result-v2.png)
 
@@ -80,6 +80,24 @@ Just pressing buttons felt a bit limited. I thought it would feel more like a ga
 
 Ice piles up in the cup, while milk and espresso appear as layers of different colors. If you get the steps out of order, you can empty the cup and start again. You can now practice by filling the cup yourself.
 
+## The fourth prompt: bolder colors
+
+Once the features were in place, the colors felt a little flat. The cream and pale green were calm, but I wanted the game to have more character.
+
+> The colors feel a bit flat. Can you make them bolder while keeping the café feel? I’d like the buttons and practice area to stand out more, too.
+
+![The Café First Day home screen with an orange and blue design](/images/cafe-first-day/en/07-color-home.jpg)
+
+*Orange and blue are the main colors on the start screen, with yellow accents.*
+
+The background is still light cream. Blue marks the main buttons and selected navigation item, with enough contrast to keep the instructions easy to read.
+
+![Making an iced latte with a yellow cup area and pale blue ingredient area](/images/cafe-first-day/en/08-color-cup.jpg)
+
+*Yellow sets the cup area apart from the pale blue ingredient area. The drink-making steps and controls work the same way.*
+
+A change of color gave the same game a different feel. I checked again that adding ingredients, finishing a drink, and switching between Korean and English still worked.
+
 ## Testing and making changes
 
 The first prompt didn’t include basics questions or an interactive cup. I started with a game for choosing the steps, then added training content and a way to fill the cup.
@@ -114,4 +132,4 @@ You can open the [Café First Day HTML file](/tools/cafe-first-day-en.html) and 
 
 I’ll keep a record here of the programs I build and the changes I make.
 
-*The three prompts for this game are translated from Korean. The first two are lightly edited for readability.*
+*The four prompts for this game are translated from Korean. The first two and the color-change prompt are lightly edited for readability.*
