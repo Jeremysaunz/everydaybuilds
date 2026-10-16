@@ -1,26 +1,16 @@
 # Vibe coding with ChatGPT: building a café training game
 
-Have you used AI for restaurant ideas or help with an email? What about asking it to build a program?
+For a while, I used ChatGPT for exactly what the name suggests: chatting. I asked questions, got answers, then asked a few more. That alone seemed pretty impressive.
 
-For a while, I used ChatGPT for exactly what the name suggests: chatting. That alone seemed pretty impressive.
+Then I asked it to build a program. My first attempt was **a game for new café staff to practice the steps for making drinks**.
 
-Then I started asking it to build the small programs I’d often wished I had.
+I described what I wanted, clicked through the result, and asked for changes. Somehow, a conversation in a chat window ended with me pouring milk into a cup. An on-screen cup, to be clear.
 
-My first build was **a game for new café staff to practice the steps for making drinks**. I described what I wanted, tried the result, and asked for changes.
-
-That’s **vibe coding**: you describe what you want, and AI writes the code.
+This is called **vibe coding**: describing what you want and having AI write the code. Here’s how my first attempt with ChatGPT went.
 
 The finished game is available through **Try the game** at the top of this post.
 
-### Tools and time
-
-**AI used** ChatGPT
-
-**Initial build time** Less than an hour of spare time
-
-**Exchanges for the first version** Three or four
-
-**Result** A single HTML file that opens in a web browser. No installation or account required.
+I made the first version with ChatGPT in less than an hour of spare time, over three or four exchanges. The result was one HTML file that opens in a browser, with no installation or account needed.
 
 ## An idea at a café I often visited
 
@@ -28,15 +18,15 @@ I was at a café I often visited when the idea came to me.
 
 When new staff join a café, they have to learn the steps for each drink: read the order, choose the cup, and remember which ingredient goes in first. I thought a game could help them practice that sequence.
 
-The same idea could apply to getting ready for school, learning to use a phone, or training a new coworker. Each involves **a sequence of steps to learn**.
+A game just for practicing that sequence seemed small enough to start with.
 
-## The first prompt:
+## The first prompt: a café training game
 
 My first prompt was along these lines:
 
 > I want to make a game that lets new café staff practice the steps for making drinks. Please make it a single HTML file that I can open and use.
 
-An HTML file opens in your web browser. There’s nothing to install; you open the file and it runs.
+An HTML file opens in a web browser. This game has everything it needs in one file, so there’s nothing else to install.
 
 This was the first result.
 
@@ -46,11 +36,11 @@ This was the first result.
 
 *The first screen: read an order, choose a cup, and pick the steps to make a drink.*
 
-The game worked. I was less sure whether it covered enough to be useful for training new staff.
+The game worked. There was an order slip and a cup. Whether that added up to useful staff training was another question.
 
 ## The second prompt: adding training content
 
-I don’t know much about training café staff. I asked ChatGPT to check whether the game was missing anything and whether new users might get stuck.
+Having a café game didn’t make me an expert in café training. I asked ChatGPT to check whether the game was missing anything and whether new users might get stuck.
 
 > Please check whether the training is missing anything a new staff member would need. Make the game easier to use and improve the design too.
 
@@ -60,7 +50,7 @@ I don’t know much about training café staff. I asked ChatGPT to check whether
 
 You could now choose which drinks to practice, follow the guidance, or try it from memory. The game also covered checking orders, keeping things clean, and handling mistakes—topics I hadn’t included in the first request.
 
-A trainer would need to check the content before using it at a café.
+I haven’t used it to train staff in a real café. A trainer would need to check the content first.
 
 ## The third prompt: adding ingredients to a cup
 
@@ -70,7 +60,7 @@ Up to this point, you practiced by pressing buttons labeled with the steps for m
 
 *You picked what to do next from a set of written options.*
 
-Just pressing buttons felt a bit limited. I thought it would feel more like a game if you could see ice and milk going into the cup. So I sent another request.
+Picking the next step worked, but with a cup right there on screen, I wanted to put something in it. Seeing the ice and milk go in would make it feel more like a game.
 
 > It would feel more like a game if you could put ice, milk, and espresso directly into a cup and see the drink being made. Please make it work that way too.
 
@@ -78,7 +68,7 @@ Just pressing buttons felt a bit limited. I thought it would feel more like a ga
 
 *Click an ingredient or drag it into the cup to make the drink. The cup is an illustration of the process; follow the café’s recipe for real amounts.*
 
-Ice piles up in the cup, while milk and espresso appear as layers of different colors. If you get the steps out of order, you can empty the cup and start again. You can now practice by filling the cup yourself.
+Ice piles up in the cup, while milk and espresso appear as layers of different colors. If you get the steps out of order, you can empty the cup and start again. It was getting closer to the game I’d had in mind.
 
 ## The fourth prompt: bolder colors
 
@@ -90,46 +80,36 @@ Once the features were in place, the colors felt a little flat. The cream and pa
 
 *Orange and blue are the main colors on the start screen, with yellow accents.*
 
-The background is still light cream. Blue marks the main buttons and selected navigation item, with enough contrast to keep the instructions easy to read.
+The cream background stayed, while the main buttons and selected navigation item turned blue. A few different colors made the same game feel quite different.
 
 ![Making an iced latte with a yellow cup area and pale blue ingredient area](/images/cafe-first-day/en/08-color-cup.jpg)
 
 *Yellow sets the cup area apart from the pale blue ingredient area. The drink-making steps and controls work the same way.*
 
-A change of color gave the same game a different feel. I checked again that adding ingredients, finishing a drink, and switching between Korean and English still worked.
+I checked again that adding ingredients, finishing a drink, and switching between Korean and English still worked. Prettier buttons wouldn’t help much if I couldn’t get the milk into the cup.
 
-## Testing and making changes
+## Trying the game after each change
 
 The first prompt didn’t include basics questions or an interactive cup. I started with a game for choosing the steps, then added training content and a way to fill the cup.
 
 After each change, I ran the game myself. I checked that I could add ingredients, empty the cup and start again, and pause and resume.
 
-If something goes wrong, describe what happens: “Nothing happens when I tap the button.” “The text is too small on my phone.”
+Trying the game helped me work out what to ask for next. I couldn’t think of every feature at the start, but clicking through the result gave me more specific ideas.
 
-## Planning your own tool
+## Sharing the game as an HTML file
 
-A task you explain repeatedly or a checklist you keep on paper could be a starting point. When writing the first prompt, it helps to outline four things:
+This also made me want to get more comfortable with HTML. Sending someone a piece of text is useful, but an HTML file can give them a screen they can actually click through. I could see this working for instructions or checklists as well as games.
 
-**Who** will use it? **When**? **What** should they be able to do? **How** do you want to open it?
+If ChatGPT replies with a long block of code, I can ask, “Please give me a downloadable HTML file.” On a computer, double-clicking that file opens it in a browser.
 
-For example:
+It can open in a phone’s browser too, though messaging apps handle received files differently. I can send the file itself, or put it online, as I’ve done on this blog, and share the link in a message or social post. A link seems simpler when several people want to try it.
 
-> I want to make a packing checklist my family can use together before a trip. We should be able to add items and check them off as we pack. Please make it an HTML file I can open in my phone’s browser.
-
-> I want a checklist that helps my elementary-school child get ready for school on their own. When they tap brushing teeth, getting dressed, and packing their bag, a little message of praise should appear. Please use big buttons that are easy for a child to tap, and make it an HTML file that opens in a browser.
-
-> I need a calculator for splitting a group bill. When I enter the number of people and the total spent, it should show how much each person owes, with a copy button so I can paste the result into our group chat. Please make it a single HTML file.
-
-### Opening and sharing the file
-
-If ChatGPT replies with a long block of code, ask, “Please give me a downloadable HTML file.” Double-click the file to open it in your browser. You can make the same request with other AI tools, such as Claude.
-
-The file can be opened in a browser on a computer or phone. You can send it through a messaging app, though apps handle files differently on phones. For a group, it’s often easier to put the file online and share a link.
-
-## The finished file
+## The game I ended up with
 
 You can open the [Café First Day HTML file](/tools/cafe-first-day-en.html) and try it yourself.
 
-I’ll keep a record here of the programs I build and the changes I make.
+I started by asking for a game about drink-making steps and ended up filling cups and changing colors. I’m beginning to see that I don’t need to describe everything perfectly at the start. I can try what comes back and ask again.
+
+I’ll keep writing about what I make and change. I’m still finding out what I can get AI to do, one small project at a time.
 
 *The four prompts for this game are translated from Korean. The first two and the color-change prompt are lightly edited for readability.*

@@ -31,7 +31,7 @@ for (const locale of ["ko", "en"]) {
       assert.equal(attribute(meta(html, "og:type"), "content"), "article");
       const article = schemas.find(item => item["@type"] === "BlogPosting");
       assert.equal(article?.url, canonicalBase + url);
-      assert.equal(article?.dateModified, "2026-10-15");
+      assert.equal(article?.dateModified, "2026-10-16");
       assert.ok(schemas.some(item => item["@type"] === "BreadcrumbList"));
     }
     if (path.includes("/tools/")) {
@@ -73,7 +73,7 @@ assert.ok(robots.includes(`Sitemap: ${canonicalBase}/sitemap.xml`));
 const sitemap = await response("/sitemap.xml");
 assert.equal((sitemap.match(/<url>/g) || []).length, 20);
 assert.ok(sitemap.includes("/en/builds/where-was-it") && sitemap.includes("/tools/where-was-it-en.html"));
-assert.ok(sitemap.includes("2026-10-13") && sitemap.includes("2026-10-15"));
+assert.ok(sitemap.includes("2026-10-13") && sitemap.includes("2026-10-16"));
 const llms = await response("/llms.txt");
 assert.ok(llms.includes("Store adoption and training outcomes have not been verified"));
 for (const path of ["/ko/builds/missing", "/ko/tools/missing", "/fr/feed.xml"]) {
