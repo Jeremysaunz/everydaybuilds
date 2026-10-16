@@ -87,17 +87,17 @@ export const posts: Post[] = [{
     en: { src: "/images/ireonna-build-log/en/03-cover.jpg", width: 1280, height: 720, alt: "English reading copies of Ireonna’s early Korean home screen and example conversation card" },
   },
   ko: {
-    title: "이런나 개발기 01: 내 콘텐츠로 앱을 만들기 시작했습니다",
+    title: "이런나 개발기 01: AI와 기질 테스트 앱을 만들기 시작했습니다",
     seoTitle: "앱인토스 개발기: Codex로 시작한 기질 테스트 앱 이런나",
-    excerpt: "이번에는 가지고 있던 기질 테스트와 강의 자료를 앱으로 옮겨 보기로 했습니다. Codex에 기획 문서를 건네고, 나온 화면을 눌러 보며 설명과 문장을 다시 살펴본 이런나 개발기 첫 편입니다.",
-    summary: "기질 테스트와 강의 자료를 Codex에 건넸습니다. 초기 화면을 눌러 보며, 제가 붙인 기질 이름과 대화 문장도 다시 읽었습니다.",
+    excerpt: "앱인토스가 뭔지 몰라 AI에게 물어봤습니다. 가이드 링크를 보내고 뭘 만들면 좋을지 의논하다가, 기질 테스트 앱의 첫 화면까지 만들었습니다.",
+    summary: "앱인토스가 뭔지도 몰랐습니다. AI에게 가이드 링크를 보내고 뭘 만들면 좋을지 물어보다가, 기질 테스트 앱을 만들기 시작했습니다.",
     category: "앱 개발",
   },
   en: {
-    title: "Ireonna build diary 01: turning my own content into an app",
+    title: "Ireonna build diary 01: starting a temperament test app with AI",
     seoTitle: "Building an app for Apps in Toss with Codex: Ireonna 01",
-    excerpt: "This time, I used my existing temperament test and class materials to plan an app for Apps in Toss. Here’s what happened when I gave Codex the plan, tried the screens, and read my own wording again.",
-    summary: "I gave Codex a plan based on my own materials, then tried the screens it made. I ended up revisiting my own wording, too.",
+    excerpt: "I didn’t know what Apps in Toss was, so I asked AI. I sent it the guide, talked through what I could make, and ended up trying the first screens of a temperament test app.",
+    summary: "I didn’t even know what Apps in Toss was. I sent AI the guide, asked what I could make, and started building a temperament test app.",
     category: "Building an app",
   },
 }];
