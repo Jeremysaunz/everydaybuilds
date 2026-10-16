@@ -5,7 +5,7 @@ export function siteGraph(locale: Locale) {
     "@context": "https://schema.org",
     "@graph": [
       { "@type": "WebSite", "@id": `${siteConfig.url}/#website`, name: siteConfig.name, url: siteConfig.url, inLanguage: ["ko", "en"], publisher: { "@id": `${siteConfig.url}/#author` } },
-      { "@type": "Person", "@id": `${siteConfig.url}/#author`, name: siteConfig.owner, url: `${siteConfig.url}/${locale}/about` },
+      { "@type": "Person", "@id": `${siteConfig.url}/#author`, name: siteConfig.owner[locale], alternateName: siteConfig.owner[locale === "ko" ? "en" : "ko"], url: `${siteConfig.url}/${locale}/about` },
     ],
   };
 }

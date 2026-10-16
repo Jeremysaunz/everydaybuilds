@@ -49,7 +49,7 @@ export default async function PostPage({ params }: Props) {
         <h1>{copy.title}</h1>
         <p className="article-lead">{copy.excerpt}</p>
         <div className="article-meta">
-          <Link href={`/${locale}/about`}>Jeremy</Link><span>{text(locale, "수정", "Updated")} <time dateTime={post.updatedAt}>{post.updatedAt.replaceAll("-", ".")}</time></span><span>{text(locale, "한국어 · English", "English · 한국어")}</span>
+          <Link href={`/${locale}/about`}>{siteConfig.owner[locale]}</Link><span>{text(locale, "수정", "Updated")} <time dateTime={post.updatedAt}>{post.updatedAt.replaceAll("-", ".")}</time></span><span>{text(locale, "한국어 · English", "English · 한국어")}</span>
         </div>
       </header>
       <div className="article-grid">

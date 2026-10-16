@@ -38,7 +38,7 @@ export default async function ToolGuide({ params }: Props) {
     <header className="article-header">
       <p className="eyebrow">{text(locale, "직접 써보는 작은 도구", "A SMALL TOOL TO TRY")}</p>
       <h1>{copy.title}</h1><p className="article-lead">{copy.intro}</p>
-      <div className="article-meta"><Link href={`/${locale}/about`}>Jeremy</Link><span>{text(locale, "안내 수정", "Guide updated")} <time dateTime={cafeGuideUpdatedAt}>{cafeGuideUpdatedAt}</time></span></div>
+      <div className="article-meta"><Link href={`/${locale}/about`}>{siteConfig.owner[locale]}</Link><span>{text(locale, "안내 수정", "Guide updated")} <time dateTime={cafeGuideUpdatedAt}>{cafeGuideUpdatedAt}</time></span></div>
     </header>
     <div className="tool-guide-actions"><a className="button button-dark" href={tool.publicUrl}>{text(locale, "게임 시작하기", "Start the game")}</a><a className="article-download" href={tool.downloadUrl} download={tool.downloadFileName}>{text(locale, "HTML 파일 내려받기", "Download the HTML file")}</a></div>
     <div className="markdown-article">

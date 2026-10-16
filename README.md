@@ -52,7 +52,7 @@ Node.js 22.13 이상에서 `npm ci`, `npm run dev` 순서로 실행합니다. �
 
 ## 운영 정보
 
-`lib/site-config.ts`에서 운영자와 `contactEmail`을 관리합니다. 사이트 주소는 `NEXT_PUBLIC_SITE_URL` 환경 변수를 우선 사용하고, 없으면 `https://everydaybuilds.blog`를 사용합니다. 이 주소가 검색용 대표 주소(canonical), 언어별 주소, 사이트맵, robots.txt에 함께 반영됩니다. `everydaybuilds.vercel.app`과 `www.everydaybuilds.blog`로 들어온 방문은 `next.config.ts`에서 같은 경로의 `everydaybuilds.blog`로 영구 이동시킵니다.
+`lib/site-config.ts`에서 운영자와 `contactEmail`을 관리합니다. 운영자 이름은 한국어 **이러케**, 영어 **Ireoke**로 표시하며 소개 페이지, 글 작성자, 하단, 검색용 작성자 정보에 같은 설정을 사용합니다. 소개 카드의 캐릭터는 `public/images/author/ireoke.webp`이며, 상위 `marketing/instagram/2026-10-16-ireokego-profile-final/ireokego-profile.png`에서 웹용으로 줄인 사본입니다. 공통 푸터에는 소개·RSS·문의·개인정보 링크를 두고, 개별 도구 링크는 글과 도구 안내에서 제공합니다. 사이트 주소는 `NEXT_PUBLIC_SITE_URL` 환경 변수를 우선 사용하고, 없으면 `https://everydaybuilds.blog`를 사용합니다. 이 주소가 검색용 대표 주소(canonical), 언어별 주소, 사이트맵, robots.txt에 함께 반영됩니다. `everydaybuilds.vercel.app`과 `www.everydaybuilds.blog`로 들어온 방문은 `next.config.ts`에서 같은 경로의 `everydaybuilds.blog`로 영구 이동시킵니다.
 
 문의 이메일은 `actslim@gmail.com`입니다. 이 값이 있으면 하단 문의 링크, 문의 페이지, 개인정보 안내의 연락처가 함께 표시되고, 비우면 함께 숨겨집니다. 이메일 링크는 방문자의 이메일 앱을 여는 방식이며 전송을 대신하지 않습니다.
 

@@ -8,6 +8,7 @@ export function pageMetadata(locale: Locale, path: string, title: string, descri
   const images = cover ? [{ url: `${siteConfig.url}${cover.src}`, width: cover.width, height: cover.height, alt: cover.alt }] : undefined;
   return {
     title, description,
+    authors: [{ name: siteConfig.owner[locale], url: `${siteConfig.url}/${locale}/about` }],
     robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 } },
     alternates: {
       canonical: url,

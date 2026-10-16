@@ -4,7 +4,7 @@ export const siteConfig = {
   name: "Everyday Builds",
   url: siteUrl.replace(/\/+$/, ""),
   contactEmail: "actslim@gmail.com",
-  owner: "Jeremy",
+  owner: { ko: "이러케", en: "Ireoke" },
 };
 export type Locale = "ko" | "en";
 export function isLocale(value: string): value is Locale { return value === "ko" || value === "en"; }
