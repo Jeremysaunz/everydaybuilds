@@ -87,14 +87,14 @@ export const posts: Post[] = [{
     en: { src: "/images/ireonna-build-log/en/03-cover.jpg", width: 1280, height: 720, alt: "English reading copies of Ireonna’s early Korean home screen and example conversation card" },
   },
   ko: {
-    title: "이런나 개발기 01: AI와 기질 테스트 앱을 만들기 시작했습니다",
+    title: "기질 테스트 앱 ‘이런나’ 개발기 01: AI에게 물어보며 시작했습니다",
     seoTitle: "앱인토스 개발기: Codex로 시작한 기질 테스트 앱 이런나",
     excerpt: "앱인토스가 뭔지 몰라 AI에게 물어봤습니다. 가이드 링크를 보내고 뭘 만들면 좋을지 의논하다가, 기질 테스트 앱의 첫 화면까지 만들었습니다.",
     summary: "앱인토스가 뭔지도 몰랐습니다. AI에게 가이드 링크를 보내고 뭘 만들면 좋을지 물어보다가, 기질 테스트 앱을 만들기 시작했습니다.",
     category: "앱 개발",
   },
   en: {
-    title: "Ireonna build diary 01: starting a temperament test app with AI",
+    title: "Ireonna, a temperament test app: building with AI (part 01)",
     seoTitle: "Building an app for Apps in Toss with Codex: Ireonna 01",
     excerpt: "I didn’t know what Apps in Toss was, so I asked AI. I sent it the guide, talked through what I could make, and ended up trying the first screens of a temperament test app.",
     summary: "I didn’t even know what Apps in Toss was. I sent AI the guide, asked what I could make, and started building a temperament test app.",

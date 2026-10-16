@@ -1,4 +1,4 @@
-# Ireonna build diary 01: starting a temperament test app with AI
+# Ireonna, a temperament test app: building with AI (part 01)
 
 **Development: 15 October 2026 · Written: 16 October 2026**
 
