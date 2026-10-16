@@ -4,7 +4,7 @@ import { ArrowUpRight, Download } from "lucide-react";
 import JsonLd from "@/components/json-ld";
 import { breadcrumbs } from "@/lib/structured-data";
 import { isLocale, text, siteConfig } from "@/lib/site-config";
-import { getPost, copyFor, toolFor, posts } from "@/lib/posts";
+import { getPost, copyFor, toolFor, posts, statusLabel } from "@/lib/posts";
 import { pageMetadata } from "@/lib/metadata";
 import { readArticleContent } from "@/lib/article-content";
 import MarkdownArticle from "@/components/markdown-article";
@@ -50,6 +50,7 @@ export default async function PostPage({ params }: Props) {
         <p className="article-lead">{copy.excerpt}</p>
         <div className="article-meta">
           <Link href={`/${locale}/about`}>{siteConfig.owner[locale]}</Link><span>{text(locale, "수정", "Updated")} <time dateTime={post.updatedAt}>{post.updatedAt.replaceAll("-", ".")}</time></span><span>{text(locale, "한국어 · English", "English · 한국어")}</span>
+          {post.status === "building" && <span>{statusLabel(post.status, locale)}</span>}
         </div>
       </header>
       <div className="article-grid">

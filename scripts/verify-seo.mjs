@@ -12,7 +12,7 @@ const tags = (html, tag) => html.match(new RegExp(`<${tag}\\b[^>]*>`, "g")) || [
 const meta = (html, key) => tags(html, "meta").find(tag => attribute(tag, "name") === key || attribute(tag, "property") === key);
 let pages = 0;
 for (const locale of ["ko", "en"]) {
-  for (const path of ["", "/builds", "/about", "/privacy", "/contact", "/builds/cafe-first-day", "/builds/where-was-it", "/tools/cafe-first-day"]) {
+  for (const path of ["", "/builds", "/about", "/privacy", "/contact", "/builds/cafe-first-day", "/builds/where-was-it", "/builds/ireonna-build-log", "/tools/cafe-first-day"]) {
     const url = `/${locale}${path}`;
     const html = await response(url);
     assert.equal(attribute(tags(html, "html")[0] || "", "lang"), locale, `${url}: lang`);
@@ -44,7 +44,8 @@ for (const locale of ["ko", "en"]) {
   }
   const feed = await response(`/${locale}/feed.xml`);
   assert.ok(feed.includes('<rss version="2.0"') && feed.includes(`${canonicalBase}/${locale}/builds/cafe-first-day`));
-  assert.equal((feed.match(/<item>/g) || []).length, 2);
+  assert.equal((feed.match(/<item>/g) || []).length, 3);
+  assert.ok(feed.indexOf(`/builds/ireonna-build-log`) < feed.indexOf(`/builds/where-was-it`), "Ireonna part 1 leads the feed");
   assert.ok(feed.indexOf(`/builds/where-was-it`) < feed.indexOf(`/builds/cafe-first-day`), "Newest story leads the feed");
   const gamePath = locale === "ko" ? "/tools/cafe-first-day.html" : "/tools/cafe-first-day-en.html";
   const game = await response(gamePath);
@@ -66,13 +67,32 @@ for (const locale of ["ko", "en"]) {
     assert.equal(image.status, 200, src);
     assert.ok(image.headers.get("content-type")?.includes("image/jpeg"), src);
   }
+  const ireonna = await response(`/${locale}/builds/ireonna-build-log`);
+  assert.ok(ireonna.includes(locale === "ko" ? "이야기" : "STORY") && ireonna.includes("03"));
+  assert.ok(ireonna.includes(locale === "ko" ? "개발 중" : "In development"));
+  assert.ok(!ireonna.includes('class="article-tool-card"'), "Unreleased app has no demo or download card");
+  assert.ok(!ireonna.includes("02-기질이름과설명") && !ireonna.includes("발행 전 초안"), "Draft part 2 has no public link");
+  assert.ok(!ireonna.includes("/Users/"), "No local workspace paths in the public page");
+  if (locale === "en") assert.ok(ireonna.includes("English reading copy"), "Translated images are identified");
+  const ireonnaImages = tags(ireonna, "img").filter(tag => attribute(tag, "src")?.startsWith("/images/ireonna-build-log/"));
+  assert.equal(ireonnaImages.length, 2, "Part 1 has its two article images");
+  for (const tag of ireonnaImages) {
+    const src = attribute(tag, "src");
+    assert.equal(src.includes("/en/"), locale === "en", "Article uses matching-language images");
+    const image = await fetch(base + src);
+    assert.equal(image.status, 200, src);
+    assert.ok(image.headers.get("content-type")?.includes(src.endsWith(".png") ? "image/png" : "image/jpeg"), src);
+  }
+  const home = await response(`/${locale}`);
+  assert.ok(home.indexOf('/builds/ireonna-build-log') < home.indexOf('/builds/where-was-it'), "Third story leads the home page");
 }
 const robots = await response("/robots.txt");
 assert.ok(robots.includes("User-Agent: OAI-SearchBot\nAllow: /"));
 assert.ok(robots.includes(`Sitemap: ${canonicalBase}/sitemap.xml`));
 const sitemap = await response("/sitemap.xml");
-assert.equal((sitemap.match(/<url>/g) || []).length, 20);
+assert.equal((sitemap.match(/<url>/g) || []).length, 22);
 assert.ok(sitemap.includes("/en/builds/where-was-it") && sitemap.includes("/tools/where-was-it-en.html"));
+assert.ok(sitemap.includes("/ko/builds/ireonna-build-log") && sitemap.includes("/en/builds/ireonna-build-log"));
 assert.ok(sitemap.includes("2026-10-13") && sitemap.includes("2026-10-16"));
 const llms = await response("/llms.txt");
 assert.ok(llms.includes("Store adoption and training outcomes have not been verified"));

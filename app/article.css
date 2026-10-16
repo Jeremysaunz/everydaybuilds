@@ -21,6 +21,8 @@
 .markdown-article p:has(.article-image-link) { margin-top: 27px; }
 .article-image-link { display: block; border: 1px solid #e3e6df; border-radius: 4px; overflow: hidden; }
 .article-image-link img { display: block; width: 100%; height: auto; }
+.article-image-link--portrait { max-width: 360px; margin-inline: auto; }
+.table-of-contents a { word-break: keep-all; }
 .markdown-article > p:has(> em:only-child) { font-size: 14px; line-height: 1.85; margin-top: 10px; color: #687361; }
 .markdown-article > p:has(.article-image-link) + p:has(> em:only-child) { text-align: center; padding-inline: 8px; }
 @media (max-width: 720px) {

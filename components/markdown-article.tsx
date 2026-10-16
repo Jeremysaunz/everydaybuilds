@@ -21,15 +21,20 @@ const imageSizes: Record<string, { width: number; height: number }> = {
   "/images/where-was-it/en/01-first-map.jpg": { width: 1280, height: 1229 },
   "/images/where-was-it/en/02-rooms-and-search.jpg": { width: 1280, height: 1541 },
   "/images/where-was-it/en/03-finding-game.jpg": { width: 1280, height: 1781 },
+  "/images/ireonna-build-log/2026-10-15_01_home-initial.jpg": { width: 360, height: 780 },
+  "/images/ireonna-build-log/2026-10-15_02_conversation-card.png": { width: 1280, height: 1108 },
+  "/images/ireonna-build-log/en/01-home-reading.jpg": { width: 440, height: 1022 },
+  "/images/ireonna-build-log/en/02-conversation-card-reading.jpg": { width: 1280, height: 1108 },
 };
 
 const sharedComponents: Components = {
   img({ src, alt }) {
     if (typeof src !== "string" || !src.startsWith("/images/")) return null;
     const size = imageSizes[src] ?? { width: 1280, height: 800 };
+    const portrait = size.height > size.width * 1.6;
     return (
-      <a href={src} target="_blank" rel="noopener noreferrer" className="article-image-link">
-        <Image src={src} alt={alt ?? ""} {...size} sizes="(max-width: 720px) 100vw, 780px" unoptimized />
+      <a href={src} target="_blank" rel="noopener noreferrer" className={`article-image-link${portrait ? " article-image-link--portrait" : ""}`}>
+        <Image src={src} alt={alt ?? ""} {...size} sizes={portrait ? "(max-width: 400px) calc(100vw - 48px), 360px" : "(max-width: 720px) 100vw, 780px"} unoptimized />
       </a>
     );
   },
