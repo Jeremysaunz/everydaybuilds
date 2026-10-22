@@ -124,6 +124,29 @@ export const posts: Post[] = [{
     summary: "Adding a label led to another question. How revising temperament descriptions made the conversation idea more specific.",
     category: "Building an app",
   },
+}, {
+  slug: "ireonna-build-log-03", programId: "ireonna", number: "05",
+  kind: "experience", status: "building", completed: false,
+  updatedAt: "2026-10-22", coverFit: "contain",
+  tools: ["Codex", "Apps in Toss"],
+  cover: {
+    ko: { src: "/images/ireonna-build-log-03/2026-10-21_home-after.jpg", width: 390, height: 844, alt: "카드 미리보기를 먼저 보여주는 이런나의 변경 후 홈" },
+    en: { src: "/images/ireonna-build-log-03/2026-10-21_home-after.jpg", width: 390, height: 844, alt: "Original Korean Ireonna home screen with result card previews" },
+  },
+  ko: {
+    title: "기질 테스트 앱 ‘이런나’ 개발기 03: 예쁘게 만들고 나서, 직접 눌러봤습니다",
+    seoTitle: "이런나 개발기 03: 디자인을 고치다 문구와 모바일 화면을 다시 봤습니다",
+    excerpt: "첫 화면과 결과 카드를 예쁘게 만들고 싶었습니다. 직접 읽고 눌러보니 뜻이 모호한 문구와 화면 밖의 다음 버튼이 보였습니다. 실제 전후 캡처로 남긴 수정 이야기입니다.",
+    summary: "예쁜 카드를 만들다가 문구를 해석하고, 휴대폰에서는 다음 버튼을 찾았습니다. 직접 써보니 다음에 고칠 곳이 보였습니다.",
+    category: "앱 개발",
+  },
+  en: {
+    title: "Ireonna, a temperament test app (part 03): I made it look better. Then I tried it.",
+    seoTitle: "Ireonna part 03: Improving the design, then the wording and mobile flow",
+    excerpt: "I wanted a better-looking home screen and result cards. Trying them revealed unclear wording and a Next button below the screen. Six real before-and-after captures show what changed.",
+    summary: "I had to interpret my own card and look for Next on my phone. Trying the app made the next changes more specific.",
+    category: "Building an app",
+  },
 }];
 
 export const getPost = (slug: string) => posts.find((post) => post.slug === slug);

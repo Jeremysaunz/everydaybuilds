@@ -3,6 +3,12 @@ import Markdown, { type Components } from "react-markdown";
 import type { ArticleHeading } from "@/lib/article-content";
 
 const imageSizes: Record<string, { width: number; height: number }> = {
+  "/images/ireonna-build-log-03/2026-10-15_home-before.jpg": { width: 360, height: 780 },
+  "/images/ireonna-build-log-03/2026-10-21_home-after.jpg": { width: 390, height: 844 },
+  "/images/ireonna-build-log-03/2026-10-17_card-before.jpg": { width: 510, height: 695 },
+  "/images/ireonna-build-log-03/2026-10-17_card-after.jpg": { width: 511, height: 695 },
+  "/images/ireonna-build-log-03/2026-10-21_quiz-before.jpg": { width: 390, height: 700 },
+  "/images/ireonna-build-log-03/2026-10-21_quiz-after.jpg": { width: 390, height: 700 },
   "/images/ireonna-build-log-02/2026-10-15_10_result-after-names.jpg": { width: 582, height: 695 },
   "/images/ireonna-build-log-02/2026-10-15_12_combination-daily-examples.jpg": { width: 582, height: 695 },
   "/images/ireonna-build-log-02/2026-10-15_06_work-reply.jpg": { width: 390, height: 844 },
@@ -31,6 +37,17 @@ const imageSizes: Record<string, { width: number; height: number }> = {
 };
 
 const sharedComponents: Components = {
+  p({ node, children }) {
+    const nodes = node?.children ?? [];
+    const imageCount = nodes.filter((child) => child.type === "element" && child.tagName === "img").length;
+    const onlyImages = nodes.every((child) =>
+      (child.type === "element" && child.tagName === "img") ||
+      (child.type === "text" && !child.value.trim()),
+    );
+    return imageCount === 2 && onlyImages
+      ? <div className="article-image-pair">{children}</div>
+      : <p>{children}</p>;
+  },
   img({ src, alt }) {
     if (typeof src !== "string" || !src.startsWith("/images/")) return null;
     const size = imageSizes[src] ?? { width: 1280, height: 800 };

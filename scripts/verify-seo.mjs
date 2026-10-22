@@ -12,7 +12,7 @@ const tags = (html, tag) => html.match(new RegExp(`<${tag}\\b[^>]*>`, "g")) || [
 const meta = (html, key) => tags(html, "meta").find(tag => attribute(tag, "name") === key || attribute(tag, "property") === key);
 let pages = 0;
 for (const locale of ["ko", "en"]) {
-  for (const path of ["", "/builds", "/about", "/privacy", "/contact", "/builds/cafe-first-day", "/builds/where-was-it", "/builds/ireonna-build-log", "/builds/ireonna-build-log-02", "/tools/cafe-first-day"]) {
+  for (const path of ["", "/builds", "/about", "/privacy", "/contact", "/builds/cafe-first-day", "/builds/where-was-it", "/builds/ireonna-build-log", "/builds/ireonna-build-log-02", "/builds/ireonna-build-log-03", "/tools/cafe-first-day"]) {
     const url = `/${locale}${path}`;
     const html = await response(url);
     assert.equal(attribute(tags(html, "html")[0] || "", "lang"), locale, `${url}: lang`);
@@ -44,7 +44,7 @@ for (const locale of ["ko", "en"]) {
   }
   const feed = await response(`/${locale}/feed.xml`);
   assert.ok(feed.includes('<rss version="2.0"') && feed.includes(`${canonicalBase}/${locale}/builds/cafe-first-day`));
-  assert.equal((feed.match(/<item>/g) || []).length, 4);
+  assert.equal((feed.match(/<item>/g) || []).length, 5);
   assert.ok(feed.indexOf(`/builds/ireonna-build-log`) < feed.indexOf(`/builds/where-was-it`), "Ireonna series precedes earlier products");
   assert.ok(feed.indexOf(`/builds/where-was-it`) < feed.indexOf(`/builds/cafe-first-day`), "Newest story leads the feed");
   assert.ok(feed.indexOf(`/builds/ireonna-build-log-02</link>`) < feed.indexOf(`/builds/ireonna-build-log</link>`), "Part 2 precedes part 1 in the feed");
@@ -92,7 +92,7 @@ for (const locale of ["ko", "en"]) {
   assert.ok(ireonna.includes(`href="/${locale}/builds/ireonna-build-log-02"`), "Part 1 links to part 2");
   assert.ok(part2.includes(locale === "ko" ? "개발 중" : "In development"));
   assert.ok(!part2.includes('class="article-tool-card"') && !part2.includes("/Users/") && !part2.includes("발행 전 초안"));
-  assert.ok(!part2.includes("03-첫화면디자인"), "Part 3 remains unpublished");
+  assert.ok(!part2.includes("03-첫화면디자인"), "No private draft directory is exposed");
   const part2Images = tags(part2, "img").filter(tag => attribute(tag, "src")?.startsWith("/images/ireonna-build-log-02/"));
   assert.equal(part2Images.length, 3, "Part 2 shows three real development captures");
   for (const tag of part2Images) {
@@ -103,17 +103,40 @@ for (const locale of ["ko", "en"]) {
     assert.ok(image.headers.get("content-type")?.includes("image/jpeg"), src);
   }
   if (locale === "en") assert.ok(part2.includes("Original Korean development screen"), "Part 2 preserves and identifies its original Korean captures");
+  const part3 = await response(`/${locale}/builds/ireonna-build-log-03`);
+  assert.ok(part3.includes(locale === "ko" ? "기록일 2026.10.22" : "Written: 22 October 2026"), "Part 3 carries today's record date");
+  assert.ok(part3.includes(`href="/${locale}/builds/ireonna-build-log-02"`) && part2.includes(`href="/${locale}/builds/ireonna-build-log-03"`), "Parts 2 and 3 are connected");
+  assert.ok(part3.includes(locale === "ko" ? "개발 중" : "In development"));
+  assert.ok(!part3.includes('class="article-tool-card"') && !part3.includes("/Users/") && !part3.includes("발행 전 초안"));
+  assert.equal((part3.match(/class="article-image-pair"/g) || []).length, 3, "Part 3 has three before-and-after image pairs");
+  assert.ok(!part2.includes('class="article-image-pair"') && !ireonna.includes('class="article-image-pair"'), "Earlier image layouts are unchanged");
+  const part3Images = tags(part3, "img").filter(tag => attribute(tag, "src")?.startsWith("/images/ireonna-build-log-03/"));
+  assert.equal(part3Images.length, 6, "Part 3 shows six real development captures");
+  for (const tag of part3Images) {
+    const src = attribute(tag, "src");
+    const imageUrl = new URL(src, base);
+    assert.ok(attribute(tag, "alt")?.startsWith(locale === "ko" ? "변경" : (imageUrl.pathname.includes("before") ? "Before" : "After")), "Before-and-after captures have descriptive alt text");
+    const image = await fetch(imageUrl);
+    assert.equal(image.status, 200, src);
+    assert.ok(image.headers.get("content-type")?.includes("image/jpeg"), src);
+    await image.arrayBuffer();
+  }
+  if (locale === "en") assert.ok(part3.includes("Original Korean web captures"), "Part 3 identifies original Korean captures");
+  assert.ok(feed.indexOf(`/builds/ireonna-build-log-03</link>`) < feed.indexOf(`/builds/ireonna-build-log-02</link>`), "Part 3 precedes part 2 in the feed");
   const home = await response(`/${locale}`);
-  assert.ok(home.indexOf('/builds/ireonna-build-log') < home.indexOf('/builds/where-was-it'), "Ireonna appears before the earlier products");
+  assert.ok(home.includes(`href="/${locale}/builds/ireonna-build-log-03"`), "Newest part appears on the home page");
+  const archive = await response(`/${locale}/builds`);
+  assert.ok(archive.indexOf('/builds/ireonna-build-log-03') < archive.indexOf('/builds/where-was-it'), "Newest part precedes earlier products in the archive");
 }
 const robots = await response("/robots.txt");
 assert.ok(robots.includes("User-Agent: OAI-SearchBot\nAllow: /"));
 assert.ok(robots.includes(`Sitemap: ${canonicalBase}/sitemap.xml`));
 const sitemap = await response("/sitemap.xml");
-assert.equal((sitemap.match(/<url>/g) || []).length, 24);
+assert.equal((sitemap.match(/<url>/g) || []).length, 26);
 assert.ok(sitemap.includes("/en/builds/where-was-it") && sitemap.includes("/tools/where-was-it-en.html"));
 assert.ok(sitemap.includes("/ko/builds/ireonna-build-log") && sitemap.includes("/en/builds/ireonna-build-log"));
 assert.ok(sitemap.includes("/ko/builds/ireonna-build-log-02") && sitemap.includes("/en/builds/ireonna-build-log-02"));
+assert.ok(sitemap.includes("/ko/builds/ireonna-build-log-03") && sitemap.includes("/en/builds/ireonna-build-log-03"));
 assert.ok(sitemap.includes("2026-10-13") && sitemap.includes("2026-10-16"));
 const llms = await response("/llms.txt");
 assert.ok(llms.includes("Store adoption and training outcomes have not been verified"));

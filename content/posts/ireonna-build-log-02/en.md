@@ -42,4 +42,4 @@ So I made the idea more specific: go from the temperament explanation to a situa
 
 Trying to make the names clearer had led me to think about the words a person might need. Having screens to look at made the next request more specific. Whether those sentences would feel usable in a real conversation still needed checking.
 
-Next, I'll look at the wording and design of the cards themselves. Making something readable and making it look good didn't turn out to be a one-pass job, either.
+In [the next post](/en/builds/ireonna-build-log-03), I'll look at the wording and design of the cards themselves. Making something readable and making it look good didn't turn out to be a one-pass job, either.
