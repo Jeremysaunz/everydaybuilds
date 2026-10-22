@@ -45,3 +45,5 @@ The test results gave me pause. 표현형, 추진형, 성찰형, 안정형—rou
 I asked for the familiar temperament names alongside them, with everyday examples. Before I had that first screen, I couldn't have made the request quite so specific. Having it in front of me helped me see what to change next.
 
 This post looks back at making those first screens. The app is still in development; testing and review inside Toss, and any revenue, remain unconfirmed. Next time, I'll pick up the story of changing those labels—and thinking more about the words someone might actually want to say.
+
+**[Next · Part 02: I know my type. What do I say?](/en/builds/ireonna-build-log-02)**

@@ -3,6 +3,9 @@ import Markdown, { type Components } from "react-markdown";
 import type { ArticleHeading } from "@/lib/article-content";
 
 const imageSizes: Record<string, { width: number; height: number }> = {
+  "/images/ireonna-build-log-02/2026-10-15_10_result-after-names.jpg": { width: 582, height: 695 },
+  "/images/ireonna-build-log-02/2026-10-15_12_combination-daily-examples.jpg": { width: 582, height: 695 },
+  "/images/ireonna-build-log-02/2026-10-15_06_work-reply.jpg": { width: 390, height: 844 },
   "/images/cafe-first-day/01-first-result.png": { width: 1280, height: 1089 },
   "/images/cafe-first-day/03-training-flow.png": { width: 1280, height: 1399 },
   "/images/cafe-first-day/05-before-cup.png": { width: 1280, height: 1088 },

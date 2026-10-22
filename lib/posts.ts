@@ -100,6 +100,30 @@ export const posts: Post[] = [{
     summary: "I worked out what to make with AI. Having the first screens to try helped me see what to ask for next.",
     category: "Building an app",
   },
+
+}, {
+  slug: "ireonna-build-log-02", programId: "ireonna", number: "04",
+  kind: "experience", status: "building", completed: false,
+  updatedAt: "2026-10-22", coverFit: "contain",
+  tools: ["Codex", "Apps in Toss"],
+  cover: {
+    ko: { src: "/images/ireonna-build-log-02/2026-10-15_10_result-after-names.jpg", width: 582, height: 695, alt: "기질 이름을 함께 표시한 이런나 초기 결과 화면" },
+    en: { src: "/images/ireonna-build-log-02/2026-10-15_10_result-after-names.jpg", width: 582, height: 695, alt: "Original Korean result screen showing traditional and descriptive temperament labels" },
+  },
+  ko: {
+    title: "기질 테스트 앱 ‘이런나’ 개발기 02: 기질은 알겠는데, 그래서 뭐라고 말하죠?",
+    seoTitle: "이런나 개발기 02: 기질 이름에서 상황에 맞는 말로",
+    excerpt: "기질 이름을 고치면 될 줄 알았습니다. 일상 예시를 붙이다 보니, 그 상황에서 할 말도 고를 수 있으면 좋겠다는 생각으로 이어졌습니다.",
+    summary: "이름표를 하나 더 달았더니 질문도 하나 더 생겼습니다. 기질 설명을 고치다 상황에 맞는 말을 생각하게 된 이야기.",
+    category: "앱 개발",
+  },
+  en: {
+    title: "Ireonna, a temperament test app (part 02): I know my type. What do I say?",
+    seoTitle: "Ireonna part 02: From temperament labels to words for real situations",
+    excerpt: "I started by changing the temperament labels. Adding everyday examples made me want words someone could choose for those moments, too.",
+    summary: "Adding a label led to another question. How revising temperament descriptions made the conversation idea more specific.",
+    category: "Building an app",
+  },
 }];
 
 export const getPost = (slug: string) => posts.find((post) => post.slug === slug);
