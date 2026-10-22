@@ -2,44 +2,44 @@
 
 **Development notes: 15–16 October 2026 · Written: 20 October 2026**
 
-The first result screen said 추진표현형—roughly, “Driven–Expressive.” It had a name, but I couldn't immediately picture what it meant.
+The first result screen said 추진표현형—roughly, “Driven–Expressive.” I couldn't tell much about the temperament from that name alone.
 
-In [the previous post](/en/builds/ireonna-build-log), I'd made the first screens and tried them. Before that, I thought getting the buttons to go to the right places would be enough. Now the words on those screens were making me pause.
+In [the previous post](/en/builds/ireonna-build-log), I'd made the first screens and tried them. The buttons took me to the right places, but the explanations on the results screen still needed work.
 
-## Would familiar names help?
+## Adding the traditional temperament names
 
-Expressive, Driven, Reflective, Steady. I'd used these labels to make the ideas easier to understand. Whether they were easy for someone seeing them for the first time was another question. I asked for the traditional names alongside them: sanguine, choleric, melancholic, and phlegmatic. Pairing “Choleric · Driven,” for example, seemed a clearer connection.
+Expressive, Driven, Reflective, Steady. I'd chosen these labels to make the ideas easier to understand. But I still needed to read the descriptions, so the names might be even less helpful to someone new to the test. I asked AI to include the traditional names: sanguine, choleric, melancholic, and phlegmatic. Seeing “Choleric · Driven” together might help someone connect it to a term they'd heard before.
 
 ![Original Korean development screenshot showing traditional temperament names beside descriptive labels](/images/ireonna-build-log-02/2026-10-15_10_result-after-names.jpg)
 
 *Captured 15 October 2026 · Original Korean development screen after the label change. The scores come from test answers.*
 
-But adding a second name hadn't finished the explanation. Reading that choleric and sanguine scored highest made me wonder what that combination might look like in everyday life. I'd added a label and found another question.
+Even then, “high scores in choleric and sanguine” felt vague. What might that combination look like at work or with friends? Some examples would help me understand it.
 
-## Turning descriptions into everyday scenes
+## Asking for everyday examples
 
 This time, I asked:
 
 > Explain the characteristics of a primary and secondary temperament together on the results screen. Everyday examples would make them easier to understand.
 
-The request above is translated from Korean. Examples appeared for starting a team project or planning a trip with friends: arranging dates and transport while sharing photos of places to visit. Now I had a scene to picture alongside the abstract descriptions of action and expression.
+The request above is translated from Korean. AI added examples about starting a team project and planning a trip with friends: arranging dates and transport while sharing photos of places to visit. I found those easier to picture than descriptions such as “action and execution” or “interaction and expression.”
 
 ![Original Korean screenshot illustrating a choleric–sanguine combination through work and travel examples](/images/ireonna-build-log-02/2026-10-15_12_combination-daily-examples.jpg)
 
 *Captured 15 October 2026 · Part of the combination explanation. These are examples written for the app, not accounts from real users.*
 
-## Then I wanted words for those moments
+## Revising the conversation cards, too
 
-Reading the scenes led to another thought. Once someone understood their tendencies, what could they say when the words were difficult—turning down a manager's request, for instance, or telling a friend something had hurt?
+Reading the examples reminded me of the conversation cards already in the app. Knowing my temperament wouldn't necessarily help me turn down a manager's request or tell a friend I'd been hurt. I wanted people to be able to choose a sentence for situations like those.
 
-Conversation cards were part of the app from the start. But filling them with the same model answer for everyone seemed a missed opportunity. Someone who approaches a subject gently might choose different words from someone who speaks briefly and directly. I wanted room for **“Please speak to me like this”** as well as something I could say.
+Some people might prefer a gentle approach; others might be more comfortable being brief and direct. I wanted people to be able to pick wording that sounded like them. I also wanted the card to include **“Please speak to me like this”** alongside what they wanted to say.
 
-So I made the idea more specific: go from the temperament explanation to a situation, choose a sentence that feels close, and edit it. For an extra-work request, that could mean adding the work already on my plate and the help I could offer, rather than stopping at “I can't.”
+I asked for a more specific sequence: read the temperament explanation, choose a situation, then pick and edit a sentence. For an extra-work request, I could add the work already on my plate and how much help I could offer to draft a reply.
 
 ![Original Korean development screenshot of an extra-work reply using example tasks and a current workload](/images/ireonna-build-log-02/2026-10-15_06_work-reply.jpg)
 
 *Captured 15 October 2026 · An extra-work reply draft. The tasks and schedule are example inputs used to check the flow.*
 
-Trying to make the names clearer had led me to think about the words a person might need. Having screens to look at made the next request more specific. Whether those sentences would feel usable in a real conversation still needed checking.
+I still need to check whether those sentences would be useful in an actual conversation. Something can look fine on a screen and feel awkward to say out loud.
 
-In [the next post](/en/builds/ireonna-build-log-03), I'll look at the wording and design of the cards themselves. Making something readable and making it look good didn't turn out to be a one-pass job, either.
+In [the next post](/en/builds/ireonna-build-log-03), I'll write about changing the home screen and the result card design. I ended up rewriting quite a bit of the card text, too.

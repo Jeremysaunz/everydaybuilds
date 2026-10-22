@@ -1,6 +1,6 @@
 import { text, type Locale } from "./site-config";
 
-export type PostCopy = { title: string; seoTitle?: string; excerpt: string; summary?: string; category: string };
+export type PostCopy = { title: string; cardTitle?: string; seriesLabel?: string; seoTitle?: string; excerpt: string; summary?: string; category: string };
 export type PostImage = { src: string; width: number; height: number; alt: string };
 export type ToolLinks = { publicUrl?: string; downloadUrl?: string; downloadFileName?: string };
 export type Post = {
@@ -13,6 +13,7 @@ export type Post = {
   cover?: Record<Locale, PostImage>;
   coverFit?: "cover" | "contain";
   coverBackground?: string;
+  comparison?: { before: PostImage; after: PostImage };
   updatedAt: string;
   verifiedAt?: string;
   publicUrl?: string;
@@ -40,6 +41,7 @@ export const posts: Post[] = [{
   },
   ko: {
     title: "바이브코딩 입문: ChatGPT로 카페 교육 게임 만들기",
+    cardTitle: "ChatGPT에 카페 교육 게임을 부탁했습니다",
     seoTitle: "바이브코딩 입문: ChatGPT로 카페 교육 게임 만들기",
     excerpt: "ChatGPT에 카페 교육 게임을 부탁했습니다. 음료 순서를 고르는 화면으로 시작해 컵에 재료를 넣고 색감까지 바꿨습니다. 실제 프롬프트와 수정 과정을 담은 첫 바이브코딩 기록입니다.",
     summary: "ChatGPT에 게임을 부탁했다가 컵도 채우고 색깔까지 고쳤습니다. 처음 만들어 보며 조금씩 알아간 이야기.",
@@ -47,6 +49,7 @@ export const posts: Post[] = [{
   },
   en: {
     title: "Vibe coding with ChatGPT: building a café training game",
+    cardTitle: "I asked ChatGPT to make a café training game",
     seoTitle: "Vibe coding with ChatGPT: building a café training game",
     excerpt: "I asked ChatGPT for a café training game. Choosing drink-making steps led to filling cups and changing colors. Here are the prompts and revisions from my first vibe coding project.",
     summary: "I asked ChatGPT for a game and ended up filling cups and changing colors. A few things I learned along the way.",
@@ -90,16 +93,20 @@ export const posts: Post[] = [{
   },
   ko: {
     title: "기질 테스트 앱 ‘이런나’ 개발기 01: AI에게 물어보며 시작했습니다",
+    cardTitle: "무슨 앱을 만들지부터 AI에게 물었습니다",
+    seriesLabel: "‘이런나’ 개발기 01",
     seoTitle: "앱인토스 개발기: Codex로 시작한 기질 테스트 앱 이런나",
-    excerpt: "무슨 앱을 만들지도 정하지 못한 채 AI에게 물어봤습니다. 첫 화면을 직접 눌러 보니, 다음에 고칠 곳이 보이기 시작했습니다.",
-    summary: "만들 아이디어부터 AI와 의논했습니다. 첫 화면을 만들고 직접 눌러 보니, 다음에 부탁할 내용이 구체적으로 보였습니다.",
+    excerpt: "앱인토스가 뭔지부터 AI에게 물어봤습니다. 기질 테스트 앱을 만들기로 정하고, Codex에 기획 문서를 보내 첫 화면을 만들어 봤습니다.",
+    summary: "앱인토스가 뭔지, 어떤 앱을 만들면 좋을지 AI에게 물었습니다. 기질 테스트를 골라 첫 화면을 만들고 카드와 검사 결과를 확인했습니다.",
     category: "앱 개발",
   },
   en: {
     title: "Ireonna, a temperament test app: building with AI (part 01)",
+    cardTitle: "I asked AI what I could build",
+    seriesLabel: "Building Ireonna · 01",
     seoTitle: "Building an app for Apps in Toss with Codex: Ireonna 01",
-    excerpt: "I hadn’t decided what app to build, so I asked AI. Trying the first screens gave me a clearer idea of what to change next.",
-    summary: "I worked out what to make with AI. Having the first screens to try helped me see what to ask for next.",
+    excerpt: "I asked AI to explain Apps in Toss and suggest app ideas. I chose a temperament test and sent a plan to Codex to make the first screens.",
+    summary: "I asked AI about Apps in Toss and what I could build. I chose a temperament test, made the first screens, and tried the cards and test results.",
     category: "Building an app",
   },
 
@@ -114,16 +121,20 @@ export const posts: Post[] = [{
   },
   ko: {
     title: "기질 테스트 앱 ‘이런나’ 개발기 02: 기질은 알겠는데, 그래서 뭐라고 말하죠?",
+    cardTitle: "기질은 알겠는데, 그래서 뭐라고 말하죠?",
+    seriesLabel: "‘이런나’ 개발기 02",
     seoTitle: "이런나 개발기 02: 기질 이름에서 상황에 맞는 말로",
-    excerpt: "기질 이름을 고치면 될 줄 알았습니다. 일상 예시를 붙이다 보니, 그 상황에서 할 말도 고를 수 있으면 좋겠다는 생각으로 이어졌습니다.",
-    summary: "이름표를 하나 더 달았더니 질문도 하나 더 생겼습니다. 기질 설명을 고치다 상황에 맞는 말을 생각하게 된 이야기.",
+    excerpt: "‘추진표현형’이라는 이름만 보고는 어떤 성향인지 잘 모르겠더군요. 익숙한 기질 이름과 일상 예시를 넣고, 대화 카드에서 고를 문장도 더 생각해 봤습니다.",
+    summary: "‘추진표현형’이 무슨 뜻인지 저도 잘 모르겠더군요. 이름과 설명에 일상 예시를 붙이고, 대화 카드도 상황에 맞게 고치고 싶었습니다.",
     category: "앱 개발",
   },
   en: {
     title: "Ireonna, a temperament test app (part 02): I know my type. What do I say?",
+    cardTitle: "I know my type. What do I say?",
+    seriesLabel: "Building Ireonna · 02",
     seoTitle: "Ireonna part 02: From temperament labels to words for real situations",
-    excerpt: "I started by changing the temperament labels. Adding everyday examples made me want words someone could choose for those moments, too.",
-    summary: "Adding a label led to another question. How revising temperament descriptions made the conversation idea more specific.",
+    excerpt: "The label ‘Driven–Expressive’ didn't tell me much on its own. I added traditional names and everyday examples, then worked on sentences people could choose for their conversation cards.",
+    summary: "I wasn't sure what ‘Driven–Expressive’ meant. I revised the labels and descriptions, then thought about wording for conversations with a manager or friend.",
     category: "Building an app",
   },
 }, {
@@ -131,22 +142,30 @@ export const posts: Post[] = [{
   kind: "experience", status: "building", completed: false,
   updatedAt: "2026-10-22", coverFit: "contain",
   tools: ["Codex", "Apps in Toss"],
+  comparison: {
+    before: { src: "/images/ireonna-build-log-03/2026-10-15_home-before.jpg", width: 360, height: 780, alt: "" },
+    after: { src: "/images/ireonna-build-log-03/2026-10-21_home-after.jpg", width: 390, height: 844, alt: "" },
+  },
   cover: {
     ko: { src: "/images/ireonna-build-log-03/2026-10-21_home-after.jpg", width: 390, height: 844, alt: "카드 미리보기를 먼저 보여주는 이런나의 변경 후 홈" },
     en: { src: "/images/ireonna-build-log-03/2026-10-21_home-after.jpg", width: 390, height: 844, alt: "Original Korean Ireonna home screen with result card previews" },
   },
   ko: {
-    title: "기질 테스트 앱 ‘이런나’ 개발기 03: 예쁘게 만들고 나서, 직접 눌러봤습니다",
+    title: "기질 테스트 앱 ‘이런나’ 개발기 03: 결과 카드를 꾸미다가 문구와 버튼까지 고쳤습니다",
+    cardTitle: "결과 카드를 꾸미다가 문구와 버튼까지 고쳤습니다",
+    seriesLabel: "‘이런나’ 개발기 03",
     seoTitle: "이런나 개발기 03: 디자인을 고치다 문구와 모바일 화면을 다시 봤습니다",
-    excerpt: "첫 화면과 결과 카드를 예쁘게 만들고 싶었습니다. 직접 읽고 눌러보니 뜻이 모호한 문구와 화면 밖의 다음 버튼이 보였습니다. 실제 전후 캡처로 남긴 수정 이야기입니다.",
-    summary: "예쁜 카드를 만들다가 문구를 해석하고, 휴대폰에서는 다음 버튼을 찾았습니다. 직접 써보니 다음에 고칠 곳이 보였습니다.",
+    excerpt: "첫 화면과 결과 카드의 디자인을 바꿨습니다. 그런데 카드 문구가 저도 헷갈리고, 휴대폰에서는 ‘다음’ 버튼이 안 보이더군요. 문구와 검사 화면도 함께 고쳤습니다.",
+    summary: "카드에 쓴 말이 저도 헷갈리고, 휴대폰에서는 ‘다음’ 버튼이 안 보였습니다. 문구와 화면을 고친 과정을 적었습니다.",
     category: "앱 개발",
   },
   en: {
-    title: "Ireonna, a temperament test app (part 03): I made it look better. Then I tried it.",
+    title: "Ireonna, a temperament test app (part 03): I redesigned the cards and fixed the text and buttons, too",
+    cardTitle: "I redesigned the cards and fixed the text and buttons, too",
+    seriesLabel: "Building Ireonna · 03",
     seoTitle: "Ireonna part 03: Improving the design, then the wording and mobile flow",
-    excerpt: "I wanted a better-looking home screen and result cards. Trying them revealed unclear wording and a Next button below the screen. Six real before-and-after captures show what changed.",
-    summary: "I had to interpret my own card and look for Next on my phone. Trying the app made the next changes more specific.",
+    excerpt: "I changed the home screen and result card design. Some of the card text confused me, and Next was off-screen on mobile, so I revised the text and test screen, too.",
+    summary: "Some of my own card text confused me, and Next was off-screen on mobile. Here's how I changed the text and layout.",
     category: "Building an app",
   },
 }];
@@ -156,11 +175,19 @@ export const copyFor = (post: Post, locale: Locale) => post[locale];
 export const toolFor = (post: Post, locale: Locale): ToolLinks => ({ publicUrl: post.publicUrl, downloadUrl: post.downloadUrl, downloadFileName: post.downloadFileName, ...post.localizedTools?.[locale] });
 export const completedCount = () => new Set(posts.filter((post) => post.completed).map((post) => post.programId)).size;
 export const orderedPosts = () => [...posts].sort((a, b) => b.updatedAt.localeCompare(a.updatedAt) || b.number.localeCompare(a.number, undefined, { numeric: true }));
-export const recentPosts = () => orderedPosts().slice(0, 3);
+export function homePosts() {
+  const programs = new Set<string>();
+  return orderedPosts().filter((post) => {
+    if (programs.has(post.programId)) return false;
+    programs.add(post.programId);
+    return true;
+  }).slice(0, 3);
+}
+export const seriesPosts = (post: Post) => posts
+  .filter((candidate) => candidate.programId === post.programId)
+  .sort((a, b) => a.number.localeCompare(b.number, undefined, { numeric: true }));
 export function seriesNeighbors(post: Post): { previous?: Post; next?: Post } {
-  const series = posts
-    .filter((candidate) => candidate.programId === post.programId)
-    .sort((a, b) => a.number.localeCompare(b.number, undefined, { numeric: true }));
+  const series = seriesPosts(post);
   const index = series.findIndex((candidate) => candidate.slug === post.slug);
   if (index < 0) return {};
   return { previous: series[index - 1], next: series[index + 1] };
