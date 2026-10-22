@@ -88,6 +88,7 @@ for (const locale of ["ko", "en"]) {
   const part2 = await response(`/${locale}/builds/ireonna-build-log-02`);
   assert.ok(part2.includes(locale === "ko" ? "기록일 2026.10.20" : "Written: 20 October 2026"), "Part 2 carries the requested record date");
   assert.ok(part2.includes(`href="/${locale}/builds/ireonna-build-log"`), "Part 2 links back to part 1");
+  if (locale === "ko") assert.ok(part2.includes("<strong>나에게는 이렇게 말해 주세요</strong>"), "Korean emphasis renders without literal Markdown markers");
   assert.ok(ireonna.includes(`href="/${locale}/builds/ireonna-build-log-02"`), "Part 1 links to part 2");
   assert.ok(part2.includes(locale === "ko" ? "개발 중" : "In development"));
   assert.ok(!part2.includes('class="article-tool-card"') && !part2.includes("/Users/") && !part2.includes("발행 전 초안"));
