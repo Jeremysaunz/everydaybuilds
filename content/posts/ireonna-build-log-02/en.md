@@ -1,8 +1,8 @@
-# Ireonna, a temperament test app (part 02): I know my type. What do I say?
+# Building for Apps in Toss 02: Revising Ireonna’s temperament descriptions and conversation cards
 
 **Development notes: 15–16 October 2026 · Written: 20 October 2026**
 
-The first result screen said 추진표현형—roughly, “Driven–Expressive.” I couldn't tell much about the temperament from that name alone.
+I'm building Ireonna, a temperament test app, for Apps in Toss. The first result screen said 추진표현형—roughly, “Driven–Expressive.” I couldn't tell much about the temperament from that name alone.
 
 In [the previous post](/en/builds/ireonna-build-log), I'd made the first screens and tried them. The buttons took me to the right places, but the explanations on the results screen still needed work.
 

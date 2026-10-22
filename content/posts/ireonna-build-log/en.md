@@ -1,4 +1,4 @@
-# Ireonna, a temperament test app: building with AI (part 01)
+# Building for Apps in Toss 01: Starting Ireonna, a temperament test app, with AI
 
 **Development: 15 October 2026 · Written: 16 October 2026 · Revised: 22 October 2026**
 
@@ -44,4 +44,4 @@ I asked AI to add the traditional names, such as sanguine and choleric, alongsid
 
 That was how I made the first screens. The app is still in development. Testing and review inside Toss are still ahead, and I have yet to find out whether it can earn money. In the next post, I'll write about revising the names and descriptions.
 
-**[Next · Part 02: I know my type. What do I say?](/en/builds/ireonna-build-log-02)**
+**[Next · Apps in Toss 02: Ireonna’s descriptions and conversation cards](/en/builds/ireonna-build-log-02)**

@@ -1,8 +1,8 @@
-# Ireonna, a temperament test app (part 03): I redesigned the cards and fixed the text and buttons, too
+# Building for Apps in Toss 03: Redesigning Ireonna’s cards and fixing the mobile test
 
 **Development notes: 15–21 October 2026 · Written: 22 October 2026**
 
-I wanted to turn the test results into cards people could post on Instagram. I asked for different colors and short, clever wording. Some of the text sounded good, but I had to read it a few times to work out what it meant.
+I'm building Ireonna for Apps in Toss, and I wanted to turn its test results into cards people could post on Instagram. I asked for different colors and short, clever wording. Some of the text sounded good, but I had to read it a few times to work out what it meant.
 
 In [the previous post](/en/builds/ireonna-build-log-02), I revised the temperament descriptions and the content of the conversation cards. This time, I changed the home screen and result card design. I also rewrote some text and fixed a button that wasn't visible on a phone-sized screen.
 
