@@ -31,7 +31,7 @@ for (const locale of ["ko", "en"]) {
       assert.equal(attribute(meta(html, "og:type"), "content"), "article");
       const article = schemas.find(item => item["@type"] === "BlogPosting");
       assert.equal(article?.url, canonicalBase + url);
-      assert.equal(article?.dateModified, "2026-10-16");
+      assert.equal(article?.dateModified, path === "/builds/ireonna-build-log" ? "2026-10-22" : "2026-10-16");
       assert.ok(schemas.some(item => item["@type"] === "BreadcrumbList"));
     }
     if (path.includes("/tools/")) {

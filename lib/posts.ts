@@ -80,7 +80,7 @@ export const posts: Post[] = [{
 }, {
   slug: "ireonna-build-log", programId: "ireonna", number: "03",
   kind: "experience", status: "building", completed: false,
-  updatedAt: "2026-10-16",
+  updatedAt: "2026-10-22",
   tools: ["Codex", "Apps in Toss"],
   cover: {
     ko: { src: "/images/ireonna-build-log/03-cover.jpg", width: 1280, height: 720, alt: "이런나의 초기 홈과 예시 대화 카드를 담은 개발기 1편 표지" },
@@ -89,15 +89,15 @@ export const posts: Post[] = [{
   ko: {
     title: "기질 테스트 앱 ‘이런나’ 개발기 01: AI에게 물어보며 시작했습니다",
     seoTitle: "앱인토스 개발기: Codex로 시작한 기질 테스트 앱 이런나",
-    excerpt: "앱인토스가 뭔지 몰라 AI에게 물어봤습니다. 가이드 링크를 보내고 뭘 만들면 좋을지 의논하다가, 기질 테스트 앱의 첫 화면까지 만들었습니다.",
-    summary: "앱인토스가 뭔지도 몰랐습니다. AI에게 가이드 링크를 보내고 뭘 만들면 좋을지 물어보다가, 기질 테스트 앱을 만들기 시작했습니다.",
+    excerpt: "무슨 앱을 만들지도 정하지 못한 채 AI에게 물어봤습니다. 첫 화면을 직접 눌러 보니, 다음에 고칠 곳이 보이기 시작했습니다.",
+    summary: "만들 아이디어부터 AI와 의논했습니다. 첫 화면을 만들고 직접 눌러 보니, 다음에 부탁할 내용이 구체적으로 보였습니다.",
     category: "앱 개발",
   },
   en: {
     title: "Ireonna, a temperament test app: building with AI (part 01)",
     seoTitle: "Building an app for Apps in Toss with Codex: Ireonna 01",
-    excerpt: "I didn’t know what Apps in Toss was, so I asked AI. I sent it the guide, talked through what I could make, and ended up trying the first screens of a temperament test app.",
-    summary: "I didn’t even know what Apps in Toss was. I sent AI the guide, asked what I could make, and started building a temperament test app.",
+    excerpt: "I hadn’t decided what app to build, so I asked AI. Trying the first screens gave me a clearer idea of what to change next.",
+    summary: "I worked out what to make with AI. Having the first screens to try helped me see what to ask for next.",
     category: "Building an app",
   },
 }];

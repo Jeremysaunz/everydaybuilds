@@ -1,77 +1,47 @@
 # Ireonna, a temperament test app: building with AI (part 01)
 
-**Development: 15 October 2026 · Written: 16 October 2026**
+**Development: 15 October 2026 · Written: 16 October 2026 · Revised: 22 October 2026**
 
-At first, I didn’t even know what Apps in Toss was. So I asked AI.
+I wanted to make an app that other people could try. I was curious whether it might earn some money, too. I hadn't decided what to build. I didn't even really know what Apps in Toss was.
 
-I’d already made a [café training game](/en/builds/cafe-first-day) and a [photo map](/en/builds/where-was-it) as HTML files. This time, I wanted to put something out there for other people to try. I was also curious whether I could eventually make something worth paying for.
+So that was what I asked AI first. Before I had an app, I had a question.
 
-I hadn’t decided what to build yet. I started by talking to AI about where I could put an app and what I might be able to make for it.
+## Working out what to make
 
-## First, what was Apps in Toss?
+I'd already made a [café training game](/en/builds/cafe-first-day) and a [photo map](/en/builds/where-was-it) as HTML files. This time, I wanted to put something out there for people to use beyond my own computer.
 
-It turned out that [Apps in Toss](https://toss.im/apps-in-toss) would let me put an app inside Toss, a Korean financial app, for other people to use.
+I learned that [Apps in Toss](https://toss.im/apps-in-toss) lets developers offer apps inside Toss, a Korean financial app. There were guides to adding [paid features](https://developers-apps-in-toss.toss.im/guide/monetization/in-app-payment) or [ads](https://developers-apps-in-toss.toss.im/guide/monetization/in-app-ad), too.
 
-There were also guides to [adding paid features](https://developers-apps-in-toss.toss.im/guide/monetization/in-app-payment) and [showing ads](https://developers-apps-in-toss.toss.im/guide/monetization/in-app-ad). So there was a way to try earning money from something I’d made, too.
+I sent AI the [developer guide](https://developers-apps-in-toss.toss.im/) and asked for ideas I could start small with. Among the suggestions, I picked a temperament test, something I'd long been interested in. I called it **Ireonna (이런나)**.
 
-I found the [guide to building an app](https://developers-apps-in-toss.toss.im/). I sent AI the link, asked it to read it, and asked for app ideas I could start with. Here’s a short summary of what I asked:
+I wanted to go a little further than reading a result and thinking, “That sounds like me.” I pictured being asked to take on extra work: a whole explanation in my head, but all that comes out is, “Oh. Sure…” What if I could **explore my temperament and work on the words I needed**, too?
 
-> Read this Apps in Toss developer guide and explain what kinds of apps I could build here. Suggest some ideas I could start small with, too.
+## Turning the idea into a first screen
 
-After looking at the suggestions, I decided to try a **temperament test**. I’ve long been interested in how people’s temperaments differ. I called the app **Ireonna (이런나)**, a Korean name that loosely means “this is me.”
-
-It seemed a shame to stop at reading a result and thinking, “That sounds like me.” I wanted to see if that understanding could be useful in a conversation, too.
-
-For example, someone asks me to take on more work when I already have plenty to do. I could work on what to say beforehand: “If you let me know when you need it, I’ll check it against my current schedule.”
-
-So I decided to add **conversation cards** alongside the test. I pictured those moments when I’ve composed a whole explanation in my head, but all that comes out is, “Oh. Sure…”
-
-## Writing down what I wanted AI to make
-
-On 15 October 2026, I wrote down what I wanted the app to look like: what someone could tap on the first screen and what they would see after answering the questions. I had two routes in mind—take the test and read a result, or work on a sentence they needed to say.
-
-I gave that plan to Codex, an AI coding assistant. A short version of my request was:
+On 15 October, I wrote down what I wanted and gave the document to Codex. A short version of my request was:
 
 > Please build an app for Apps in Toss based on this planning document.
 
-On the home screen, I put **Explore my temperament** beside **Make a sentence for right now**. The first led to the 40-question test. The second let people choose a situation and make a conversation card.
+The first screen had two routes: a 40-question test and a conversation card. People who only needed a sentence could skip the test. Coming in to prepare one small request and finding 40 questions at the door would be a bit much.
 
-People who only needed a sentence could skip the test. Coming in to make one small request and finding 40 questions at the door would be a bit much.
+![English reading copy of Ireonna's early home screen, with routes to the test and conversation cards](/images/ireonna-build-log/en/01-home-reading.jpg)
 
-![An English reading copy of the early Korean home screen, showing two ways to start](/images/ireonna-build-log/en/01-home-reading.jpg)
+*English reading copy of the Korean screen captured on 15 October 2026. The original placed the two starting buttons side by side. This is a translated reference for the post, not an English version of the app.*
 
-*English reading copy of the Korean screen captured on 15 October 2026. The original placed “Make a sentence for right now” and “Explore my temperament” side by side. This translated reference was made for the post; the app itself is in Korean.*
+On paper, it had seemed as though I'd covered everything. But when I opened it in a browser and tried it, the words on the screen started catching my attention.
 
-To try it myself, I asked:
+## Having something to try gave me something to change
 
-> Run the app and open it in a browser so I can try it myself.
+I chose the extra-work situation and made a card. Below the request to the other person was **What I'll do, too**. If I couldn't answer straight away, for instance, I could say when I'd get back to them.
 
-I pressed the start buttons, answered the questions, and moved to the next screen. I checked whether things went where I expected and whether I could understand the instructions on the first read.
+A card asking for consideration would be a little awkward if it only gave the other person more work. This was a part I wanted to keep.
 
-I’d asked for an app, but having screens to try made me look again at the words I’d put in them. Getting the buttons made hadn’t finished my part of the job.
+![English reading copy of an early conversation card, pairing a request with something the speaker will do](/images/ireonna-build-log/en/02-conversation-card-reading.jpg)
 
-## Reading what the card actually said
+*English reading copy of a PNG exported by the Korean app on 15 October 2026 using example answers. This is not a real user's conversation or testimonial.*
 
-Next, I picked the example about being asked to take on extra work and made a conversation card. Answering the questions produces wording that I can then edit.
+The test results gave me pause. 표현형, 추진형, 성찰형, 안정형—roughly Expressive, Driven, Reflective, and Steady. I knew what I meant. Would those labels make sense to someone seeing them for the first time? I'd made an app to explain temperament, and the temperament labels needed explaining.
 
-![An English reading copy of an example conversation card, with a request and a commitment from the speaker](/images/ireonna-build-log/en/02-conversation-card-reading.jpg)
+I asked for the familiar temperament names alongside them, with everyday examples. Before I had that first screen, I couldn't have made the request quite so specific. Having it in front of me helped me see what to change next.
 
-*English reading copy of a PNG exported by the Korean app on 15 October 2026, using example answers. Below the request is something the speaker will do as well. The original export is in Korean.*
-
-The part I paid attention to was **What I’ll do, too**, near the bottom.
-
-At the top was what I wanted to ask the other person. Underneath was something I would do—for instance, say when I could give an answer if I couldn’t decide straight away. A card asking for consideration would be a little awkward if it only created more work for the other person.
-
-So far, I’ve checked that the example answers produce a card. Whether I’d actually reach for it when finding the words is difficult is something I still need to find out.
-
-## Giving the temperament labels another look
-
-As I tried the app, I paused at the temperament labels: 표현형, 추진형, 성찰형, 안정형—roughly Expressive, Driven, Reflective, and Steady. I knew what I meant by them. Would the names alone make sense to someone seeing them for the first time?
-
-I decided to add short explanations and everyday examples beside them. I’ll cover those changes in the next post.
-
-For now, I’m still trying Ireonna on my own computer. Testing it inside Toss and getting it reviewed and released are still ahead. The screens and cards in this post come from the development version, using example answers.
-
-Whether I can earn money from it is something I’ll have to find out. I don’t yet know who would use it or what they might find worth paying for.
-
-This time, I went from asking what Apps in Toss was to choosing an idea and trying the first screens. **“What could I make?” was a perfectly good place to start the conversation with AI.**
+This post looks back at making those first screens. The app is still in development; testing and review inside Toss, and any revenue, remain unconfirmed. Next time, I'll pick up the story of changing those labels—and thinking more about the words someone might actually want to say.
