@@ -79,9 +79,10 @@ for (const locale of ["ko", "en"]) {
   for (const tag of ireonnaImages) {
     const src = attribute(tag, "src");
     assert.equal(src.includes("/en/"), locale === "en", "Article uses matching-language images");
-    const image = await fetch(base + src);
+    const imageUrl = new URL(src, base);
+    const image = await fetch(imageUrl);
     assert.equal(image.status, 200, src);
-    assert.ok(image.headers.get("content-type")?.includes(src.endsWith(".png") ? "image/png" : "image/jpeg"), src);
+    assert.ok(image.headers.get("content-type")?.includes(imageUrl.pathname.endsWith(".png") ? "image/png" : "image/jpeg"), src);
   }
   const home = await response(`/${locale}`);
   assert.ok(home.indexOf('/builds/ireonna-build-log') < home.indexOf('/builds/where-was-it'), "Third story leads the home page");
