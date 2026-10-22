@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowUpRight, Download } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight, Download } from "lucide-react";
 import JsonLd from "@/components/json-ld";
 import { breadcrumbs } from "@/lib/structured-data";
 import { isLocale, text, siteConfig } from "@/lib/site-config";
-import { getPost, copyFor, toolFor, posts, statusLabel } from "@/lib/posts";
+import { getPost, copyFor, toolFor, posts, statusLabel, seriesNeighbors } from "@/lib/posts";
 import { pageMetadata } from "@/lib/metadata";
 import { readArticleContent } from "@/lib/article-content";
 import MarkdownArticle from "@/components/markdown-article";
@@ -31,7 +31,8 @@ export default async function PostPage({ params }: Props) {
   const tool = toolFor(post, locale);
   const article = await readArticleContent(post.slug, locale);
   const headings = article.headings;
-  const next = posts.find((candidate) => candidate.slug !== post.slug);
+  const { previous, next } = seriesNeighbors(post);
+  const another = posts.find((candidate) => candidate.programId !== post.programId);
 
   return (
     <main id="main-content" className="container article-page">
@@ -70,9 +71,23 @@ export default async function PostPage({ params }: Props) {
             </aside>
           )}
           <MarkdownArticle markdown={article.markdown} headings={article.headings} />
-          {next && <Link className="next-note" href={"/" + locale + "/builds/" + next.slug}>
+          {previous || next ? (
+            <nav className="series-navigation" aria-label={text(locale, "연재 앞뒤 이동", "Series navigation")}>
+              <h2>{text(locale, "연재 이어 읽기", "Continue the series")}</h2>
+              <div className="series-navigation-links">
+                {previous && <Link className="series-link" href={`/${locale}/builds/${previous.slug}`} rel="prev">
+                  <span><ArrowLeft size={16} aria-hidden="true" />{text(locale, "이전 편", "Previous part")}</span>
+                  <strong>{copyFor(previous, locale).title}</strong>
+                </Link>}
+                {next && <Link className="series-link" href={`/${locale}/builds/${next.slug}`} rel="next">
+                  <span>{text(locale, "다음 편", "Next part")}<ArrowRight size={16} aria-hidden="true" /></span>
+                  <strong>{copyFor(next, locale).title}</strong>
+                </Link>}
+              </div>
+            </nav>
+          ) : another && <Link className="next-note" href={`/${locale}/builds/${another.slug}`}>
             <span className="eyebrow">{text(locale, "다른 이야기", "ANOTHER STORY")}</span>
-            <strong>{copyFor(next, locale).title}</strong>
+            <strong>{copyFor(another, locale).title}</strong>
           </Link>}
         </article>
         <aside className="article-sidebar">

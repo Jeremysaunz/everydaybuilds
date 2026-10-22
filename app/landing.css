@@ -18,6 +18,7 @@
 .journal-card-image:hover img { transform: scale(1.025); }
 .journal-card-image--contain { background: #f3efff; }
 .journal-card-image--contain img { object-fit: contain; object-position: center; }
+.journal-card-image--contain:hover img { transform: none; }
 .journal-card-copy { min-width: 0; padding: 32px 36px 32px 22px; display: flex; flex-direction: column; justify-content: center; }
 .journal-card-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; font-size: 12px; line-height: 1.7; color: #6a736c; }
 .journal-card-meta > span { color: #34583e; border-radius: 999px; background: #edf4ed; padding: 5px 10px; font-weight: 600; }

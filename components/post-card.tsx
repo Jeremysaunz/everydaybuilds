@@ -13,7 +13,7 @@ export default function PostCard({ post, locale, priority = false }: { post: Pos
   return (
     <article className="journal-card">
       {cover && (
-        <Link className={`journal-card-image${post.coverFit === "contain" ? " journal-card-image--contain" : ""}`} href={href} tabIndex={-1} aria-hidden="true">
+        <Link className={`journal-card-image${post.coverFit === "contain" ? " journal-card-image--contain" : ""}`} href={href} style={post.coverBackground ? { backgroundColor: post.coverBackground } : undefined} tabIndex={-1} aria-hidden="true">
           <Image src={cover.src} alt="" width={cover.width} height={cover.height} sizes="(max-width: 720px) calc(100vw - 40px), 520px" priority={priority} unoptimized />
         </Link>
       )}

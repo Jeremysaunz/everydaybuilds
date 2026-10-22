@@ -12,6 +12,7 @@ export type Post = {
   completed: boolean;
   cover?: Record<Locale, PostImage>;
   coverFit?: "cover" | "contain";
+  coverBackground?: string;
   updatedAt: string;
   verifiedAt?: string;
   publicUrl?: string;
@@ -80,6 +81,7 @@ export const posts: Post[] = [{
 }, {
   slug: "ireonna-build-log", programId: "ireonna", number: "03",
   kind: "experience", status: "building", completed: false,
+  coverFit: "contain", coverBackground: "#edf2e8",
   updatedAt: "2026-10-22",
   tools: ["Codex", "Apps in Toss"],
   cover: {
@@ -155,6 +157,14 @@ export const toolFor = (post: Post, locale: Locale): ToolLinks => ({ publicUrl: 
 export const completedCount = () => new Set(posts.filter((post) => post.completed).map((post) => post.programId)).size;
 export const orderedPosts = () => [...posts].sort((a, b) => b.updatedAt.localeCompare(a.updatedAt) || b.number.localeCompare(a.number, undefined, { numeric: true }));
 export const recentPosts = () => orderedPosts().slice(0, 3);
+export function seriesNeighbors(post: Post): { previous?: Post; next?: Post } {
+  const series = posts
+    .filter((candidate) => candidate.programId === post.programId)
+    .sort((a, b) => a.number.localeCompare(b.number, undefined, { numeric: true }));
+  const index = series.findIndex((candidate) => candidate.slug === post.slug);
+  if (index < 0) return {};
+  return { previous: series[index - 1], next: series[index + 1] };
+}
 export const statusLabel = (status: Post["status"], locale: Locale) => ({
   building: text(locale, "개발 중", "In development"),
   built: text(locale, "제작 완료", "Built"),

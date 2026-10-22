@@ -40,6 +40,30 @@ for (const locale of ["ko", "en"]) {
     }
     const visible = html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/g, "");
     assert.equal((visible.match(/<h1\b/g) || []).length, 1, `${url}: one main heading`);
+    const footer = visible.match(/<footer\b[^>]*>([\s\S]*?)<\/footer>/)?.[1] || "";
+    assert.ok(footer.includes(locale === "ko" ? "새 글 구독(RSS)" : "Subscribe (RSS)"), `${url}: readable RSS label`);
+    if (path === "/contact" || path === "/privacy") {
+      assert.ok(visible.includes('href="mailto:ireokego@gmail.com"'), `${url}: current contact email`);
+      assert.ok(!visible.includes("actslim@gmail.com"), `${url}: no old contact email`);
+    }
+    const series = visible.match(/<nav class="series-navigation"[^>]*>([\s\S]*?)<\/nav>/)?.[1];
+    if (path.startsWith("/builds/ireonna-build-log")) {
+      assert.ok(series, `${url}: series navigation is present`);
+      const links = tags(series, "a");
+      assert.ok(links.every(link => attribute(link, "href")?.startsWith(`/${locale}/builds/ireonna-build-log`)), `${url}: series keeps its product and language`);
+      const parts = ["ireonna-build-log", "ireonna-build-log-02", "ireonna-build-log-03"];
+      const index = parts.indexOf(path.replace("/builds/", ""));
+      for (const [rel, neighbor] of [["prev", parts[index - 1]], ["next", parts[index + 1]]]) {
+        const link = links.find(link => attribute(link, "rel") === rel);
+        if (neighbor) {
+          assert.equal(attribute(link || "", "href"), `/${locale}/builds/${neighbor}`, `${url}: ${rel} part`);
+        } else {
+          assert.ok(!link, `${url}: no ${rel} link beyond the series boundary`);
+        }
+      }
+    } else {
+      assert.ok(!series, `${url}: no unrelated series navigation`);
+    }
     pages++;
   }
   const feed = await response(`/${locale}/feed.xml`);

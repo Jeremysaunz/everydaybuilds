@@ -3,7 +3,7 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://everydaybuilds.blog
 export const siteConfig = {
   name: "Everyday Builds",
   url: siteUrl.replace(/\/+$/, ""),
-  contactEmail: "actslim@gmail.com",
+  contactEmail: "ireokego@gmail.com",
   owner: { ko: "이러케", en: "Ireoke" },
 };
 export type Locale = "ko" | "en";

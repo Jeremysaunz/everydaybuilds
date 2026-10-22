@@ -50,13 +50,13 @@ Node.js 22.13 이상에서 `npm ci`, `npm run dev` 순서로 실행합니다. �
 - `tools`: 실제 제작에 사용한 도구
 - `publicUrl`: 공개 배포했을 때만 설정
 
-같은 프로그램의 후속 글은 같은 `programId`를 사용하면 글 수와 관계없이 프로그램 한 개로 집계합니다. 게시글이 하나일 때는 같은 글을 다시 가리키는 다음 글 링크를 표시하지 않습니다.
+같은 프로그램의 후속 글은 같은 `programId`를 사용하면 글 수와 관계없이 프로그램 한 개로 집계합니다. 같은 제품의 글이 여러 편이면 이야기 번호 순서대로 이전 편·다음 편을 연결합니다. 링크는 현재 읽는 언어를 유지하며, 첫 편에는 이전 편을, 마지막 편에는 다음 편을 표시하지 않습니다. 연재가 아닌 글에는 다른 이야기를 안내합니다.
 
 ## 운영 정보
 
-`lib/site-config.ts`에서 운영자와 `contactEmail`을 관리합니다. 운영자 이름은 한국어 **이러케**, 영어 **Ireoke**로 표시하며 소개 페이지, 글 작성자, 하단, 검색용 작성자 정보에 같은 설정을 사용합니다. 소개 카드의 캐릭터는 `public/images/author/ireoke.webp`이며, 상위 `marketing/instagram/2026-10-16-ireokego-profile-final/ireokego-profile.png`에서 웹용으로 줄인 사본입니다. 공통 푸터에는 소개·RSS·문의·개인정보 링크를 두고, 개별 도구 링크는 글과 도구 안내에서 제공합니다. 사이트 주소는 `NEXT_PUBLIC_SITE_URL` 환경 변수를 우선 사용하고, 없으면 `https://everydaybuilds.blog`를 사용합니다. 이 주소가 검색용 대표 주소(canonical), 언어별 주소, 사이트맵, robots.txt에 함께 반영됩니다. `everydaybuilds.vercel.app`과 `www.everydaybuilds.blog`로 들어온 방문은 `next.config.ts`에서 같은 경로의 `everydaybuilds.blog`로 영구 이동시킵니다.
+`lib/site-config.ts`에서 운영자와 `contactEmail`을 관리합니다. 운영자 이름은 한국어 **이러케**, 영어 **Ireoke**로 표시하며 소개 페이지, 글 작성자, 하단, 검색용 작성자 정보에 같은 설정을 사용합니다. 소개 카드의 캐릭터는 `public/images/author/ireoke.webp`이며, 상위 `marketing/instagram/2026-10-16-ireokego-profile-final/ireokego-profile.png`에서 웹용으로 줄인 사본입니다. 공통 푸터에는 소개·새 글 구독(RSS)·문의·개인정보 링크를 두고, 개별 도구 링크는 글과 도구 안내에서 제공합니다. 사이트 주소는 `NEXT_PUBLIC_SITE_URL` 환경 변수를 우선 사용하고, 없으면 `https://everydaybuilds.blog`를 사용합니다. 이 주소가 검색용 대표 주소(canonical), 언어별 주소, 사이트맵, robots.txt에 함께 반영됩니다. `everydaybuilds.vercel.app`과 `www.everydaybuilds.blog`로 들어온 방문은 `next.config.ts`에서 같은 경로의 `everydaybuilds.blog`로 영구 이동시킵니다.
 
-문의 이메일은 `actslim@gmail.com`입니다. 이 값이 있으면 하단 문의 링크, 문의 페이지, 개인정보 안내의 연락처가 함께 표시되고, 비우면 함께 숨겨집니다. 이메일 링크는 방문자의 이메일 앱을 여는 방식이며 전송을 대신하지 않습니다.
+문의 이메일은 `ireokego@gmail.com`입니다. 이 값이 있으면 하단 문의 링크, 문의 페이지, 개인정보 안내의 연락처가 함께 표시되고, 비우면 함께 숨겨집니다. 이메일 링크는 방문자의 이메일 앱을 여는 방식이며 전송을 대신하지 않습니다.
 
 광고나 분석 도구를 추가할 때는 실제 구성에 맞게 개인정보 안내를 수정합니다. 애드센스 신청 준비는 별도로 점검합니다. 도메인과 상표 확인은 별도 업무입니다.
 
